@@ -6,7 +6,6 @@ package
     import com.kemsky.impl.filters.eq;
     import com.kemsky.impl.filters.ge;
     import com.kemsky.impl.filters.gt;
-    import com.kemsky.impl.filters.or;
     import com.kemsky.$;
     import com.kemsky.impl.filters.prop;
     import com.kemsky.impl.filters.subtract;
