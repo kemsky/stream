@@ -71,41 +71,25 @@ package com.kemsky.impl
             return this.slice(count);
         }
 
-        /**
-         * Returns last item in Stream
-         * Equivalent to expression: stream[stream.length - 1]
-         */
-        public function get last():*
-        {
-            return source.length > 0 ? source[source.length - 1] : null;
-        }
-
-        /**
-         * Set last item
-         * @param item
-         */
-        public function set last(item:*):void
-        {
-            source[source.length - 1] = item;
-        }
-
-        /**
-         * Returns first item in Stream
-         * Equivalent to expression: stream[0]
-         */
-        public function get first():*
-        {
-            return source.length > 0 ? source[0] : null;
-        }
-
-        /**
-         * Set first item
-         * @param item
-         */
-        public function set first(item:*):void
-        {
-            source[0] = item;
-        }
+//        public function get first():*
+//        {
+//            return source.length > 0 ? source[0] : null;
+//        }
+//
+//        public function set first(item:*):void
+//        {
+//            source[0] = item;
+//        }
+//
+//        public function get last():*
+//        {
+//            return source.length > 0 ? source[source.length - 1] : null;
+//        }
+//
+//        public function set last(item:*):void
+//        {
+//            source[source.length - 1] = item;
+//        }
 
         public function fold(...rest):*
         {
@@ -488,6 +472,11 @@ package com.kemsky.impl
             {
             }
 
+            if (index == -1)
+            {
+                index = propertyToNumber(name);
+            }
+
             if (index == -1 || index > source.length)
             {
                 throw new Error();
@@ -521,12 +510,67 @@ package com.kemsky.impl
 
             if (index == -1)
             {
+                index = propertyToNumber(name);
+            }
+
+            if (index == -1)
+            {
                 throw new Error();
             }
             else
             {
                 source[index] = value;
             }
+        }
+
+        private function propertyToNumber(name:String):int
+        {
+            switch(name)
+            {
+                case "first":
+                    return 0;
+                case "second":
+                    return 1;
+                case "third":
+                    return 2;
+                case "fourth":
+                    return 3;
+                case "fifth":
+                    return 4;
+                case "sixth":
+                    return 5;
+                case "seventh":
+                    return 6;
+                case "eighth":
+                    return 7;
+                case "ninth":
+                    return 8;
+                case "tenth":
+                    return 9;
+                case "eleventh":
+                    return 10;
+                case "twelfth":
+                    return 11;
+                case "thirteenth":
+                    return 12;
+                case "fourteenth":
+                    return 13;
+                case "fifteenth":
+                    return 14;
+                case "sixteenth":
+                    return 15;
+                case "seventeenth":
+                    return 16;
+                case "eighteenth":
+                    return 17;
+                case "nineteenth":
+                    return 18;
+                case "twentieth":
+                    return 19;
+                case "last":
+                    return length - 1;
+            }
+            return -1;
         }
 
         override flash_proxy function hasProperty(name:*):Boolean

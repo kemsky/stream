@@ -282,18 +282,21 @@ package
         [Test]
         public function testSkip():void
         {
-            assertEquals($(1, 2).skip(1).first, 2);
-            assertEquals($(1, 2).skip(1).length, 1);
+            var s:* = $(1, 2);
+            assertEquals(s.skip(1).first, 2);
+            assertEquals(s.skip(1).length, 1);
         }
 
         [Test]
         public function testTake():void
         {
-            assertEquals($(1, 2).take(1, 1).first, 2);
-            assertEquals($(1, 2).take(1, 1).length, 1);
+            var s:* = $(1, 2);
 
-            assertEquals($(1, 2).take(1).first, 1);
-            assertEquals($(1, 2).take(1).length, 1);
+            assertEquals(s.take(1, 1).first, 2);
+            assertEquals(s.take(1, 1).length, 1);
+
+            assertEquals(s.take(1).first, 1);
+            assertEquals(s.take(1).length, 1);
         }
 
         [Test]
@@ -302,6 +305,8 @@ package
             var s:Stream = $(0, 1, 2, 3, 4);
 
             assertEquals(s.first, 0);
+            assertEquals(s.second, 1);
+            assertEquals(s.third, 2);
             assertEquals(s.last, 4);
 
             s.first = 4;
