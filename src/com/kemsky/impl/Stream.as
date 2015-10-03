@@ -349,7 +349,9 @@ package com.kemsky.impl
 
             if (result == 0)
             {
-                return this;
+                //this is error, don't want to trade type safety just for this case
+                //see 'unique' method
+                throw new Error();
             }
             else if (result != source)
             {

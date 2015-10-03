@@ -4,6 +4,8 @@ package
     import com.kemsky.impl.Stream;
     import com.kemsky.impl.filters.eq;
 
+    import flash.errors.StackOverflowError;
+
     import mx.collections.ArrayCollection;
     import mx.logging.ILogger;
     import mx.logging.Log;
@@ -22,6 +24,42 @@ package
             Log.addTarget(new TraceTarget());
         }
 
+
+        [Test]
+        public function testSort():void
+        {
+            var s:Stream = $(1, 2);
+
+            var s1:Stream = s.sort(Stream.NUMERIC | Stream.UNIQUESORT | Stream.DESCENDING);
+            assertEquals(s, s1);
+            assertEquals(s1[0], 2);
+            assertEquals(s1[1], 1);
+
+            var s2:Stream = s.sort(Stream.NUMERIC | Stream.UNIQUESORT | Stream.DESCENDING | Stream.RETURNINDEXEDARRAY);
+            assertFalse(s === s2);
+            assertEquals(s2[0], 0);
+            assertEquals(s2[1], 1);
+
+            var s3:Stream = $(1, 2, 1);
+            try
+            {
+                s3.sort(Stream.NUMERIC | Stream.UNIQUESORT);
+                assertFalse(true);
+            }
+            catch(e:Error)
+            {
+            }
+
+            var s4:Stream = $("alex", "Alex", "Bob");
+
+            var ins:Stream = s4.sort();
+            assertEquals(ins.first, "Alex");
+            assertEquals(ins.last, "alex");
+
+            var sens:Stream = s4.sort(Stream.CASEINSENSITIVE);
+            assertEquals(sens.first.toLowerCase(), "alex");
+            assertEquals(sens.last, "Bob");
+        }
 
         [Test]
         public function testReverse():void
