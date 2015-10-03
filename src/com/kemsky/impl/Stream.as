@@ -293,7 +293,8 @@ package com.kemsky.impl
 
         public function reverse():Stream
         {
-            return new Stream(source.reverse());
+            //don't want to change local array
+            return new Stream(source.concat().reverse());
         }
 
         public function concat(...rest):Stream

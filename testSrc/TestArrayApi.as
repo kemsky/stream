@@ -22,6 +22,19 @@ package
             Log.addTarget(new TraceTarget());
         }
 
+
+        [Test]
+        public function testReverse():void
+        {
+            var s:Array = [1, 2, 3];
+            var r:Stream = $(s).reverse();
+
+            for (var i:int = 0; i < r.length; i++)
+            {
+                assertEquals(r[i], s[s.length - i - 1]);
+            }
+        }
+
         [Test]
         public function testFilter():void
         {

@@ -27,7 +27,7 @@ package com.kemsky
             else if(rest[0] is Array)
             {
                 //$ from array
-                return new Stream(rest[0]);
+                return new Stream((rest[0] as Array).concat());
             }
             else if(rest[0] is IList)
             {
@@ -47,6 +47,6 @@ package com.kemsky
         }
 
         //$ from argument list
-        return new Stream(rest);
+        return new Stream(rest.concat());
     }
 }
