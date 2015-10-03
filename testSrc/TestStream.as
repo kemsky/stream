@@ -299,8 +299,16 @@ package
         [Test]
         public function testLastFirst():void
         {
-            assertEquals($(0, 1, 2, 3, 4).first, 0);
-            assertEquals($(0, 1, 2, 3, 4).last, 4);
+            var s:Stream = $(0, 1, 2, 3, 4);
+
+            assertEquals(s.first, 0);
+            assertEquals(s.last, 4);
+
+            s.first = 4;
+            s.last = 0;
+
+            assertEquals(s.first, 4);
+            assertEquals(s.last, 0);
         }
 
         [Test]
