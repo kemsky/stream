@@ -1,15 +1,15 @@
 package
 {
+    import com.kemsky.$;
     import com.kemsky.impl.Stream;
     import com.kemsky.impl.curry;
     import com.kemsky.impl.filters._;
+    import com.kemsky.impl.filters.add;
     import com.kemsky.impl.filters.eq;
     import com.kemsky.impl.filters.ge;
     import com.kemsky.impl.filters.gt;
-    import com.kemsky.$;
     import com.kemsky.impl.filters.prop;
     import com.kemsky.impl.filters.subtract;
-    import com.kemsky.impl.filters.add;
 
     import flash.utils.Dictionary;
 
@@ -20,7 +20,6 @@ package
 
     import org.flexunit.asserts.assertEquals;
     import org.flexunit.asserts.assertFalse;
-    import org.flexunit.asserts.assertTrue;
 
     public class TestStream
     {
@@ -35,7 +34,7 @@ package
         [Test]
         public function testClonePrimitiveStream():void
         {
-            var primitive:Stream = $(1, 2 , 3);
+            var primitive:Stream = $(1, 2, 3);
 
             var primitiveClone:Stream = primitive.clone();
             assertEquals(primitiveClone.length, 3);
@@ -166,6 +165,7 @@ package
             {
                 return a + b + c;
             }
+
             var a:Function = curry(many, 1);
             assertEquals(a(1, 1), 3);
 
@@ -274,28 +274,6 @@ package
         }
 
         [Test]
-        public function testSortOn():void
-        {
-            var s:Stream = new Stream();
-            s.push(new Item("lettuce", 1.49));
-            s.push(new Item("spinach", 1.89));
-            s.push(new Item("asparagus", 3.99));
-            s.push(new Item("celery", 1.29));
-            s.push(new Item("squash", 1.44));
-
-            s.sortOn("name");
-
-            s.sortOn("price", Array.NUMERIC | Array.DESCENDING);
-
-            var val:Number = s[0].price;
-            for (var i:int = 0; i < s.length; i++)
-            {
-                assertTrue(val >= s[i].price);
-                val = s[i].price;
-            }
-        }
-
-        [Test]
         public function testE4X():void
         {
             var firstName:Object = {name: "first", value: 0};
@@ -321,95 +299,74 @@ package
         }
 
         [Test]
-        public function testCreate():void
+        public function testCreateStream():void
         {
-            var streamEmpty:Stream = $();
-            assertEquals(streamEmpty.length, 0);
-            iterate(streamEmpty);
-            deleteItem(streamEmpty);
-            push(streamEmpty, 5);
-            pop(streamEmpty);
+            var empty:Stream = $();
+            assertEquals(empty.empty, true);
+            assertEquals(empty.length, 0);
 
-            var streamArray:Stream = $([1, 2, 3, 4, 5]);
-            assertEquals(streamArray.length, 5);
-            iterate(streamArray);
-            deleteItem(streamArray);
-            push(streamArray, 5);
-            pop(streamArray);
 
-            var streamArrayCollection:Stream = $(new ArrayCollection([1, 2, 3, 4, 5]));
-            assertEquals(streamArrayCollection.length, 5);
-            iterate(streamArrayCollection);
-            deleteItem(streamArrayCollection);
-            push(streamArrayCollection, 5);
-            pop(streamArrayCollection);
+            var original:Array = [1, 2, 3];
 
-            var streamArguments:Stream = $(1, 2, 3, 4, 5);
-            assertEquals(streamArguments.length, 5);
-            iterate(streamArguments);
-            deleteItem(streamArguments);
-            push(streamArguments, 5);
-            pop(streamArguments);
+            var array:Stream = $([1, 2, 3]);
+            assertEquals(array.empty, false);
+            assertEquals(array.length, 3);
+            assertEquals(array.first, 1);
+            assertEquals(array[0], 1);
+            assertEquals(array[1], 2);
+            assertEquals(array[2], 3);
+            assertEquals(array.last, 3);
+            verify(array, original);
+            verify(array.array, original);
+            verify(array.collection, original);
+            verify(array.list, original);
 
-            var streamOneItem:Stream = $("item");
-            assertEquals(streamOneItem.length, 1);
-            iterate(streamOneItem);
-            deleteItem(streamOneItem);
-            push(streamOneItem, 5);
-            pop(streamOneItem);
+
+            var collection:Stream = $(new ArrayCollection([1, 2, 3]));
+            assertEquals(collection.empty, false);
+            assertEquals(collection.length, 3);
+            assertEquals(collection.first, 1);
+            assertEquals(collection[0], 1);
+            assertEquals(collection[1], 2);
+            assertEquals(collection[2], 3);
+            assertEquals(collection.last, 3);
+            verify(collection, original);
+            verify(collection.array, original);
+            verify(collection.collection, original);
+            verify(collection.list, original);
+
+
+            var args:Stream = $(1, 2, 3);
+            assertEquals(args.empty, false);
+            assertEquals(args.length, 3);
+            assertEquals(args.first, 1);
+            assertEquals(args[0], 1);
+            assertEquals(args[1], 2);
+            assertEquals(args[2], 3);
+            assertEquals(args.last, 3);
+            verify(args, original);
+            verify(args.array, original);
+            verify(args.collection, original);
+            verify(args.list, original);
+
+
+            var single:Stream = $("item");
+            assertEquals(single.empty, false);
+            assertEquals(single.length, 1);
+            assertEquals(single[0], "item");
+            assertEquals(single.first, "item");
+            assertEquals(single.last, "item");
+            assertEquals(single.first, single.last);
         }
 
-        private function join(stream:Stream):void
+        private function verify(s:*, o:Array):void
         {
-            log.info(stream.join(","));
-        }
-
-        private function pop(stream:Stream):void
-        {
-            var length:int = stream.length;
-            var item:* = stream[length - 1];
-            var popped:* = stream.pop();
-            assertEquals(stream.length, length - 1);
-            assertEquals(popped, item);
-        }
-
-        private function push(stream:Stream, item:*):void
-        {
-            var length:int = stream.length;
-            stream.push(item);
-            assertEquals(stream.length, length + 1);
-            assertEquals(stream[length], item);
-        }
-
-        private function deleteItem(stream:Stream):void
-        {
-            var length:int = stream.length;
-            if (length == 0)
+            var index:int = 0;
+            for each (var item:* in s)
             {
-                try
-                {
-                    delete stream[0];
-                    assertFalse(true);
-                }
-                catch (e:Error)
-                {
-                }
+                assertEquals(item, o[index]);
+                index++;
             }
-            else
-            {
-                delete stream[0];
-                assertEquals(stream.length, length - 1);
-            }
-        }
-
-        private function iterate(stream:Stream):void
-        {
-            var count:int = stream.length;
-            for each (var item:* in stream)
-            {
-                count--;
-            }
-            assertEquals(count, 0);
         }
     }
 }
