@@ -118,10 +118,10 @@ trace(prices);
 ```
 
 ## Utility methods
-Stream can be converted to Array, Collection, Object, Dictionary:
+Stream can be converted to Array, ArrayCollection, IList, Object, Dictionary:
 ```as3
-var item1:Item = new Item("1", 1, 2);
-var item2:Item = new Item("2", 2, 0);
+var item1:Item = new Item("1", 1);
+var item2:Item = new Item("2", 2);
 var s:Stream = $(item1, item2);
 
 var d:Dictionary = s.dictionary("name");
@@ -129,3 +129,5 @@ var d:Dictionary = s.dictionary("name");
 trace(d["1"], item1);
 //prints first item
 ```
+
+Also you can clone stream (event deep clone using AMF tricks)
