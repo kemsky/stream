@@ -130,4 +130,4 @@ trace(d["1"], item1);
 //prints first item
 ```
 
-Also you can clone stream (event deep clone using AMF tricks)
+Also you can clone stream (even deep clone using AMF tricks)
