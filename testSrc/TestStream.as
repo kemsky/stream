@@ -310,18 +310,35 @@ package
         [Test]
         public function testLastFirst():void
         {
-            var s:Stream = $(0, 1, 2, 3, 4);
+            var s:Stream = $(0, 1, 2, 3, 4, 5, 6 , 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19);
 
             assertEquals(s.first, 0);
             assertEquals(s.second, 1);
             assertEquals(s.third, 2);
-            assertEquals(s.last, 4);
-            //todo 20
+            assertEquals(s.fourth, 3);
+            assertEquals(s.fifth, 4);
+            assertEquals(s.sixth, 5);
+            assertEquals(s.seventh, 6);
+            assertEquals(s.eighth, 7);
+            assertEquals(s.ninth, 8);
+            assertEquals(s.tenth, 9);
+            assertEquals(s.eleventh, 10);
+            assertEquals(s.twelfth, 11);
+            assertEquals(s.thirteenth, 12);
+            assertEquals(s.fourteenth, 13);
+            assertEquals(s.fifteenth, 14);
+            assertEquals(s.sixteenth, 15);
+            assertEquals(s.seventeenth, 16);
+            assertEquals(s.eighteenth, 17);
+            assertEquals(s.nineteenth, 18);
+            assertEquals(s.twentieth, 19);
 
-            s.first = 4;
+            assertEquals(s.last, 19);
+
+            s.first = 19;
             s.last = 0;
 
-            assertEquals(s.first, 4);
+            assertEquals(s.first, 19);
             assertEquals(s.last, 0);
         }
 
