@@ -143,7 +143,7 @@ package com.kemsky.impl
             return source.concat();
         }
 
-        public function get list():IList
+        public function get list():ArrayList
         {
             return new ArrayList(this.source.concat());
         }

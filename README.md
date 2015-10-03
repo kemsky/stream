@@ -117,7 +117,7 @@ trace(prices);
 ```
 
 ## Utility methods
-Stream can be converted to Array, ArrayCollection, IList, Object, Dictionary:
+Stream can be converted to Array, ArrayCollection, ArrayList, Object, Dictionary:
 ```as3
 var item1:Item = new Item("1", 1);
 var item2:Item = new Item("2", 2);
