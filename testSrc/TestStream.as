@@ -319,8 +319,6 @@ package
             assertEquals(names[0], "first");
             assertEquals(names[1], "second");
             assertEquals(names[2], "third");
-
-            var test:Stream = items.value(or(eq(4), eq(0)));
         }
 
         [Test]
