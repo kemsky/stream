@@ -160,13 +160,13 @@ package
         [Test]
         public function testFoldAsOption():void
         {
-            var nullable:Stream = $(null);
-            var nonnull:Stream = $("random");
+            var empty:Stream = $(null);
+            var nonEmpty:Stream = $("random");
 
-            assertEquals(nullable.fold("empty"), "empty");
-            assertEquals(nullable.fold(), null);
-            assertEquals(nonnull.fold("empty"), "random");
-            assertEquals(nonnull.fold(), "random");
+            assertEquals(empty.fold("empty"), "empty");
+            assertEquals(empty.fold(), null);
+            assertEquals(nonEmpty.fold("empty"), "random");
+            assertEquals(nonEmpty.fold(), "random");
         }
 
         [Test]
