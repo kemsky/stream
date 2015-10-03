@@ -1,5 +1,5 @@
 # stream
-Actionscript collection library
+###Actionscript collection library
 
 Basically it is Array wrapper that adds many useful methods and properties (filter, iterate, map, fold, flatMap, first, last, empty etc.).
 

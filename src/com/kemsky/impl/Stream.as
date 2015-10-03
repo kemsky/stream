@@ -10,7 +10,6 @@ package com.kemsky.impl
 
     import mx.collections.ArrayCollection;
     import mx.collections.ArrayList;
-    import mx.collections.IList;
 
     [RemoteClass(alias="com.kemsky.impl.Stream")]
     public dynamic class Stream extends Proxy implements IExternalizable
