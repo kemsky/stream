@@ -33,21 +33,38 @@ package com.kemsky.impl
          * -------------------------------------------
          */
 
+        /**
+         * Returns <b>true</b> if Stream does not contain any elements,
+         * else returns <b>false</b>.
+         */
         public function get empty():Boolean
         {
             return length == 0;
         }
 
+        /**
+         * Creates new Stream that contains items starting from count index.
+         * @param count number of items to skip
+         * @return new Stream that contains items starting from count index.
+         */
         public function skip(count:int):Stream
         {
             return this.slice(count);
         }
 
+        /**
+         * Returns last item in Stream
+         * Equivalent to expression: stream[stream.length - 1]
+         */
         public function get last():*
         {
             return source.length > 0 ? source[source.length - 1] : null;
         }
 
+        /**
+         * Returns first item in Stream
+         * Equivalent to expression: stream[0]
+         */
         public function get first():*
         {
             return source.length > 0 ? source[0] : null;
@@ -99,9 +116,15 @@ package com.kemsky.impl
             return context;
         }
 
-        public function take(count:int = -1, start:uint = 0):Stream
+        /**
+         * Creates new Stream that contains count of items starting from offset.
+         * @param count maximum items to take
+         * @param offset index to start from
+         * @return new Stream that contains count of items starting from offset.
+         */
+        public function take(count:int = -1, offset:uint = 0):Stream
         {
-            return slice(start, start + count);
+            return slice(offset, offset + count);
         }
 
         public function flatMap(callback:Function = null):Stream
@@ -132,44 +155,68 @@ package com.kemsky.impl
             return new Stream().concat(mapped);
         }
 
+        /**
+         * Returns new ArrayCollection created from items of current Stream
+         */
         public function get collection():ArrayCollection
         {
             return new ArrayCollection(source.concat());
         }
 
+        /**
+         * Returns new Array created from items of current Stream
+         */
         public function get array():Array
         {
             return source.concat();
         }
 
+        /**
+         * Returns new ArrayList created from items of current Stream
+         */
         public function get list():ArrayList
         {
             return new ArrayList(this.source.concat());
         }
 
-        public function dictionary(name:String, weak:Boolean = false):Dictionary
+        /**
+         * Creates new Dictionary from current Stream using specified property as keys
+         * @param property name of the property to be used as key
+         * @param weak create Dictionary with weak keys
+         * @return A new Dictionary from current Stream using specified property as keys
+         */
+        public function dictionary(property:String, weak:Boolean = false):Dictionary
         {
             var dict:Dictionary = new Dictionary(weak);
             for each (var item:* in source)
             {
-                var value:* = item[name];
+                var value:* = item[property];
                 dict[value] = item;
             }
             return dict;
         }
 
-
-        public function object(name:String):Object
+        /**
+         * Creates new Object from current Stream using specified property as keys
+         * @param property name of the property to be used as key
+         * @return A new Object from current Stream using specified property as keys
+         */
+        public function object(property:String):Object
         {
             var dict:Object = {};
             for each (var item:* in source)
             {
-                var value:* = item[name];
+                var value:* = item[property];
                 dict[value] = item;
             }
             return dict;
         }
 
+        /**
+         * Creates a copy of current Stream
+         * @param deep create deep copy using AMF serialization trick
+         * @return A copy of current Stream
+         */
         public function clone(deep:Boolean = false):Stream
         {
             if (deep)
@@ -190,7 +237,14 @@ package com.kemsky.impl
          * -------------------------------------------
          */
 
-
+        /**
+         * Converts the elements in an array to strings,
+         * inserts the specified separator between the elements,
+         * concatenates them, and returns the resulting string.
+         * @param sep used as separator
+         * @return A string consisting of the elements of an array converted to strings
+         * and separated by the specified parameter.
+         */
         public function join(sep:* = null):String
         {
             return source.join(sep);
