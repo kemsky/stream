@@ -3,6 +3,7 @@ package com.kemsky
     import com.kemsky.impl.Stream;
 
     import mx.collections.ArrayCollection;
+    import mx.collections.IList;
 
     /**
      * Global function that creates Stream objects
@@ -27,6 +28,11 @@ package com.kemsky
             {
                 //$ from array
                 return new Stream(rest[0]);
+            }
+            else if(rest[0] is IList)
+            {
+                //$ from list
+                return new Stream(IList(rest[0]).toArray());
             }
             else if(rest[0] == null || rest[0] === undefined)
             {
