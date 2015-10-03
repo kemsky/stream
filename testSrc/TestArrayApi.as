@@ -52,48 +52,46 @@ package
             }
         }
 
+        [Test]
+        public function testJoin():void
+        {
+            var s:Stream = $(1, 2, 3);
+            var str:String = s.join(",");
+            assertEquals(str, "1,2,3");
+        }
 
         [Test]
-        public function testCreate():void
+        public function testPop():void
         {
-            var streamArguments:Stream = $(1, 2, 3, 4, 5);
-            assertEquals(streamArguments.length, 5);
-            iterate(streamArguments);
-            deleteItem(streamArguments);
-            push(streamArguments, 5);
-            pop(streamArguments);
-        }
-
-        private function join(stream:Stream):void
-        {
-            log.info(stream.join(","));
-        }
-
-        private function pop(stream:Stream):void
-        {
-            var length:int = stream.length;
-            var item:* = stream[length - 1];
-            var popped:* = stream.pop();
-            assertEquals(stream.length, length - 1);
+            var s:Stream = $(1, 2, 3, 4, 5);
+            var length:int = s.length;
+            var item:* = s[length - 1];
+            var popped:* = s.pop();
+            assertEquals(s.length, length - 1);
             assertEquals(popped, item);
         }
 
-        private function push(stream:Stream, item:*):void
+        [Test]
+        public function testPush():void
         {
-            var length:int = stream.length;
-            stream.push(item);
-            assertEquals(stream.length, length + 1);
-            assertEquals(stream[length], item);
+            var s:Stream = $(1, 2, 3, 4, 5);
+            var length:int = s.length;
+            var item:int = 6;
+            s.push(item);
+            assertEquals(s.length, length + 1);
+            assertEquals(s[length], item);
         }
 
-        private function deleteItem(stream:Stream):void
+        [Test]
+        public function testDelete():void
         {
-            var length:int = stream.length;
+            var s:Stream = $(1, 2, 3, 4, 5);
+            var length:int = s.length;
             if (length == 0)
             {
                 try
                 {
-                    delete stream[0];
+                    delete s[0];
                     assertFalse(true);
                 }
                 catch (e:Error)
@@ -102,19 +100,26 @@ package
             }
             else
             {
-                delete stream[0];
-                assertEquals(stream.length, length - 1);
+                delete s[0];
+                assertEquals(s.length, length - 1);
             }
         }
 
-        private function iterate(stream:Stream):void
+        [Test]
+        public function testIterate():void
         {
-            var count:int = stream.length;
-            for each (var item:* in stream)
+            var s:Stream = $(1, 2, 3, 4, 5);
+            for (var i:int = 0; i < s.length; i++)
             {
-                count--;
+                assertEquals(s[i], i + 1);
             }
-            assertEquals(count, 0);
+            var index:int = 1;
+            for each (var item:* in s)
+            {
+                assertEquals(index, item);
+                index++;
+            }
+            assertEquals(s.length, index - 1);
         }
     }
 }
