@@ -66,10 +66,10 @@ trace(sum2);
 var empty:Stream = $(null);
 var nonEmpty:Stream = $("random");
 
-trace(empty.fold("empty")
+trace(empty.fold("empty"));
 //prints "empty"
 
-trace(empty.fold()
+trace(empty.fold());
 //prints null
 ```
 
