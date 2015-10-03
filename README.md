@@ -100,7 +100,7 @@ var result:Stream = s.filter(function(item:Item):Boolean{
 var result:Stream = s.filter(gt(prop("price"), 1));
 
 // 3. using Proxy magick and global functions
-var result:Stream = s.price(gt(_, 1));
+var result:Stream = s.price(gt(_, 1)); //or simply s.price(gt(1)) 
 
 //all three provide identical results
 ```
