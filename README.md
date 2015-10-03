@@ -84,11 +84,10 @@ public class Item
 {
   public var name:String;
   public var price:Number;
-  public var vat:Number;
 }
 
-var item1:Item = new Item("1", 1, 2);
-var item2:Item = new Item("2", 2, 0);
+var item1:Item = new Item("1", 1);
+var item2:Item = new Item("2", 2);
 var s:Stream = $(item1, item2);
 
 // 1. using custom callback
