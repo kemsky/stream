@@ -81,12 +81,30 @@ package com.kemsky.impl
         }
 
         /**
+         * Set last item
+         * @param item
+         */
+        public function set last(item:*):void
+        {
+            source[source.length - 1] = item;
+        }
+
+        /**
          * Returns first item in Stream
          * Equivalent to expression: stream[0]
          */
         public function get first():*
         {
             return source.length > 0 ? source[0] : null;
+        }
+
+        /**
+         * Set first item
+         * @param item
+         */
+        public function set first(item:*):void
+        {
+            source[0] = item;
         }
 
         public function fold(...rest):*
@@ -111,8 +129,6 @@ package com.kemsky.impl
             }
 
             throw new Error();
-
-            return null;
         }
 
         public function foldLeft(callback:Function, initial:*):*
