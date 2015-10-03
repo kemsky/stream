@@ -17,10 +17,7 @@ package
     import com.kemsky.impl.filters.subtract;
 
     import flash.utils.ByteArray;
-
     import flash.utils.Dictionary;
-
-    import flashx.textLayout.debug.assert;
 
     import mx.collections.ArrayCollection;
     import mx.collections.IList;
