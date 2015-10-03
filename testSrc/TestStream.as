@@ -277,22 +277,22 @@ package
         [Test]
         public function testSortOn():void
         {
-            var vegetables:Stream = new Stream();
-            vegetables.push(new Item("lettuce", 1.49));
-            vegetables.push(new Item("spinach", 1.89));
-            vegetables.push(new Item("asparagus", 3.99));
-            vegetables.push(new Item("celery", 1.29));
-            vegetables.push(new Item("squash", 1.44));
+            var s:Stream = new Stream();
+            s.push(new Item("lettuce", 1.49));
+            s.push(new Item("spinach", 1.89));
+            s.push(new Item("asparagus", 3.99));
+            s.push(new Item("celery", 1.29));
+            s.push(new Item("squash", 1.44));
 
-            vegetables.sortOn("name");
+            s.sortOn("name");
 
-            vegetables.sortOn("price", Array.NUMERIC | Array.DESCENDING);
+            s.sortOn("price", Array.NUMERIC | Array.DESCENDING);
 
-            var val:Number = vegetables[0].price;
-            for (var i:int = 0; i < vegetables.length; i++)
+            var val:Number = s[0].price;
+            for (var i:int = 0; i < s.length; i++)
             {
-                assertTrue(val >= vegetables[i].price);
-                val = vegetables[i].price;
+                assertTrue(val >= s[i].price);
+                val = s[i].price;
             }
         }
 
