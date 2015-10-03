@@ -100,6 +100,19 @@ package
         }
 
         [Test]
+        public function testObject():void
+        {
+            var item1:Item = new Item("1", 1, 2);
+            var item2:Item = new Item("2", 2, 0);
+
+            var s:Stream = $(item1, item2);
+
+            var d:Object = s.object("name");
+            assertEquals(d["1"], item1);
+            assertEquals(d["2"], item2);
+        }
+
+        [Test]
         public function testProperty():void
         {
             var item1:Item = new Item("1", 1, 2);
@@ -136,7 +149,7 @@ package
         }
 
         [Test]
-        public function testOption():void
+        public function testFoldAsOption():void
         {
             var nullable:Stream = $(null);
             var nonnull:Stream = $("random");
@@ -205,6 +218,42 @@ package
         }
 
         [Test]
+        public function testFoldLeft():void
+        {
+            var sum1:Number = $(0, 1, 2, 3, 4).foldLeft(function (prev:Number, current:Number):Number
+            {
+                return prev + current;
+            }, 0);
+
+            assertEquals(sum1, 10);
+
+            var sum2:Number = $(0, 1, 2, 3, 4).foldLeft(function (prev:Number, current:Number):Number
+            {
+                return prev + current;
+            }, 10);
+
+            assertEquals(sum2, 20);
+        }
+
+        [Test]
+        public function testFoldRight():void
+        {
+            var sum1:Number = $(0, 1, 2, 3, 4).foldRight(function (prev:Number, current:Number):Number
+            {
+                return prev + current;
+            }, 0);
+
+            assertEquals(sum1, 10);
+
+            var sum2:Number = $(0, 1, 2, 3, 4).foldRight(function (prev:Number, current:Number):Number
+            {
+                return prev + current;
+            }, 10);
+
+            assertEquals(sum2, 20);
+        }
+
+        [Test]
         public function testFlatMap():void
         {
             var s:Stream = new Stream([[1, 2, 3], $(4, 5, 6), new ArrayCollection([7, 8, 9])]);
@@ -238,7 +287,6 @@ package
             vegetables.sortOn("name");
 
             vegetables.sortOn("price", Array.NUMERIC | Array.DESCENDING);
-            log.info("{0}", vegetables);
 
             var val:Number = vegetables[0].price;
             for (var i:int = 0; i < vegetables.length; i++)
@@ -273,14 +321,12 @@ package
             assertEquals(names[2], "third");
 
             var test:Stream = items.value(or(eq(4), eq(0)));
-            log.info("{0}", test.length);
         }
 
         [Test]
         public function testCreate():void
         {
             var streamEmpty:Stream = $();
-            join(streamEmpty);
             assertEquals(streamEmpty.length, 0);
             iterate(streamEmpty);
             deleteItem(streamEmpty);
@@ -288,7 +334,6 @@ package
             pop(streamEmpty);
 
             var streamArray:Stream = $([1, 2, 3, 4, 5]);
-            join(streamArray);
             assertEquals(streamArray.length, 5);
             iterate(streamArray);
             deleteItem(streamArray);
@@ -296,7 +341,6 @@ package
             pop(streamArray);
 
             var streamArrayCollection:Stream = $(new ArrayCollection([1, 2, 3, 4, 5]));
-            join(streamArrayCollection);
             assertEquals(streamArrayCollection.length, 5);
             iterate(streamArrayCollection);
             deleteItem(streamArrayCollection);
@@ -304,7 +348,6 @@ package
             pop(streamArrayCollection);
 
             var streamArguments:Stream = $(1, 2, 3, 4, 5);
-            join(streamArguments);
             assertEquals(streamArguments.length, 5);
             iterate(streamArguments);
             deleteItem(streamArguments);
@@ -312,7 +355,6 @@ package
             pop(streamArguments);
 
             var streamOneItem:Stream = $("item");
-            join(streamOneItem);
             assertEquals(streamOneItem.length, 1);
             iterate(streamOneItem);
             deleteItem(streamOneItem);
