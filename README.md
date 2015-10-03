@@ -67,7 +67,7 @@ var empty:Stream = $(null);
 var nonEmpty:Stream = $("random");
 
 trace(empty.fold("empty"));
-//prints "empty"
+//prints empty
 
 trace(empty.fold());
 //prints null
