@@ -71,25 +71,217 @@ package com.kemsky.impl
             return this.slice(count);
         }
 
-//        public function get first():*
-//        {
-//            return source.length > 0 ? source[0] : null;
-//        }
-//
-//        public function set first(item:*):void
-//        {
-//            source[0] = item;
-//        }
-//
-//        public function get last():*
-//        {
-//            return source.length > 0 ? source[source.length - 1] : null;
-//        }
-//
-//        public function set last(item:*):void
-//        {
-//            source[source.length - 1] = item;
-//        }
+        //ordinals
+
+        public function get first():*
+        {
+            return source[0];
+        }
+
+        public function set first(item:*):void
+        {
+            source[0] = item;
+        }
+
+        public function get second():*
+        {
+            return source[1];
+        }
+
+        public function set second(item:*):void
+        {
+            source[1] = item;
+        }
+
+        public function get third():*
+        {
+            return source[2];
+        }
+
+        public function set third(item:*):void
+        {
+            source[2] = item;
+        }
+
+        public function get fourth():*
+        {
+            return source[3];
+        }
+
+        public function set fourth(item:*):void
+        {
+            source[3] = item;
+        }
+
+        public function get fifth():*
+        {
+            return source[4];
+        }
+
+        public function set fifth(item:*):void
+        {
+            source[4] = item;
+        }
+
+        public function get sixth():*
+        {
+            return source[5];
+        }
+
+        public function set sixth(item:*):void
+        {
+            source[5] = item;
+        }
+
+        public function get seventh():*
+        {
+            return source[6];
+        }
+
+        public function set seventh(item:*):void
+        {
+            source[6] = item;
+        }
+
+        public function get eighth():*
+        {
+            return source[7];
+        }
+
+        public function set eighth(item:*):void
+        {
+            source[7] = item;
+        }
+
+        public function get ninth():*
+        {
+            return source[8];
+        }
+
+        public function set ninth(item:*):void
+        {
+            source[8] = item;
+        }
+
+        public function get tenth():*
+        {
+            return source[9];
+        }
+
+        public function set tenth(item:*):void
+        {
+            source[9] = item;
+        }
+
+        public function get eleventh():*
+        {
+            return source[10];
+        }
+
+        public function set eleventh(item:*):void
+        {
+            source[10] = item;
+        }
+
+        public function get twelfth():*
+        {
+            return source[11];
+        }
+
+        public function set twelfth(item:*):void
+        {
+            source[11] = item;
+        }
+
+        public function get thirteenth():*
+        {
+            return source[12];
+        }
+
+        public function set thirteenth(item:*):void
+        {
+            source[12] = item;
+        }
+
+        public function get fourteenth():*
+        {
+            return source[13];
+        }
+
+        public function set fourteenth(item:*):void
+        {
+            source[13] = item;
+        }
+
+        public function get fifteenth():*
+        {
+            return source[14];
+        }
+
+        public function set fifteenth(item:*):void
+        {
+            source[14] = item;
+        }
+
+        public function get sixteenth():*
+        {
+            return source[15];
+        }
+
+        public function set sixteenth(item:*):void
+        {
+            source[15] = item;
+        }
+
+        public function get seventeenth():*
+        {
+            return source[16];
+        }
+
+        public function set seventeenth(item:*):void
+        {
+            source[16] = item;
+        }
+
+        public function get eighteenth():*
+        {
+            return source[17];
+        }
+
+        public function set eighteenth(item:*):void
+        {
+            source[17] = item;
+        }
+
+        public function get nineteenth():*
+        {
+            return source[18];
+        }
+
+        public function set nineteenth(item:*):void
+        {
+            source[18] = item;
+        }
+
+        public function get twentieth():*
+        {
+            return source[19];
+        }
+
+        public function set twentieth(item:*):void
+        {
+            source[19] = item;
+        }
+
+        public function get last():*
+        {
+            return source[source.length - 1];
+        }
+
+        public function set last(item:*):void
+        {
+            source[source.length - 1] = item;
+        }
 
         public function fold(...rest):*
         {
@@ -472,11 +664,6 @@ package com.kemsky.impl
             {
             }
 
-            if (index == -1)
-            {
-                index = propertyToNumber(name);
-            }
-
             if (index == -1 || index > source.length)
             {
                 throw new Error();
@@ -510,67 +697,12 @@ package com.kemsky.impl
 
             if (index == -1)
             {
-                index = propertyToNumber(name);
-            }
-
-            if (index == -1)
-            {
                 throw new Error();
             }
             else
             {
                 source[index] = value;
             }
-        }
-
-        private function propertyToNumber(name:String):int
-        {
-            switch(name)
-            {
-                case "first":
-                    return 0;
-                case "second":
-                    return 1;
-                case "third":
-                    return 2;
-                case "fourth":
-                    return 3;
-                case "fifth":
-                    return 4;
-                case "sixth":
-                    return 5;
-                case "seventh":
-                    return 6;
-                case "eighth":
-                    return 7;
-                case "ninth":
-                    return 8;
-                case "tenth":
-                    return 9;
-                case "eleventh":
-                    return 10;
-                case "twelfth":
-                    return 11;
-                case "thirteenth":
-                    return 12;
-                case "fourteenth":
-                    return 13;
-                case "fifteenth":
-                    return 14;
-                case "sixteenth":
-                    return 15;
-                case "seventeenth":
-                    return 16;
-                case "eighteenth":
-                    return 17;
-                case "nineteenth":
-                    return 18;
-                case "twentieth":
-                    return 19;
-                case "last":
-                    return length - 1;
-            }
-            return -1;
         }
 
         override flash_proxy function hasProperty(name:*):Boolean
