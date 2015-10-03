@@ -20,7 +20,7 @@ package com.kemsky.impl
                 }
                 return func.apply(this, args.concat(moreArgs));
             }
-        };
+        }
 
         return currying(func, arity, args);
     }
