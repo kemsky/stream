@@ -41,10 +41,10 @@ for (var i:int = 0; i < s.length; i++)
 ```
 
 ## Array methods
-Stream has all methods that standard Array has(every, forEach, map, some, slice, splice, etc.):
+Stream has all methods that standard Array has(every, each, map, some, slice, splice, etc.):
 ```as3
 var s:Stream = $(1, 2, 3);
-s.every(function(item:Number):Number
+s.every(function(item:Number):void
 {
     trace(item);
 });
