@@ -7,7 +7,6 @@ Inspired by underscore.js and other other libraries.
 
 
 ## Create
-Create Stream examples:
 ```as3
 //create empty Stream
 //$ - is provided global function
