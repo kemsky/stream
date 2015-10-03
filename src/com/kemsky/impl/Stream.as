@@ -1,8 +1,5 @@
 package com.kemsky.impl
 {
-    import flash.events.Event;
-    import flash.events.EventDispatcher;
-    import flash.events.IEventDispatcher;
     import flash.utils.ByteArray;
     import flash.utils.Dictionary;
     import flash.utils.IDataInput;
@@ -12,10 +9,11 @@ package com.kemsky.impl
     import flash.utils.flash_proxy;
 
     import mx.collections.ArrayCollection;
+    import mx.collections.ArrayList;
     import mx.collections.IList;
 
     [RemoteClass(alias="com.kemsky.impl.Stream")]
-    public dynamic class Stream extends Proxy implements IExternalizable, IEventDispatcher, IList
+    public dynamic class Stream extends Proxy implements IExternalizable
     {
         public static const CASEINSENSITIVE:uint = 1;
         public static const DESCENDING:uint = 2;
@@ -25,69 +23,11 @@ package com.kemsky.impl
 
         public var source:Array;
 
-        private var eventDispatcher:EventDispatcher;
-
         public function Stream(source:Array = null)
         {
-            this.eventDispatcher = new EventDispatcher(this);
-
             this.source = source == null ? [] : source;
         }
 
-
-        /**
-         * IList part, minimal support to use as data provider
-         * -------------------------------------------
-         */
-
-
-        public function addItem(item:Object):void
-        {
-            this.push(item);
-        }
-
-        public function addItemAt(item:Object, index:int):void
-        {
-            this.splice(index, 0, item);
-        }
-
-        public function getItemAt(index:int, prefetch:int = 0):Object
-        {
-            return this[index];
-        }
-
-        public function getItemIndex(item:Object):int
-        {
-            return this.indexOf(item);
-        }
-
-        public function itemUpdated(item:Object, property:Object = null, oldValue:Object = null, newValue:Object = null):void
-        {
-        }
-
-        public function removeAll():void
-        {
-            this.source.length = 0;
-        }
-
-        public function removeItemAt(index:int):Object
-        {
-            var removed:* = this[index];
-            delete this[index];
-            return removed;
-        }
-
-        public function setItemAt(item:Object, index:int):Object
-        {
-            var oldItem:Object = this[index];
-            this[index] = item;
-            return oldItem;
-        }
-
-        public function toArray():Array
-        {
-            return this.array();
-        }
 
         /**
          * Extended part
@@ -193,14 +133,19 @@ package com.kemsky.impl
             return new Stream().concat(mapped);
         }
 
-        public function collection():ArrayCollection
+        public function get collection():ArrayCollection
         {
             return new ArrayCollection(source.concat());
         }
 
-        public function array():Array
+        public function get array():Array
         {
             return source.concat();
+        }
+
+        public function get list():IList
+        {
+            return new ArrayList(this.source.concat());
         }
 
         public function dictionary(name:String, weak:Boolean = false):Dictionary
@@ -228,7 +173,7 @@ package com.kemsky.impl
 
         public function clone(deep:Boolean = false):Stream
         {
-            if(deep)
+            if (deep)
             {
                 var b:ByteArray = new ByteArray();
                 b.writeObject(this);
@@ -598,39 +543,7 @@ package com.kemsky.impl
             output.writeObject(source);
         }
 
-
         /**
-         * IEventDispatcher part
-         * --------------------------------------------
-         */
-
-        public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
-        {
-            eventDispatcher.addEventListener(type, listener, useCapture, priority, useWeakReference);
-        }
-
-        public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
-        {
-            eventDispatcher.removeEventListener(type, listener, useCapture);
-        }
-
-        public function dispatchEvent(event:Event):Boolean
-        {
-            return eventDispatcher.dispatchEvent(event);
-        }
-
-        public function hasEventListener(type:String):Boolean
-        {
-            return eventDispatcher.hasEventListener(type);
-        }
-
-        public function willTrigger(type:String):Boolean
-        {
-            return eventDispatcher.willTrigger(type);
-        }
-
-
-        /*
          * toString() part
          * --------------------------------------------
          */
