@@ -38,7 +38,6 @@ package
             Log.addTarget(new TraceTarget());
         }
 
-
         [Test]
         public function testContains():void
         {
@@ -290,7 +289,7 @@ package
         [Test]
         public function testSkip():void
         {
-            var s:* = $(1, 2);
+            var s:Stream = $(1, 2);
             assertEquals(s.skip(1).first, 2);
             assertEquals(s.skip(1).length, 1);
         }
@@ -298,7 +297,7 @@ package
         [Test]
         public function testTake():void
         {
-            var s:* = $(1, 2);
+            var s:Stream = $(1, 2);
 
             assertEquals(s.take(1, 1).first, 2);
             assertEquals(s.take(1, 1).length, 1);
@@ -310,7 +309,28 @@ package
         [Test]
         public function testLastFirst():void
         {
-            var s:Stream = $(0, 1, 2, 3, 4, 5, 6 , 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19);
+            var s:Stream = $();
+
+            s.first = 0;
+            s.second = 1;
+            s.third = 2;
+            s.fourth = 3;
+            s.fifth = 4;
+            s.sixth = 5;
+            s.seventh = 6;
+            s.eighth = 7;
+            s.ninth = 8;
+            s.tenth = 9;
+            s.eleventh = 10;
+            s.twelfth = 11;
+            s.thirteenth = 12;
+            s.fourteenth = 13;
+            s.fifteenth = 14;
+            s.sixteenth = 15;
+            s.seventeenth = 16;
+            s.eighteenth = 17;
+            s.nineteenth = 18;
+            s.twentieth = 19;
 
             assertEquals(s.first, 0);
             assertEquals(s.second, 1);
