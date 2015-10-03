@@ -64,7 +64,7 @@ trace(sum2);
 
 //use Stream as Optional
 var empty:Stream = $(null);
-var nonEmpty:Stream = $("random");
+var nonEmpty:Stream = $("item1", "item2");
 
 trace(empty.fold("empty"));
 //prints empty
@@ -73,10 +73,10 @@ trace(empty.fold());
 //prints null
 
 trace(nonEmpty.fold("empty"));
-//prints random
+//prints item1
 
 trace(nonEmpty.fold());
-//prints random
+//prints item1
 ```
 
 ## FlatMap
