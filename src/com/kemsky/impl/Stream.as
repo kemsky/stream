@@ -190,8 +190,11 @@ package com.kemsky.impl
             var dict:Dictionary = new Dictionary(weak);
             for each (var item:* in source)
             {
-                var value:* = item[property];
-                dict[value] = item;
+                if(item.hasOwnProperty(property))
+                {
+                    var value:* = item[property];
+                    dict[value] = item;
+                }
             }
             return dict;
         }
@@ -206,8 +209,11 @@ package com.kemsky.impl
             var dict:Object = {};
             for each (var item:* in source)
             {
-                var value:* = item[property];
-                dict[value] = item;
+                if(item.hasOwnProperty(property))
+                {
+                    var value:* = item[property];
+                    dict[value] = item;
+                }
             }
             return dict;
         }
