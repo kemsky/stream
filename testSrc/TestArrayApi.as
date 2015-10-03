@@ -26,6 +26,43 @@ package
 
 
         [Test]
+        public function testShift():void
+        {
+            var s:Stream = $(1, 2, 3);
+            var l:Number = s.shift();
+
+            assertEquals(s.length, 2);
+            assertEquals(l, 1);
+            assertEquals(s.first, 2);
+        }
+
+
+        [Test]
+        public function testUnShift():void
+        {
+            var s:Stream = $(2, 3);
+            var l:uint = s.unshift(1);
+
+            assertEquals(s.length, 3);
+            assertEquals(l, 3);
+            assertEquals(s.first, 1);
+        }
+
+        [Test]
+        public function testSplice():void
+        {
+            var s:Stream = $(1, 2, 3);
+
+            s.splice(0, 1);
+            assertEquals(s.length, 2);
+            assertEquals(s.first, 2);
+
+            s.splice(0, 0, 1);
+            assertEquals(s.length, 3);
+            assertEquals(s.first, 1);
+        }
+
+        [Test]
         public function testSort():void
         {
             var s:Stream = $(1, 2);
