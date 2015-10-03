@@ -4,6 +4,11 @@ package com.kemsky
 
     import mx.collections.ArrayCollection;
 
+    /**
+     * Global function that creates Stream objects
+     * @param rest objects used as source for Stream
+     * @return created Stream object
+     */
     public function $(...rest):Stream
     {
         if(rest.length == 0)
