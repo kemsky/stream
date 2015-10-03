@@ -71,6 +71,12 @@ trace(empty.fold("empty"));
 
 trace(empty.fold());
 //prints null
+
+trace(nonEmpty.fold("empty"));
+//prints random
+
+trace(nonEmpty.fold());
+//prints random
 ```
 
 ## FlatMap
