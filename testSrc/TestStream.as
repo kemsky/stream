@@ -10,6 +10,7 @@ package
     import com.kemsky.impl.filters.gt;
     import com.kemsky.impl.filters.le;
     import com.kemsky.impl.filters.lt;
+    import com.kemsky.impl.filters.ne;
     import com.kemsky.impl.filters.prop;
     import com.kemsky.impl.filters.subtract;
 
@@ -193,6 +194,24 @@ package
         }
 
         [Test]
+        public function testEq():void
+        {
+            var eq1:Stream = $(1, 2, 3).filter(eq(2));
+            assertEquals(eq1.length, 1);
+            assertEquals(eq1[0], 2);
+        }
+
+        [Test]
+        public function testNe():void
+        {
+            var ne1:Stream = $(1, 2, 3).filter(ne(2));
+            assertEquals(ne1.length, 2);
+            assertEquals(ne1[0], 1);
+            assertEquals(ne1[1], 3);
+        }
+
+
+        [Test]
         public function testLe():void
         {
             var le1:Stream = $(1, 2, 3).filter(le(2));
@@ -206,7 +225,7 @@ package
         {
             var lt1:Stream = $(1, 2, 3).filter(lt(2));
             assertEquals(lt1.length, 1);
-            assertEquals(lt1[1], 1);
+            assertEquals(lt1[0], 1);
         }
 
         [Test]
@@ -223,7 +242,7 @@ package
         {
             var gt1:Stream = $(1, 2, 3).filter(gt(2));
             assertEquals(gt1.length, 1);
-            assertEquals(gt1[1], 3);
+            assertEquals(gt1[0], 3);
         }
 
         [Test]
