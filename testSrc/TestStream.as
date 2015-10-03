@@ -8,10 +8,16 @@ package
     import com.kemsky.impl.filters.eq;
     import com.kemsky.impl.filters.ge;
     import com.kemsky.impl.filters.gt;
+    import com.kemsky.impl.filters.le;
+    import com.kemsky.impl.filters.lt;
     import com.kemsky.impl.filters.prop;
     import com.kemsky.impl.filters.subtract;
 
+    import flash.utils.ByteArray;
+
     import flash.utils.Dictionary;
+
+    import flashx.textLayout.debug.assert;
 
     import mx.collections.ArrayCollection;
     import mx.logging.ILogger;
@@ -182,6 +188,42 @@ package
             var s:Stream = $("1", "2", "1").filter(eq("2"));
             assertEquals(s.first, "2");
             assertEquals(s.length, 1);
+
+            //todo
+        }
+
+        [Test]
+        public function testLe():void
+        {
+            var le1:Stream = $(1, 2, 3).filter(le(2));
+            assertEquals(le1.length, 2);
+            assertEquals(le1[0], 1);
+            assertEquals(le1[1], 2);
+        }
+
+        [Test]
+        public function testLt():void
+        {
+            var lt1:Stream = $(1, 2, 3).filter(lt(2));
+            assertEquals(lt1.length, 1);
+            assertEquals(lt1[1], 1);
+        }
+
+        [Test]
+        public function testGe():void
+        {
+            var ge1:Stream = $(1, 2, 3).filter(ge(2));
+            assertEquals(ge1.length, 2);
+            assertEquals(ge1[0], 2);
+            assertEquals(ge1[1], 3);
+        }
+
+        [Test]
+        public function testGt():void
+        {
+            var gt1:Stream = $(1, 2, 3).filter(gt(2));
+            assertEquals(gt1.length, 1);
+            assertEquals(gt1[1], 3);
         }
 
         [Test]
@@ -189,6 +231,16 @@ package
         {
             assertEquals($(1, 2).skip(1).first, 2);
             assertEquals($(1, 2).skip(1).length, 1);
+        }
+
+        [Test]
+        public function testTake():void
+        {
+            assertEquals($(1, 2).take(1, 1).first, 2);
+            assertEquals($(1, 2).take(1, 1).length, 1);
+
+            assertEquals($(1, 2).take(1).first, 1);
+            assertEquals($(1, 2).take(1).length, 1);
         }
 
         [Test]
@@ -366,6 +418,21 @@ package
             {
                 assertEquals(item, o[index]);
                 index++;
+            }
+        }
+
+        [Test]
+        public function testSerialize():void
+        {
+            var s:Stream = $(1, 2, 3);
+            var b:ByteArray = new ByteArray();
+            b.writeObject(s);
+            b.position = 0;
+            var r:Stream = b.readObject();
+
+            for (var i:int = 0; i < s.length; i++)
+            {
+                assertEquals(s[i], r[i]);
             }
         }
     }
