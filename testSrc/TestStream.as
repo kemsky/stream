@@ -5,12 +5,14 @@ package
     import com.kemsky.impl.curry;
     import com.kemsky.impl.filters._;
     import com.kemsky.impl.filters.add;
+    import com.kemsky.impl.filters.and;
     import com.kemsky.impl.filters.eq;
     import com.kemsky.impl.filters.ge;
     import com.kemsky.impl.filters.gt;
     import com.kemsky.impl.filters.le;
     import com.kemsky.impl.filters.lt;
     import com.kemsky.impl.filters.ne;
+    import com.kemsky.impl.filters.or;
     import com.kemsky.impl.filters.prop;
     import com.kemsky.impl.filters.subtract;
 
@@ -21,12 +23,14 @@ package
     import flashx.textLayout.debug.assert;
 
     import mx.collections.ArrayCollection;
+    import mx.collections.IList;
     import mx.logging.ILogger;
     import mx.logging.Log;
     import mx.logging.targets.TraceTarget;
 
     import org.flexunit.asserts.assertEquals;
     import org.flexunit.asserts.assertFalse;
+    import org.flexunit.asserts.assertTrue;
 
     public class TestStream
     {
@@ -210,6 +214,22 @@ package
             assertEquals(ne1[1], 3);
         }
 
+        [Test]
+        public function testOr():void
+        {
+            var or1:Stream = $(1, 2, 3).filter(or(eq(1), eq(3)));
+            assertEquals(or1.length, 2);
+            assertEquals(or1[0], 1);
+            assertEquals(or1[1], 3);
+        }
+
+        [Test]
+        public function testAnd():void
+        {
+            var and1:Stream = $(1, 2, 3).filter(and(gt(1), lt(3)));
+            assertEquals(and1.length, 1);
+            assertEquals(and1[0], 2);
+        }
 
         [Test]
         public function testLe():void
@@ -392,6 +412,9 @@ package
             verify(array.collection, original);
             verify(array.list, original);
 
+            assertTrue(array.array is Array);
+            assertTrue(array.collection is ArrayCollection);
+            assertTrue(array.list is IList);
 
             var collection:Stream = $(new ArrayCollection([1, 2, 3]));
             assertEquals(collection.empty, false);
