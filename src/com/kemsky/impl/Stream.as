@@ -71,6 +71,12 @@ package com.kemsky.impl
             return this.slice(count);
         }
 
+        public function get unique():Boolean
+        {
+            var result:* = source.concat().sort(Array.UNIQUESORT);
+            return result != 0;
+        }
+
         //ordinals
 
         public function get first():*

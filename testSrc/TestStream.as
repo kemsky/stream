@@ -46,6 +46,14 @@ package
             assertFalse($(1, 2, 3).contains(4));
         }
 
+
+        [Test]
+        public function testUnique():void
+        {
+            assertTrue($(1, 2, 3).unique);
+            assertFalse($(1, 1 ,1).unique);
+        }
+
         [Test]
         public function testClear():void
         {
@@ -308,6 +316,7 @@ package
             assertEquals(s.second, 1);
             assertEquals(s.third, 2);
             assertEquals(s.last, 4);
+            //todo 20
 
             s.first = 4;
             s.last = 0;
