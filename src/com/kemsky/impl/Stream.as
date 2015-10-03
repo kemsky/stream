@@ -34,6 +34,25 @@ package com.kemsky.impl
          */
 
         /**
+         * Check if Stream contains specified item
+         * @param item
+         * @return <b>true</b> if Stream contains item, <b>false</b> in other case
+         */
+        public function contains(item:*):Boolean
+        {
+            return indexOf(item) > -1;
+        }
+
+
+        /**
+         * Removes all items from Stream
+         */
+        public function clear():void
+        {
+            source = [];
+        }
+
+        /**
          * Returns <b>true</b> if Stream does not contain any elements,
          * else returns <b>false</b>.
          */

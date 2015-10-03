@@ -40,6 +40,23 @@ package
 
 
         [Test]
+        public function testContains():void
+        {
+            assertTrue($(1, 2, 3).contains(2));
+            assertFalse($(1, 2, 3).contains(4));
+        }
+
+        [Test]
+        public function testClear():void
+        {
+            var s:Stream = $(1, 2, 3);
+
+            s.clear();
+
+            assertEquals(s.length, 0);
+        }
+
+        [Test]
         public function testClonePrimitiveStream():void
         {
             var primitive:Stream = $(1, 2, 3);
