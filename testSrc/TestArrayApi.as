@@ -4,10 +4,6 @@ package
     import com.kemsky.impl.Stream;
     import com.kemsky.impl.filters.eq;
 
-    import flash.errors.StackOverflowError;
-
-    import mx.collections.ArrayCollection;
-    import mx.logging.ILogger;
     import mx.logging.Log;
     import mx.logging.targets.TraceTarget;
 
@@ -17,13 +13,53 @@ package
 
     public class TestArrayApi
     {
-        private static const log:ILogger = Log.getLogger("TestStream");
+        //private static const log:ILogger = Log.getLogger("TestStream");
 
         public function TestArrayApi()
         {
             Log.addTarget(new TraceTarget());
         }
 
+        [Test]
+        public function testEach():void
+        {
+            var s:Stream = $(1, 2, 3, 3);
+            var counter:int = 0;
+            s.forEach(function (item:Number):void
+            {
+                counter++;
+            });
+
+            assertEquals(counter, 4);
+        }
+
+        [Test]
+        public function testSome():void
+        {
+            var s:Stream = $(1, 2, 3, 3);
+            assertTrue(s.some(function (item:Number):Boolean
+            {
+                return item > 2;
+            }));
+        }
+
+
+        [Test]
+        public function testEvery():void
+        {
+            var s:Stream = $(1, 2, 3, 3);
+            assertTrue(s.every(function (item:Number):Boolean
+            {
+                return item > 0;
+            }));
+        }
+
+        [Test]
+        public function testLastIndex():void
+        {
+            var s:Stream = $(1, 2, 3, 3);
+            assertEquals(s.lastIndexOf(3), s.length - 1);
+        }
 
         [Test]
         public function testShift():void
@@ -83,7 +119,7 @@ package
                 s3.sort(Stream.NUMERIC | Stream.UNIQUESORT);
                 assertFalse(true);
             }
-            catch(e:Error)
+            catch (e:Error)
             {
             }
 

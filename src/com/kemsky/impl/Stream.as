@@ -585,7 +585,7 @@ package com.kemsky.impl
             }));
         }
 
-        public function each(callback:Function):void
+        public function forEach(callback:Function):void
         {
             source.forEach(function (item:*, index:int, array:Array):void
             {

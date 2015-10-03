@@ -21,7 +21,6 @@ package
 
     import mx.collections.ArrayCollection;
     import mx.collections.IList;
-    import mx.logging.ILogger;
     import mx.logging.Log;
     import mx.logging.targets.TraceTarget;
 
@@ -31,7 +30,7 @@ package
 
     public class TestStream
     {
-        private static const log:ILogger = Log.getLogger("TestStream");
+        //private static const log:ILogger = Log.getLogger("TestStream");
 
         public function TestStream()
         {
@@ -50,7 +49,7 @@ package
         public function testUnique():void
         {
             assertTrue($(1, 2, 3).unique);
-            assertFalse($(1, 1 ,1).unique);
+            assertFalse($(1, 1, 1).unique);
         }
 
         [Test]
