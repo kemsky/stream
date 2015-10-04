@@ -249,11 +249,12 @@ package
         [Test]
         public function testFilter():void
         {
-            var s:Stream = $("1", "2", "1").filter(eq(_, "2"));
+            var s:Stream = $("1", "2", "1").filter(function(item:String):Boolean
+            {
+                return item == "2";
+            });
             assertEquals(s.first, "2");
             assertEquals(s.length, 1);
-
-            //todo
         }
 
         [Test]
