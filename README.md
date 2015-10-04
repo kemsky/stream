@@ -143,6 +143,21 @@ var d:Dictionary = s.dictionary("name");
 
 trace(d["1"], item1);
 //prints first item
+
+trace(s.second);
+//prints second item
+
+trace(s.unique);
+//prints true
+
+trace(s.contains(item1));
+//prints true
+
+trace(s.count(function(item:Item):Boolean
+{
+   return item.price > 1;
+}));
+//prints 1
 ```
 
 Also you can clone stream (even deep clone using AMF tricks)
