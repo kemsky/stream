@@ -2,7 +2,6 @@ package
 {
     import com.kemsky.$;
     import com.kemsky.impl.Stream;
-    import com.kemsky.impl.filters.eq;
 
     import mx.logging.Log;
     import mx.logging.targets.TraceTarget;
@@ -146,13 +145,6 @@ package
             }
         }
 
-        [Test]
-        public function testFilter():void
-        {
-            var s:Stream = $("1", "2", "1").filter(eq("2"));
-            assertEquals(s.first, "2");
-            assertEquals(s.length, 1);
-        }
 
         [Test]
         public function testSortOn():void

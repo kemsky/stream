@@ -184,7 +184,7 @@ package
             assertEquals(result.length, 1);
             assertEquals(result.first, item2);
 
-            result = s.price(gt(1));
+            result = s.price(gt(_, 1));
             assertEquals(result.length, 1);
             assertEquals(result.first, item2);
 
@@ -241,7 +241,7 @@ package
         [Test]
         public function testFilter():void
         {
-            var s:Stream = $("1", "2", "1").filter(eq("2"));
+            var s:Stream = $("1", "2", "1").filter(eq(_, "2"));
             assertEquals(s.first, "2");
             assertEquals(s.length, 1);
 
@@ -251,7 +251,7 @@ package
         [Test]
         public function testEq():void
         {
-            var eq1:Stream = $(1, 2, 3).filter(eq(2));
+            var eq1:Stream = $(1, 2, 3).filter(eq(_, 2));
             assertEquals(eq1.length, 1);
             assertEquals(eq1[0], 2);
         }
@@ -259,7 +259,7 @@ package
         [Test]
         public function testNe():void
         {
-            var ne1:Stream = $(1, 2, 3).filter(ne(2));
+            var ne1:Stream = $(1, 2, 3).filter(ne(_, 2));
             assertEquals(ne1.length, 2);
             assertEquals(ne1[0], 1);
             assertEquals(ne1[1], 3);
@@ -268,7 +268,7 @@ package
         [Test]
         public function testOr():void
         {
-            var or1:Stream = $(1, 2, 3).filter(or(eq(1), eq(3)));
+            var or1:Stream = $(1, 2, 3).filter(or(eq(_, 1), eq(_, 3)));
             assertEquals(or1.length, 2);
             assertEquals(or1[0], 1);
             assertEquals(or1[1], 3);
@@ -277,7 +277,7 @@ package
         [Test]
         public function testAnd():void
         {
-            var and1:Stream = $(1, 2, 3).filter(and(gt(1), lt(3)));
+            var and1:Stream = $(1, 2, 3).filter(and(gt(_, 1), lt(_, 3)));
             assertEquals(and1.length, 1);
             assertEquals(and1[0], 2);
         }
@@ -285,7 +285,7 @@ package
         [Test]
         public function testLe():void
         {
-            var le1:Stream = $(1, 2, 3).filter(le(2));
+            var le1:Stream = $(1, 2, 3).filter(le(_, 2));
             assertEquals(le1.length, 2);
             assertEquals(le1[0], 1);
             assertEquals(le1[1], 2);
@@ -294,7 +294,7 @@ package
         [Test]
         public function testLt():void
         {
-            var lt1:Stream = $(1, 2, 3).filter(lt(2));
+            var lt1:Stream = $(1, 2, 3).filter(lt(_, 2));
             assertEquals(lt1.length, 1);
             assertEquals(lt1[0], 1);
         }
@@ -302,7 +302,7 @@ package
         [Test]
         public function testGe():void
         {
-            var ge1:Stream = $(1, 2, 3).filter(ge(2));
+            var ge1:Stream = $(1, 2, 3).filter(ge(_, 2));
             assertEquals(ge1.length, 2);
             assertEquals(ge1[0], 2);
             assertEquals(ge1[1], 3);
@@ -311,7 +311,7 @@ package
         [Test]
         public function testGt():void
         {
-            var gt1:Stream = $(1, 2, 3).filter(gt(2));
+            var gt1:Stream = $(1, 2, 3).filter(gt(_, 2));
             assertEquals(gt1.length, 1);
             assertEquals(gt1[0], 3);
         }
