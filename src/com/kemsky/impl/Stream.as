@@ -33,6 +33,20 @@ package com.kemsky.impl
          * -------------------------------------------
          */
 
+        public function count(callback:Function):uint
+        {
+            var result:uint = 0;
+            for each (var item:* in source)
+            {
+                if(callback(item))
+                {
+                    result++;
+                }
+            }
+            return result;
+        }
+
+
         /**
          * Check if Stream contains specified item
          * @param item
@@ -229,55 +243,6 @@ package com.kemsky.impl
             source[14] = item;
         }
 
-        public function get sixteenth():*
-        {
-            return source[15];
-        }
-
-        public function set sixteenth(item:*):void
-        {
-            source[15] = item;
-        }
-
-        public function get seventeenth():*
-        {
-            return source[16];
-        }
-
-        public function set seventeenth(item:*):void
-        {
-            source[16] = item;
-        }
-
-        public function get eighteenth():*
-        {
-            return source[17];
-        }
-
-        public function set eighteenth(item:*):void
-        {
-            source[17] = item;
-        }
-
-        public function get nineteenth():*
-        {
-            return source[18];
-        }
-
-        public function set nineteenth(item:*):void
-        {
-            source[18] = item;
-        }
-
-        public function get twentieth():*
-        {
-            return source[19];
-        }
-
-        public function set twentieth(item:*):void
-        {
-            source[19] = item;
-        }
 
         public function get last():*
         {
@@ -344,7 +309,12 @@ package com.kemsky.impl
             return slice(offset, offset + count);
         }
 
-        public function flatMap(callback:Function = null):Stream
+        public function flatten():Stream
+        {
+            return flatMap(null);
+        }
+
+        public function flatMap(callback:Function):Stream
         {
             var f:Function = function (item:*):*
             {

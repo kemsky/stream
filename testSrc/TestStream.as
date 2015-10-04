@@ -37,6 +37,19 @@ package
             Log.addTarget(new TraceTarget());
         }
 
+
+        [Test]
+        public function testCount():void
+        {
+            var s:Stream = $(1, 2, 3);
+            var count:Number = s.count(function(item:Number):Boolean
+            {
+                return item > 2;
+            });
+
+            assertEquals(count, 1);
+        }
+
         [Test]
         public function testContains():void
         {
@@ -325,11 +338,7 @@ package
             s.thirteenth = 12;
             s.fourteenth = 13;
             s.fifteenth = 14;
-            s.sixteenth = 15;
-            s.seventeenth = 16;
-            s.eighteenth = 17;
-            s.nineteenth = 18;
-            s.twentieth = 19;
+
 
             assertEquals(s.first, 0);
             assertEquals(s.second, 1);
@@ -346,18 +355,14 @@ package
             assertEquals(s.thirteenth, 12);
             assertEquals(s.fourteenth, 13);
             assertEquals(s.fifteenth, 14);
-            assertEquals(s.sixteenth, 15);
-            assertEquals(s.seventeenth, 16);
-            assertEquals(s.eighteenth, 17);
-            assertEquals(s.nineteenth, 18);
-            assertEquals(s.twentieth, 19);
 
-            assertEquals(s.last, 19);
 
-            s.first = 19;
+            assertEquals(s.last, 14);
+
+            s.first = 14;
             s.last = 0;
 
-            assertEquals(s.first, 19);
+            assertEquals(s.first, 14);
             assertEquals(s.last, 0);
         }
 
@@ -420,7 +425,7 @@ package
         {
             var s:Stream = new Stream([[1, 2, 3], $(4, 5, 6), new ArrayCollection([7, 8, 9])]);
 
-            var flatDefault:Stream = s.flatMap();
+            var flatDefault:Stream = s.flatten();
             for (var i:int = 0; i < flatDefault.length; i++)
             {
                 assertEquals(flatDefault[i], i + 1);
