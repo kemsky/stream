@@ -54,6 +54,8 @@ Notice that callback does not have `index:uint` and `array:Array` parameters -
 it is the only difference between Array and Stream APIs.
 
 ## Fold, foldLeft, foldRight methods
+
+Javascript array has `reduce` method which is similar.
 ```as3
 var sum2:Number = $(0, 1, 2, 3, 4).foldRight(function (prev:Number, current:Number):Number
 {
@@ -69,7 +71,7 @@ var s:Stream = new Stream([1, 2, 3], $(4, 5, 6), new ArrayCollection([7, 8, 9]))
 var mapped:Stream = s.flatMap(function(item:*):*
 {
    //this is nop callback, used just for example
-   //you can use short form: s.flatMap();
+   //you can use short form: s.flatten();
    return item;
 });
 trace(mapped);
