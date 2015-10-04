@@ -386,6 +386,23 @@ package com.kemsky.impl
             return dict;
         }
 
+        public function group(callback:Function, weak:Boolean = false):Dictionary
+        {
+            var dict:Dictionary = new Dictionary(weak);
+            for each (var item:* in source)
+            {
+                var key:* = callback(item);
+                var s:Stream = dict[key];
+                if(s == null)
+                {
+                    s = new Stream();
+                    dict[key] = s;
+                }
+                s.push(item);
+            }
+            return dict;
+        }
+
         /**
          * Creates new Object from current Stream using specified property as keys
          * @param property name of the property to be used as key

@@ -39,6 +39,24 @@ package
 
 
         [Test]
+        public function testGroup():void
+        {
+            var s:Stream = $(1, 2, 3, 4, 5, 6);
+            var groups:Dictionary = s.group(function(item:Number):Number
+            {
+                return item > 3 ? 2 : 1;
+            });
+
+            var g1:Stream = groups[1];
+            assertEquals(g1.length, 3);
+            assertEquals(g1.third, 3);
+
+            var g2:Stream = groups[2];
+            assertEquals(g2.length, 3);
+            assertEquals(g2.third, 6);
+        }
+
+        [Test]
         public function testCount():void
         {
             var s:Stream = $(1, 2, 3);
