@@ -816,7 +816,7 @@ package com.kemsky.impl
 
         public function toString():String
         {
-            return "Stream[" + source.join(",") + "]";
+            return "Stream{" + source.join(",") + "}";
         }
     }
 }
