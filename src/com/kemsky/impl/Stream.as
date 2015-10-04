@@ -824,7 +824,7 @@ package com.kemsky.impl
             return "Stream{" + source.join(",") + "}";
         }
 
-        private function isNaNFast(target:*):Boolean
+        private static function isNaNFast(target:*):Boolean
         {
             return !(target <= 0) && !(target > 0);
         }
