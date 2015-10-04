@@ -40,7 +40,7 @@ for (var i:int = 0; i < s.length; i++)
 ```
 
 ## Array methods
-Stream has all methods that standard Array has(every, forEach, map, some, slice, splice, etc.):
+Stream has all methods(every, forEach, map, some, slice, splice, etc.) that standard Array has:
 ```as3
 var s:Stream = $(1, 2, 3);
 s.forEach(function(item:Number):void
