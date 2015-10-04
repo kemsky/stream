@@ -103,14 +103,14 @@ package
             assertEquals(primitiveClone[0], 1);
             assertEquals(primitiveClone[1], 2);
             assertEquals(primitiveClone[2], 3);
-            assertFalse(primitiveClone == primitive);
+            assertFalse(primitiveClone === primitive);
 
             var primitiveCloneDeep:Stream = primitive.clone(true);
             assertEquals(primitiveCloneDeep.length, 3);
             assertEquals(primitiveCloneDeep[0], 1);
             assertEquals(primitiveCloneDeep[1], 2);
             assertEquals(primitiveCloneDeep[2], 3);
-            assertFalse(primitiveCloneDeep == primitive);
+            assertFalse(primitiveCloneDeep === primitive);
         }
 
         [Test]
@@ -124,26 +124,34 @@ package
             var objectClone:Stream = object.clone();
             assertEquals(objectClone.length, 2);
 
-            assertEquals(Item(objectClone[0]), item1);
+            assertTrue(Item(objectClone[0]) === item1);
             assertEquals(Item(objectClone[0]).name, item1.name);
             assertEquals(Item(objectClone[0]).price, item1.price);
             assertEquals(Item(objectClone[0]).vat, item1.vat);
 
-            assertEquals(Item(objectClone[1]), item2);
+            assertTrue(Item(objectClone[0]) === item1);
             assertEquals(Item(objectClone[1]).name, item2.name);
             assertEquals(Item(objectClone[1]).price, item2.price);
             assertEquals(Item(objectClone[1]).vat, item2.vat);
 
+            assertFalse(objectClone === object);
+            assertFalse(objectClone.source === object.source);
+
             var objectCloneDeep:Stream = object.clone(true);
             assertEquals(objectCloneDeep.length, 2);
 
+            assertFalse(Item(objectCloneDeep[0]) === item1);
             assertEquals(Item(objectCloneDeep[0]).name, item1.name);
             assertEquals(Item(objectCloneDeep[0]).price, item1.price);
             assertEquals(Item(objectCloneDeep[0]).vat, item1.vat);
 
+            assertFalse(Item(objectCloneDeep[0]) === item1);
             assertEquals(Item(objectCloneDeep[1]).name, item2.name);
             assertEquals(Item(objectCloneDeep[1]).price, item2.price);
             assertEquals(Item(objectCloneDeep[1]).vat, item2.vat);
+
+            assertFalse(objectCloneDeep === object);
+            assertFalse(objectCloneDeep.source === object.source);
         }
 
         [Test]
