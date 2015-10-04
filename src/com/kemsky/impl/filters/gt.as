@@ -1,10 +1,10 @@
 package com.kemsky.impl.filters
 {
-    public function gt(value1:*, value2:* = undefined):Function
+    public function gt(...rest):Function
     {
         return function (item:*):Boolean
         {
-            return normalize(item, value1, value2)(function (a:*, b:*):Boolean
+            return normalize(item, rest)(function (a:*, b:*):Boolean
             {
                 return a > b;
             });
