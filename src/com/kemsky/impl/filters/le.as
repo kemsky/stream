@@ -4,10 +4,8 @@ package com.kemsky.impl.filters
     {
         return function (item:*):Boolean
         {
-            return normalize(item, rest)(function (a:*, b:*):Boolean
-            {
-                return a <= b;
-            });
+            var args:Array = normalize(item, rest);
+            return args[0] <= args[1];
         };
     }
 }
