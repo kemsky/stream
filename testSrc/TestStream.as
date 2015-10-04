@@ -390,6 +390,8 @@ package
 
             assertEquals(s.first, 14);
             assertEquals(s.last, 0);
+
+            assertEquals(s.length, 15)
         }
 
         [Test]
