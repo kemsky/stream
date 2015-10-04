@@ -214,6 +214,14 @@ package
 
             result = s.filter(gt(0, 1));
             assertEquals(result.length, 0);
+
+            //some fun
+            result = s.filter(ge(function(item:Item):Number
+            {
+                return item.price + item.vat;
+            }, 3));
+            assertEquals(result.length, 1);
+            assertEquals(result.first, item1);
         }
 
         [Test]
