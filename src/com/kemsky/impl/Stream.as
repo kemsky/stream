@@ -611,6 +611,11 @@ package com.kemsky.impl
             return source.length;
         }
 
+        public function set length(value:int):void
+        {
+            source.length = value;
+        }
+
 
         /**
          * Proxy part
@@ -648,7 +653,7 @@ package com.kemsky.impl
             {
                 // If caller passed in a number such as 5.5, it will be floored.
                 var n:Number = parseInt(String(name));
-                if (!isNaN(n))
+                if (!isNaNFast(n))
                 {
                     index = int(n);
                 }
@@ -679,7 +684,7 @@ package com.kemsky.impl
             {
                 // If caller passed in a number such as 5.5, it will be floored.
                 var n:Number = parseInt(String(name));
-                if (!isNaN(n))
+                if (!isNaNFast(n))
                 {
                     index = int(n);
                 }
@@ -710,7 +715,7 @@ package com.kemsky.impl
             {
                 // If caller passed in a number such as 5.5, it will be floored.
                 var n:Number = parseInt(String(name));
-                if (!isNaN(n))
+                if (!isNaNFast(n))
                 {
                     index = int(n);
                 }
@@ -774,7 +779,7 @@ package com.kemsky.impl
             {
                 // If caller passed in a number such as 5.5, it will be floored.
                 var n:Number = parseInt(String(name));
-                if (!isNaN(n))
+                if (!isNaNFast(n))
                 {
                     index = int(n);
                 }
@@ -817,6 +822,11 @@ package com.kemsky.impl
         public function toString():String
         {
             return "Stream{" + source.join(",") + "}";
+        }
+
+        private function isNaNFast(target:*):Boolean
+        {
+            return !(target <= 0) && !(target > 0);
         }
     }
 }
