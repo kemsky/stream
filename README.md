@@ -61,22 +61,6 @@ var sum2:Number = $(0, 1, 2, 3, 4).foldRight(function (prev:Number, current:Numb
 }, 10);
 trace(sum2);
 //prints 20
-
-//use Stream as Optional
-var empty:Stream = $(null);
-var nonEmpty:Stream = $("item1", "item2");
-
-trace(empty.fold("empty"));
-//prints empty
-
-trace(empty.fold());
-//prints null
-
-trace(nonEmpty.fold("empty"));
-//prints item1
-
-trace(nonEmpty.fold());
-//prints item1
 ```
 
 ## FlatMap
