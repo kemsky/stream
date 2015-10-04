@@ -3,20 +3,14 @@ package
     import com.kemsky.$;
     import com.kemsky.impl.Stream;
 
-    import mx.logging.Log;
-    import mx.logging.targets.TraceTarget;
-
     import org.flexunit.asserts.assertEquals;
     import org.flexunit.asserts.assertFalse;
     import org.flexunit.asserts.assertTrue;
 
     public class TestArrayApi
     {
-        //private static const log:ILogger = Log.getLogger("TestStream");
-
         public function TestArrayApi()
         {
-            Log.addTarget(new TraceTarget());
         }
 
         [Test]

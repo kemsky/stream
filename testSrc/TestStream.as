@@ -21,8 +21,6 @@ package
 
     import mx.collections.ArrayCollection;
     import mx.collections.IList;
-    import mx.logging.Log;
-    import mx.logging.targets.TraceTarget;
 
     import org.flexunit.asserts.assertEquals;
     import org.flexunit.asserts.assertFalse;
@@ -30,11 +28,8 @@ package
 
     public class TestStream
     {
-        //private static const log:ILogger = Log.getLogger("TestStream");
-
         public function TestStream()
         {
-            Log.addTarget(new TraceTarget());
         }
 
 
@@ -42,7 +37,7 @@ package
         public function testGroup():void
         {
             var s:Stream = $(1, 2, 3, 4, 5, 6);
-            var groups:Dictionary = s.group(function(item:Number):Number
+            var groups:Dictionary = s.group(function (item:Number):Number
             {
                 return item > 3 ? 2 : 1;
             });
@@ -60,7 +55,7 @@ package
         public function testCount():void
         {
             var s:Stream = $(1, 2, 3);
-            var count:Number = s.count(function(item:Number):Boolean
+            var count:Number = s.count(function (item:Number):Boolean
             {
                 return item > 2;
             });
@@ -216,7 +211,7 @@ package
             assertEquals(result.length, 0);
 
             //some fun
-            result = s.filter(ge(function(item:Item):Number
+            result = s.filter(ge(function (item:Item):Number
             {
                 return item.price + item.vat;
             }, 3));
@@ -257,7 +252,7 @@ package
         [Test]
         public function testFilter():void
         {
-            var s:Stream = $("1", "2", "1").filter(function(item:String):Boolean
+            var s:Stream = $("1", "2", "1").filter(function (item:String):Boolean
             {
                 return item == "2";
             });
