@@ -7,7 +7,6 @@ package com.kemsky.impl
         private static const instance:Flex = new Flex();
 
         protected var collection:Class;
-        protected var arrayList:Class;
         protected var list:Class;
 
         public var available:Boolean;
@@ -17,7 +16,6 @@ package com.kemsky.impl
             try
             {
                 this.collection = getDefinitionByName("mx.collections::ArrayCollection") as Class;
-                this.arrayList = getDefinitionByName("mx.collections::ArrayList") as Class;
                 this.list = getDefinitionByName("mx.collections::IList") as Class;
                 this.available = true;
             }
@@ -30,11 +28,6 @@ package com.kemsky.impl
         public static function get list():Class
         {
             return instance.list;
-        }
-
-        public static function get arrayList():Class
-        {
-            return instance.arrayList;
         }
 
         public static function get collection():Class
