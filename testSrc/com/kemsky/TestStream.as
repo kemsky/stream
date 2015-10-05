@@ -5,6 +5,7 @@ package com.kemsky
     import com.kemsky.impl.filters._;
     import com.kemsky.impl.filters.add;
     import com.kemsky.impl.filters.and;
+    import com.kemsky.impl.filters.either;
     import com.kemsky.impl.filters.eq;
     import com.kemsky.impl.filters.ge;
     import com.kemsky.impl.filters.gt;
@@ -31,6 +32,16 @@ package com.kemsky
         {
         }
 
+
+        [Test]
+        public function testEither():void
+        {
+            var s:Stream = $(1, 2, 3);
+            assertEquals(s.count(either(_, 1, 2)), 2);
+
+            assertEquals(s.count(either(_, [1, 2])), 2);
+            assertEquals(s.count(either(_, [4])), 0);
+        }
 
         [Test]
         public function testSet():void
