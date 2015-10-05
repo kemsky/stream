@@ -1,9 +1,7 @@
 package com.kemsky
 {
+    import com.kemsky.impl.Flex;
     import com.kemsky.impl.Stream;
-
-    import mx.collections.ArrayCollection;
-    import mx.collections.IList;
 
     /**
      * Global function that creates Stream objects
@@ -19,20 +17,20 @@ package com.kemsky
         }
         else if(rest.length == 1)
         {
-            if(rest[0] is ArrayCollection)
+            if(Flex.available && [0] is Flex.collection)
             {
                 //$ from collection
-                return new Stream(ArrayCollection(rest[0]).source);
+                return new Stream(rest[0].source);
             }
             else if(rest[0] is Array)
             {
                 //$ from array
                 return new Stream((rest[0] as Array).concat());
             }
-            else if(rest[0] is IList)
+            else if(Flex.available && rest[0] is Flex.list)
             {
                 //$ from list
-                return new Stream(IList(rest[0]).toArray());
+                return new Stream(rest[0].toArray());
             }
             else if(rest[0] == null || rest[0] === undefined)
             {

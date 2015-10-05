@@ -8,9 +8,6 @@ package com.kemsky.impl
     import flash.utils.Proxy;
     import flash.utils.flash_proxy;
 
-    import mx.collections.ArrayCollection;
-    import mx.collections.ArrayList;
-
     [RemoteClass(alias="com.kemsky.impl.Stream")]
     public dynamic class Stream extends Proxy implements IExternalizable
     {
@@ -310,9 +307,13 @@ package com.kemsky.impl
                 {
                     result = item;
                 }
-                else if (item is ArrayCollection)
+                else if (Flex.available && item is Flex.collection)
                 {
-                    result = ArrayCollection(item).source;
+                    result = item.source;
+                }
+                else if (Flex.available && item is Flex.list)
+                {
+                    result = item.toArray();
                 }
                 else if (item is Stream)
                 {
@@ -332,9 +333,9 @@ package com.kemsky.impl
         /**
          * Returns new ArrayCollection created from items of current Stream
          */
-        public function get collection():ArrayCollection
+        public function get collection():*
         {
-            return new ArrayCollection(source.concat());
+            return new Flex.collection(source.concat());
         }
 
         /**
@@ -348,9 +349,9 @@ package com.kemsky.impl
         /**
          * Returns new ArrayList created from items of current Stream
          */
-        public function get list():ArrayList
+        public function get list():*
         {
-            return new ArrayList(this.source.concat());
+            return new Flex.arrayList(this.source.concat());
         }
 
         /**
@@ -462,9 +463,13 @@ package com.kemsky.impl
                 {
                     result = result.concat.apply(null, item);
                 }
-                else if (item is ArrayCollection)
+                else if (Flex.available && item is Flex.collection)
                 {
-                    result = result.concat.apply(null, ArrayCollection(item).source);
+                    result = result.concat.apply(null, item.source);
+                }
+                else if (Flex.available && item is Flex.collection)
+                {
+                    result = item.toArray();
                 }
                 else if (item is Stream)
                 {
