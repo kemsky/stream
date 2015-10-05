@@ -19,12 +19,14 @@ package com.kemsky
     import flash.utils.ByteArray;
     import flash.utils.Dictionary;
 
-    import mx.collections.ArrayCollection;
-    import mx.collections.IList;
-
     import org.flexunit.asserts.assertEquals;
     import org.flexunit.asserts.assertFalse;
     import org.flexunit.asserts.assertTrue;
+
+    CONFIG::flex {
+        import mx.collections.ArrayCollection;
+        import mx.collections.IList;
+    }
 
     public class TestStream
     {
@@ -458,7 +460,12 @@ package com.kemsky
         [Test]
         public function testFlatMap():void
         {
-            var s:Stream = new Stream([[1, 2, 3], $(4, 5, 6), new ArrayCollection([7, 8, 9])]);
+            var s:Stream = new Stream([[1, 2, 3], $(4, 5, 6)]);
+
+            CONFIG::flex {
+                s.push(new ArrayCollection([7, 8, 9]));
+            }
+
 
             var flatDefault:Stream = s.flatten();
             for (var i:int = 0; i < flatDefault.length; i++)
@@ -521,26 +528,30 @@ package com.kemsky
             assertEquals(array.last, 3);
             verify(array, original);
             verify(array.array, original);
-            verify(array.collection, original);
-            verify(array.list, original);
+            CONFIG::flex {
+                verify(array.collection, original);
+                verify(array.list, original);
+            }
 
             assertTrue(array.array is Array);
-            assertTrue(array.collection is ArrayCollection);
-            assertTrue(array.list is IList);
 
-            var collection:Stream = $(new ArrayCollection([1, 2, 3]));
-            assertEquals(collection.empty, false);
-            assertEquals(collection.length, 3);
-            assertEquals(collection.first, 1);
-            assertEquals(collection[0], 1);
-            assertEquals(collection[1], 2);
-            assertEquals(collection[2], 3);
-            assertEquals(collection.last, 3);
-            verify(collection, original);
-            verify(collection.array, original);
-            verify(collection.collection, original);
-            verify(collection.list, original);
+            CONFIG::flex {
+                assertTrue(array.collection is ArrayCollection);
+                assertTrue(array.list is IList);
 
+                var collection:Stream = $(new ArrayCollection([1, 2, 3]));
+                assertEquals(collection.empty, false);
+                assertEquals(collection.length, 3);
+                assertEquals(collection.first, 1);
+                assertEquals(collection[0], 1);
+                assertEquals(collection[1], 2);
+                assertEquals(collection[2], 3);
+                assertEquals(collection.last, 3);
+                verify(collection, original);
+                verify(collection.array, original);
+                verify(collection.collection, original);
+                verify(collection.list, original);
+            }
 
             var args:Stream = $(1, 2, 3);
             assertEquals(args.empty, false);
@@ -552,8 +563,10 @@ package com.kemsky
             assertEquals(args.last, 3);
             verify(args, original);
             verify(args.array, original);
-            verify(args.collection, original);
-            verify(args.list, original);
+            CONFIG::flex {
+                verify(args.collection, original);
+                verify(args.list, original);
+            }
 
 
             var single:Stream = $("item");

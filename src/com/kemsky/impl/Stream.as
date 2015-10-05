@@ -330,12 +330,28 @@ package com.kemsky.impl
             return new Stream().concat(mapped);
         }
 
-        /**
-         * Returns new ArrayCollection created from items of current Stream
-         */
-        public function get collection():*
-        {
-            return new Flex.collection(source.concat());
+        CONFIG::flex {
+
+            import mx.collections.ArrayCollection;
+            import mx.collections.ArrayList;
+
+            /**
+             * Returns new ArrayCollection created from items of current Stream
+             */
+            public function get collection():ArrayCollection
+            {
+                return new ArrayCollection(source.concat());
+            }
+
+
+            /**
+             * Returns new ArrayList created from items of current Stream
+             */
+            public function get list():ArrayList
+            {
+                return new ArrayList(this.source.concat());
+            }
+
         }
 
         /**
@@ -344,14 +360,6 @@ package com.kemsky.impl
         public function get array():Array
         {
             return source.concat();
-        }
-
-        /**
-         * Returns new ArrayList created from items of current Stream
-         */
-        public function get list():*
-        {
-            return new Flex.arrayList(this.source.concat());
         }
 
         /**

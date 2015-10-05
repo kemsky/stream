@@ -11,7 +11,11 @@
           </entries>
           <sdk name="flex_sdk_4.14.1" />
         </dependencies>
-        <compiler-options />
+        <compiler-options>
+          <map>
+            <entry key="compiler.define" value="CONFIG::flex&#9;true" />
+          </map>
+        </compiler-options>
         <packaging-air-desktop />
         <packaging-android />
         <packaging-ios />
