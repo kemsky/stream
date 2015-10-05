@@ -150,5 +150,5 @@ Also you can clone stream (even deep clone using AMF tricks)
 
 ## Performance
 
-Stream is about 10x slower when accessed by index (`[index]`) and seems to be Proxy overhead.
+Stream is about 10x slower when accessed by index (`[index]`) and it seems to be Proxy overhead.
 If you need better performance (3x slower than Array) use methods to access stream items: `get(index:int):*` and `set(index:int, value:*):void`.
