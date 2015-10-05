@@ -7,7 +7,7 @@ package benchmark
     public class TestIterate
     {
         private static const count:int = 100000;
-        private static const attempts:Number = 10;
+        private static const attempts:Number = 100;
 
 
         public function TestIterate()
