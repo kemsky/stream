@@ -53,7 +53,7 @@ s.forEach(function(item:Number):void
 Notice that callback does not have `index:uint` and `array:Array` parameters - 
 it is the only difference between Array and Stream APIs.
 
-## Fold, foldLeft, foldRight methods
+## foldLeft, foldRight methods
 
 Javascript array has `reduce` method which is similar.
 ```as3
@@ -65,7 +65,7 @@ trace(sum2);
 //prints 20
 ```
 
-## FlatMap
+## flatMap
 ```as3
 var s:Stream = new Stream([1, 2, 3], $(4, 5, 6), new ArrayCollection([7, 8, 9]));
 var mapped:Stream = s.flatMap(function(item:*):*
@@ -147,3 +147,8 @@ trace(s.count(function(item:Item):Boolean
 ```
 
 Also you can clone stream (even deep clone using AMF tricks)
+
+## Performance
+
+Stream is about 10x slower when accessed by index (`[index]`) and seems to be Proxy overhead.
+If you need better performance (3x slower than Array) use methods to access stream items: `get(index:int):*` and `set(index:int, value:*):void`.

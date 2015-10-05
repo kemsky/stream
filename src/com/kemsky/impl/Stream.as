@@ -33,6 +33,17 @@ package com.kemsky.impl
          * -------------------------------------------
          */
 
+        public function get(index:int):*
+        {
+            return source[index];
+        }
+
+
+        public function set(index:int, value:*):void
+        {
+            source[index] = value;
+        }
+
         public function count(callback:Function):uint
         {
             var result:uint = 0;
@@ -252,30 +263,6 @@ package com.kemsky.impl
         public function set last(item:*):void
         {
             source[source.length - 1] = item;
-        }
-
-        public function fold(...rest):*
-        {
-            if (rest.length == 0)
-            {
-                return foldLeft(function (current:*, def:*):*
-                {
-                    return current
-                }, null);
-            }
-            else if (rest.length == 1 && !(rest[0] is Function))
-            {
-                return foldLeft(function (current:*, def:*):*
-                {
-                    return current
-                }, rest[0]);
-            }
-            else if (rest.length == 2 && (rest[0] is Function))
-            {
-                return foldLeft(rest[0], rest[1]);
-            }
-
-            throw new Error();
         }
 
         public function foldLeft(callback:Function, initial:*):*

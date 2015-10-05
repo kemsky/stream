@@ -34,6 +34,28 @@ package
 
 
         [Test]
+        public function testSet():void
+        {
+            var s:Stream = $(1, 2, 3);
+            s.set(2, 1);
+            s.set(0, 3);
+            assertEquals(s[0], 3);
+            assertEquals(s[1], 2);
+            assertEquals(s[2], 1);
+        }
+
+        [Test]
+        public function testGet():void
+        {
+            var s:Stream = $(1, 2, 3);
+            assertEquals(s.get(0), 1);
+            assertEquals(s.get(1), 2);
+            assertEquals(s.get(2), 3);
+
+            assertTrue(s.get(3) === undefined);
+        }
+
+        [Test]
         public function testGroup():void
         {
             var s:Stream = $(1, 2, 3, 4, 5, 6);
@@ -220,18 +242,6 @@ package
         }
 
         [Test]
-        public function testFoldAsOption():void
-        {
-            var empty:Stream = $(null);
-            var nonEmpty:Stream = $("random");
-
-            assertEquals(empty.fold("empty"), "empty");
-            assertEquals(empty.fold(), null);
-            assertEquals(nonEmpty.fold("empty"), "random");
-            assertEquals(nonEmpty.fold(), "random");
-        }
-
-        [Test]
         public function testCurry():void
         {
             function many(a:Number, b:Number, c:Number):Number
@@ -398,23 +408,6 @@ package
             assertEquals(s.length, 15)
         }
 
-        [Test]
-        public function testFold():void
-        {
-            var sum1:Number = $(0, 1, 2, 3, 4).fold(function (prev:Number, current:Number):Number
-            {
-                return prev + current;
-            }, 0);
-
-            assertEquals(sum1, 10);
-
-            var sum2:Number = $(0, 1, 2, 3, 4).fold(function (prev:Number, current:Number):Number
-            {
-                return prev + current;
-            }, 10);
-
-            assertEquals(sum2, 20);
-        }
 
         [Test]
         public function testFoldLeft():void
@@ -562,7 +555,7 @@ package
             assertEquals(single.first, single.last);
         }
 
-        private function verify(s:*, o:Array):void
+        private static function verify(s:*, o:Array):void
         {
             var index:int = 0;
             for each (var item:* in s)
