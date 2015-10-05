@@ -6,6 +6,7 @@ package
         public var name:String;
         public var price:Number;
         public var vat:Number;
+        public var bool:Boolean;
 
         public function Item(name:String = null, price:Number = 0, vat:Number = 0)
         {

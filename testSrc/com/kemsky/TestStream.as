@@ -12,7 +12,9 @@ package com.kemsky
     import com.kemsky.impl.filters.le;
     import com.kemsky.impl.filters.lt;
     import com.kemsky.impl.filters.ne;
+    import com.kemsky.impl.filters.boolFalse;
     import com.kemsky.impl.filters.or;
+    import com.kemsky.impl.filters.boolTrue;
     import com.kemsky.impl.filters.prop;
     import com.kemsky.impl.filters.subtract;
 
@@ -34,6 +36,18 @@ package com.kemsky
         {
         }
 
+
+        [Test]
+        public function testBoolean():void
+        {
+            var item1:Item = new Item();
+            var item2:Item = new Item();
+            item2.bool = true;
+            var s:Stream = $(item1, item2);
+
+            assertEquals(s.filter(boolTrue(prop("bool"))).first, item2);
+            assertEquals(s.filter(boolFalse(prop("bool"))).first, item1);
+        }
 
         [Test]
         public function testEither():void
