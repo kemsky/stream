@@ -29,8 +29,6 @@ package com.kemsky.impl.filters
         else
         {
             var numeric:Boolean = (options & Stream.NUMERIC) == Stream.NUMERIC;
-            var caseInsensitive:Boolean = (options & Stream.CASEINSENSITIVE) == Stream.CASEINSENSITIVE;
-            var descending:Boolean = (options & Stream.DESCENDING) == Stream.DESCENDING;
 
             if (numeric)
             {
@@ -38,6 +36,9 @@ package com.kemsky.impl.filters
             }
             else
             {
+                var caseInsensitive:Boolean = (options & Stream.CASEINSENSITIVE) == Stream.CASEINSENSITIVE;
+                var descending:Boolean = (options & Stream.DESCENDING) == Stream.DESCENDING;
+
                 var typeOfA:String = TypeCache.getQualifiedClassName(a);
                 var typeOfB:String = TypeCache.getQualifiedClassName(b);
 
