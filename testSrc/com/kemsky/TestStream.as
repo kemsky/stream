@@ -40,6 +40,14 @@ package com.kemsky
         [Test]
         public function testMap():void
         {
+            var item:Item = new Item("name1", 5, 0);
+            var s:Stream = $(item);
+            assertEquals(s.map(prop("name")).first, "name1");
+        }
+
+        [Test]
+        public function testMapped():void
+        {
             var item:Item = new Item("name", 5, 0);
 
             var d:Dictionary = new Dictionary();
