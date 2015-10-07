@@ -10,7 +10,7 @@ package com.kemsky.impl.filters
      * @param options combination of Stream.CASEINSENSITIVE | Stream.DESCENDING | Stream.NUMERIC
      * @return -1, 0, 1
      */
-    public function comparator(a:Object, b:Object, options:uint = 0):int
+    public function comparator(a:Object, b:Object, options:uint = 0, equals:Boolean = false):int
     {
         var result:int = 0;
 
@@ -77,7 +77,14 @@ package com.kemsky.impl.filters
                         }
                         default:
                         {
-                            throw new Error("Sort is not supported: " + typeOfA);
+                            if(equals)
+                            {
+                                result = a == b ? 0 : -1;
+                            }
+                            else
+                            {
+                                throw new Error("Sort is not supported: " + typeOfA);
+                            }
                         }
                     }
                 }
