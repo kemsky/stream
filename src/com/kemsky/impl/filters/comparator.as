@@ -20,11 +20,11 @@ package com.kemsky.impl.filters
         }
         else if (a == null)
         {
-            result = 1;
+            result = -1;
         }
         else if (b == null)
         {
-            result = -1;
+            result = 1;
         }
         else
         {

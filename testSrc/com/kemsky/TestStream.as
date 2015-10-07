@@ -373,6 +373,11 @@ package com.kemsky
             assertEquals(le1.length, 2);
             assertEquals(le1[0], 1);
             assertEquals(le1[1], 2);
+
+            var gt2:Stream = $("test1", "", null).filter(le(_, ""));
+            assertEquals(gt2.length, 2);
+            assertEquals(gt2[0], "");
+            assertEquals(gt2[1], null);
         }
 
         [Test]
@@ -381,6 +386,10 @@ package com.kemsky
             var lt1:Stream = $(1, 2, 3).filter(lt(_, 2));
             assertEquals(lt1.length, 1);
             assertEquals(lt1[0], 1);
+
+            var gt2:Stream = $("test1", "", null).filter(lt(_, ""));
+            assertEquals(gt2.length, 1);
+            assertEquals(gt2[0], null);
         }
 
         [Test]
@@ -390,6 +399,11 @@ package com.kemsky
             assertEquals(ge1.length, 2);
             assertEquals(ge1[0], 2);
             assertEquals(ge1[1], 3);
+
+            var gt2:Stream = $("test1", "", null).filter(ge(_, ""));
+            assertEquals(gt2.length, 2);
+            assertEquals(gt2[0], "test1");
+            assertEquals(gt2[1], "");
         }
 
         [Test]
@@ -398,6 +412,10 @@ package com.kemsky
             var gt1:Stream = $(1, 2, 3).filter(gt(_, 2));
             assertEquals(gt1.length, 1);
             assertEquals(gt1[0], 3);
+
+            var gt2:Stream = $("test1", "", null).filter(gt(_, ""));
+            assertEquals(gt2.length, 1);
+            assertEquals(gt2[0], "test1");
         }
 
         [Test]
