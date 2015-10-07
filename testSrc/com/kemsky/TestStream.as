@@ -336,6 +336,17 @@ package com.kemsky
             var eq2:Stream = $(item1, item2).filter(eq(_, item1));
             assertEquals(eq2.length, 1);
             assertEquals(eq2[0], item1);
+
+
+            var eq3:Stream = $("alex", "Alex", "ALEX").filter(eq(_, "alex", Stream.CASEINSENSITIVE));
+            assertEquals(eq3.length, 3);
+            assertEquals(eq3.first, "alex");
+            assertEquals(eq3.second, "Alex");
+            assertEquals(eq3.third, "ALEX");
+
+            var eq4:Stream = $("alex", "Alex", "ALEX").filter(eq(_, "alex"));
+            assertEquals(eq4.length, 1);
+            assertEquals(eq4.first, "alex");
         }
 
         [Test]
