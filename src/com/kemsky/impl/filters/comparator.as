@@ -8,6 +8,7 @@ package com.kemsky.impl.filters
      * @param a first item
      * @param b second item
      * @param options combination of Stream.CASEINSENSITIVE | Stream.DESCENDING | Stream.NUMERIC
+     * @param equals compare is used to check equality
      * @return -1, 0, 1
      */
     public function comparator(a:Object, b:Object, options:uint = 0, equals:Boolean = false):int
@@ -48,31 +49,31 @@ package com.kemsky.impl.filters
                     {
                         case TypeCache.BOOLEAN:
                         {
-                            result = Comparator.numericCompare(a, b);
+                            result = Comparator.numericCompare(Number(a), Number(b));
                             break;
                         }
 
                         case TypeCache.NUMBER:
                         {
-                            result = Comparator.numericCompare(a, b);
+                            result = Comparator.numericCompare(a as Number, b as Number);
                             break;
                         }
 
                         case TypeCache.STRING:
                         {
-                            result = Comparator.stringCompare(a, b, caseInsensitive);
+                            result = Comparator.stringCompare(a as String, b as String, caseInsensitive);
                             break;
                         }
 
                         case TypeCache.DATE:
                         {
-                            result = Comparator.dateCompare(a, b);
+                            result = Comparator.dateCompare(a as Date, b as Date);
                             break;
                         }
 
                         case TypeCache.XML_TYPE:
                         {
-                            result = Comparator.xmlCompare(a, b, numeric, caseInsensitive);
+                            result = Comparator.xmlCompare(a as XML, b as XML, numeric, caseInsensitive);
                             break;
                         }
                         default:
@@ -106,29 +107,8 @@ package com.kemsky.impl.filters
 
 class Comparator
 {
-    /**
-     * Pull the numbers from the objects and call the implementation.
-     */
-    public static function numericCompare(a:Object, b:Object):int
+    public static function numericCompare(fa:Number, fb:Number):int
     {
-        var fa:Number;
-        try
-        {
-            fa = Number(a);
-        }
-        catch(error:Error)
-        {
-        }
-
-        var fb:Number;
-        try
-        {
-            fb = Number(b);
-        }
-        catch(error:Error)
-        {
-        }
-
         if (isNaNFast(fa) && isNaNFast(fb))
             return 0;
 
@@ -147,38 +127,8 @@ class Comparator
         return 0;
     }
 
-    /**
-     * Pull the date objects from the values and compare them.
-     */
-    public static function dateCompare(a:Object, b:Object):int
+    public static function dateCompare(fa:Date, fb:Date):int
     {
-        var fa:Date;
-        try
-        {
-            fa = a as Date;
-        }
-        catch(error:Error)
-        {
-        }
-
-        var fb:Date;
-        try
-        {
-            fb = b as Date;
-        }
-        catch(error:Error)
-        {
-        }
-
-        if (fa == null && fb == null)
-            return 0;
-
-        if (fa == null)
-            return 1;
-
-        if (fb == null)
-            return -1;
-
         var na:Number = fa.getTime();
         var nb:Number = fb.getTime();
 
@@ -191,38 +141,8 @@ class Comparator
         return 0;
     }
 
-    /**
-     * Pull the strings from the objects and call the implementation.
-     */
-    public static function stringCompare(a:Object, b:Object, caseInsensitive:Boolean):int
+    public static function stringCompare(fa:String, fb:String, caseInsensitive:Boolean):int
     {
-        var fa:String;
-        try
-        {
-            fa = String(a);
-        }
-        catch(error:Error)
-        {
-        }
-
-        var fb:String;
-        try
-        {
-            fb = String(b);
-        }
-        catch(error:Error)
-        {
-        }
-
-        if (fa == null && fb == null)
-            return 0;
-
-        if (fa == null)
-            return 1;
-
-        if (fb == null)
-            return -1;
-
         // Convert to lowercase if we are case insensitive.
         if (caseInsensitive)
         {
@@ -240,12 +160,7 @@ class Comparator
         return result;
     }
 
-    /**
-     * Pull the values out fo the XML object, then compare
-     * using the string or numeric comparator depending
-     * on the numeric flag.
-     */
-    public static function xmlCompare(a:Object, b:Object, numeric:Boolean, caseInsensitive:Boolean):int
+    public static function xmlCompare(a:XML, b:XML, numeric:Boolean, caseInsensitive:Boolean):int
     {
         var sa:String;
         try
