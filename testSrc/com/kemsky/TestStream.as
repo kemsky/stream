@@ -11,6 +11,7 @@ package com.kemsky
     import com.kemsky.impl.filters.gt;
     import com.kemsky.impl.filters.le;
     import com.kemsky.impl.filters.lt;
+    import com.kemsky.impl.filters.mapped;
     import com.kemsky.impl.filters.ne;
     import com.kemsky.impl.filters.boolFalse;
     import com.kemsky.impl.filters.or;
@@ -36,6 +37,27 @@ package com.kemsky
         {
         }
 
+
+        [Test]
+        public function testMap():void
+        {
+            var item:Item = new Item("name", 5, 0);
+
+            var d:Dictionary = new Dictionary();
+            d[item.name] = item;
+
+            var o:Object = {};
+            o[item.name] = item;
+
+            var s:Stream = $(item);
+
+            assertEquals(s.filter(mapped(prop("name"), d)).length, 1);
+            assertEquals(s.filter(mapped(prop("name"), o)).length, 1);
+
+
+            var p:Stream = $("name", "price", "vat");
+            assertEquals(p.filter(mapped(_, item)).length, 3);
+        }
 
         [Test]
         public function testBoolean():void
