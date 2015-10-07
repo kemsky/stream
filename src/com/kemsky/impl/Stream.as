@@ -382,9 +382,9 @@ package com.kemsky.impl
             return dict;
         }
 
-        public function group(callback:Function, weak:Boolean = false):Dictionary
+        public function group(callback:Function, factory:Class = null):*
         {
-            var dict:Dictionary = new Dictionary(weak);
+            var dict:* = factory == null ? new Dictionary() : new factory();
             for each (var item:* in source)
             {
                 var key:* = callback(item);
