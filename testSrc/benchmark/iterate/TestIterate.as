@@ -1,4 +1,4 @@
-package benchmark
+package benchmark.iterate
 {
     import com.kemsky.impl.Stream;
 
