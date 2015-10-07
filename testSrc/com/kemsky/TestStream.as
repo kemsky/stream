@@ -13,9 +13,7 @@ package com.kemsky
     import com.kemsky.impl.filters.lt;
     import com.kemsky.impl.filters.mapped;
     import com.kemsky.impl.filters.ne;
-    import com.kemsky.impl.filters.boolFalse;
     import com.kemsky.impl.filters.or;
-    import com.kemsky.impl.filters.boolTrue;
     import com.kemsky.impl.filters.prop;
     import com.kemsky.impl.filters.subtract;
 
@@ -74,8 +72,8 @@ package com.kemsky
             item2.bool = true;
             var s:Stream = $(item1, item2);
 
-            assertEquals(s.filter(boolTrue(prop("bool"))).first, item2);
-            assertEquals(s.filter(boolFalse(prop("bool"))).first, item1);
+            assertEquals(s.filter(eq(prop("bool"), true)).first, item2);
+            assertEquals(s.filter(eq(prop("bool"), false)).first, item1);
         }
 
         [Test]
