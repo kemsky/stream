@@ -1,18 +1,11 @@
 package com.kemsky.impl.filters
 {
-    public function mapped(val1:*, map:*):Function
+    public function mapped(val1:*, map:Object):Function
     {
         return function (item:*):Boolean
         {
-            var key:* = toValue(item, val1);
-            if(map is Function)
-            {
-                return map(key);
-            }
-            else
-            {
-                return map.hasOwnProperty(key);
-            }
+            var v:* = toValue(item, val1);
+            return v is String ? map.hasOwnProperty(v): !(map[v] == null || map[v] === undefined);
         };
     }
 }
