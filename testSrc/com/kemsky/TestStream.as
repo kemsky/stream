@@ -37,7 +37,6 @@ package com.kemsky
         {
         }
 
-
         [Test]
         public function testMap():void
         {
@@ -324,6 +323,13 @@ package com.kemsky
             var eq1:Stream = $(1, 2, 3).filter(eq(_, 2));
             assertEquals(eq1.length, 1);
             assertEquals(eq1[0], 2);
+
+            var item1:Item = new Item("test1", 6);
+            var item2:Item = new Item("test2", 7);
+
+            var eq2:Stream = $(item1, item2).filter(eq(_, item1));
+            assertEquals(eq2.length, 1);
+            assertEquals(eq2[0], item1);
         }
 
         [Test]
