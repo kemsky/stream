@@ -578,6 +578,7 @@ package com.kemsky.impl
             {
                 callback(item);
             });
+            return this;
         }
 
         public function map(callback:Function):Stream
