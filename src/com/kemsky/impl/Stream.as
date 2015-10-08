@@ -288,7 +288,7 @@ package com.kemsky.impl
          * @param offset index to start from
          * @return new Stream that contains count of items starting from offset.
          */
-        public function take(count:int = -1, offset:uint = 0):Stream
+        public function take(count:int, offset:uint = 0):Stream
         {
             return slice(offset, offset + count);
         }
