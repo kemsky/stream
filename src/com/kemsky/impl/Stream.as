@@ -508,8 +508,7 @@ package com.kemsky.impl
 
         public function splice(...rest):Stream
         {
-            source.splice.apply(null, rest);
-            return this;
+            return new Stream(source.splice.apply(null, rest));
         }
 
         public function sort(...rest):Stream

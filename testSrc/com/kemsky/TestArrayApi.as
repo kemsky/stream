@@ -81,13 +81,16 @@ package com.kemsky
         {
             var s:Stream = $(1, 2, 3);
 
-            s.splice(0, 1);
+            var r1:Stream = s.splice(0, 1);
             assertEquals(s.length, 2);
             assertEquals(s.first, 2);
+            assertEquals(r1.length, 1);
+            assertEquals(r1.first, 1);
 
-            s.splice(0, 0, 1);
+            var r2:Stream = s.splice(0, 0, 1);
             assertEquals(s.length, 3);
             assertEquals(s.first, 1);
+            assertEquals(r2.length, 0);
         }
 
         [Test]
