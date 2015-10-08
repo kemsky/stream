@@ -30,6 +30,23 @@ package com.kemsky.impl
          * -------------------------------------------
          */
 
+        public function find(callback:Function):*
+        {
+            for each (var item:* in source)
+            {
+                if(callback(item))
+                {
+                    return item;
+                }
+            }
+            return null;
+        }
+
+        public function drop(count:uint):Stream
+        {
+            return this.slice(0, length - count);
+        }
+
         public function get(index:int):*
         {
             return source[index];

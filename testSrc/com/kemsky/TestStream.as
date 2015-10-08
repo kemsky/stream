@@ -36,6 +36,24 @@ package com.kemsky
         }
 
         [Test]
+        public function testFind():void
+        {
+            var s:Stream = $(1, 2, 4, 3);
+            assertEquals(s.find(gt(_, 2)), 4);
+        }
+
+        [Test]
+        public function testDrop():void
+        {
+            var s:Stream = $(1, 2, 3).drop(2);
+            assertEquals(s.length, 1);
+            assertEquals(s.first, 1);
+
+            var s2:Stream = $().drop(2);
+            assertEquals(s2.length, 0);
+        }
+
+        [Test]
         public function testMap():void
         {
             var item:Item = new Item("name1", 5, 0);
