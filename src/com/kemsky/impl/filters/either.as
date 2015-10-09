@@ -3,7 +3,13 @@ package com.kemsky.impl.filters
     import com.kemsky.$;
     import com.kemsky.impl.Stream;
 
-    public function either(val1:*, ...rest):Function
+    /**
+     * Creates function that checks if value equals to one of the arguments
+     * @param value item or item property
+     * @param rest arguments
+     * @return function that checks if value equals to one of the arguments
+     */
+    public function either(value:*, ...rest):Function
     {
         var values:Stream = $.apply(null, rest);
 
@@ -14,7 +20,7 @@ package com.kemsky.impl.filters
 
         return function (item:*):Boolean
         {
-            var val:* = toValue(item, val1);
+            var val:* = toValue(item, value);
 
             var result:Boolean = values.some(function (val2:*):Boolean
             {

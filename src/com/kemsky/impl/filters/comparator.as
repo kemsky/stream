@@ -3,13 +3,13 @@ package com.kemsky.impl.filters
     import com.kemsky.impl.Stream;
 
     /**
-     * Allows to use generic compare functions for the following types:
+     * Allows to use generic compare functions(le, ge, lt and others) for the following types:
      * Number, Date, XML, String or Boolean
      * @param a first item
      * @param b second item
      * @param options combination of Stream.CASEINSENSITIVE | Stream.DESCENDING | Stream.NUMERIC
      * @param equals compare is used to check equality
-     * @return -1, 0, 1
+     * @return -1 if a < b, 0 if a == b and 1 if a > b
      */
     public function comparator(a:Object, b:Object, options:uint = 0, equals:Boolean = false):int
     {

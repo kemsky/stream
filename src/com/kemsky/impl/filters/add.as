@@ -1,5 +1,10 @@
 package com.kemsky.impl.filters
 {
+    /**
+     * Creates function that calculates sum of provided arguments for an item
+     * @param rest arguments
+     * @return function that calculates sum of provided arguments
+     */
     public function add(...rest):Function
     {
         return function (item:*):*
