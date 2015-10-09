@@ -9,7 +9,7 @@ package com.kemsky.impl.filters
      * @param b second item
      * @param options combination of Stream.CASEINSENSITIVE | Stream.DESCENDING | Stream.NUMERIC
      * @param equals compare is used to check equality
-     * @return -1 if a < b, 0 if a == b and 1 if a > b
+     * @return -1 if a &lt; b, 0 if a == b and 1 if a &gt; b
      */
     public function comparator(a:Object, b:Object, options:uint = 0, equals:Boolean = false):int
     {

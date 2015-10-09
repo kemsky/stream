@@ -11,8 +11,8 @@
     <name>stream</name>
 
     <properties>
-        <flex.sdk.version>3.5.0.12683</flex.sdk.version>
-        <flexmojos.version>3.6.1</flexmojos.version>
+        <flex.sdk.version>4.6.b.23201</flex.sdk.version>
+        <flexmojos.version>4.2-beta</flexmojos.version>
     </properties>
 
     <build>
@@ -30,7 +30,6 @@
                     <includeTestFiles>
                         <includeTestFile>*Test*.as</includeTestFile>
                     </includeTestFiles>
-                    <coverageViewerPath/>
                     <storepass/>
                 </configuration>
                 <dependencies>
