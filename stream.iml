@@ -1,20 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<module type="Flex" version="4">
+<module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="Flex" version="4">
   <component name="FlexBuildConfigurationManager" active="stream">
     <configurations>
-      <configuration name="stream" output-type="Library" output-file="stream.swc" output-folder="$MODULE_DIR$/out/production/stream">
+      <configuration name="stream" output-type="Library" output-file="stream-1.0.0.swc" output-folder="$MODULE_DIR$/target">
         <dependencies target-player="19.0">
           <entries>
-            <entry library-id="749c0fe8-a820-4ad4-8c52-8cb8b3ce4e60">
+            <entry library-name="Maven: com.adobe.flex.framework:flex:swc:3.5.0.12683" library-level="project">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry library-name="Maven: com.adobe.flex.framework:framework:swc:3.5.0.12683" library-level="project">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry library-name="Maven: com.adobe.flex.framework:rpc:swc:3.5.0.12683" library-level="project">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry library-name="Maven: com.adobe.flex.framework:utilities:swc:3.5.0.12683" library-level="project">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry library-name="Maven: com.adobe.flex.framework:playerglobal:swc:9:3.5.0.12683" library-level="project">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry library-name="Maven: com.adobe.flex.framework:framework:rb.swc:3.5.0.12683" library-level="project">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry library-name="Maven: com.adobe.flex.framework:rpc:rb.swc:3.5.0.12683" library-level="project">
+              <dependency linkage="Merged" />
+            </entry>
+            <entry library-name="Maven: com.adobe.flexunit:flexunit:swc:4.0-rc-1" library-level="project">
               <dependency linkage="Test" />
             </entry>
           </entries>
-          <sdk name="flex_sdk_4.14.1" />
+          <sdk name="Flexmojos SDK 3.5.0.12683" />
         </dependencies>
         <compiler-options>
           <map>
             <entry key="compiler.define" value="CONFIG::flex&#9;true" />
+            <entry key="compiler.locale" value="" />
           </map>
+          <option name="additionalConfigFilePath" value="$MODULE_DIR$/target/stream-1.0.0-config-report.xml" />
         </compiler-options>
         <packaging-air-desktop />
         <packaging-android />
@@ -23,23 +46,23 @@
     </configurations>
     <compiler-options />
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="true">
-    <exclude-output />
+  <component name="NewModuleRootManager" LANGUAGE_LEVEL="JDK_1_5" inherit-compiler-output="false">
+    <output url="file://$MODULE_DIR$/target/classes" />
+    <output-test url="file://$MODULE_DIR$/target/test-classes" />
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/testSrc" isTestSource="true" />
+      <excludeFolder url="file://$MODULE_DIR$/target" />
     </content>
-    <orderEntry type="jdk" jdkName="flex_sdk_4.14.1" jdkType="Flex SDK Type (new)" />
+    <orderEntry type="jdk" jdkName="Flexmojos SDK 3.5.0.12683" jdkType="Flexmojos SDK Type" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="module-library" exported="">
-      <library type="flex">
-        <properties id="749c0fe8-a820-4ad4-8c52-8cb8b3ce4e60" />
-        <CLASSES>
-          <root url="jar://$MODULE_DIR$/libs/flexunit-4.2.0-20140410-flex_4.12.0.swc!/" />
-        </CLASSES>
-        <JAVADOC />
-        <SOURCES />
-      </library>
-    </orderEntry>
+    <orderEntry type="library" exported="" name="Maven: com.adobe.flex.framework:flex:swc:3.5.0.12683" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.adobe.flex.framework:framework:swc:3.5.0.12683" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.adobe.flex.framework:rpc:swc:3.5.0.12683" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.adobe.flex.framework:utilities:swc:3.5.0.12683" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.adobe.flex.framework:playerglobal:swc:9:3.5.0.12683" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.adobe.flex.framework:framework:rb.swc:3.5.0.12683" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.adobe.flex.framework:rpc:rb.swc:3.5.0.12683" level="project" />
+    <orderEntry type="library" exported="" name="Maven: com.adobe.flexunit:flexunit:swc:4.0-rc-1" level="project" />
   </component>
 </module>

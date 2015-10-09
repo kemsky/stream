@@ -8,6 +8,9 @@ package com.kemsky.impl
     import flash.utils.Proxy;
     import flash.utils.flash_proxy;
 
+    import mx.collections.ArrayCollection;
+    import mx.collections.ArrayList;
+
     [RemoteClass(alias="com.kemsky.impl.Stream")]
     public dynamic class Stream extends Proxy implements IExternalizable
     {
@@ -37,7 +40,7 @@ package com.kemsky.impl
 
             for each (var item:* in source)
             {
-                if(callback(item))
+                if (callback(item))
                 {
                     first.push(item);
                 }
@@ -65,7 +68,7 @@ package com.kemsky.impl
         {
             var result:Array = [];
             result.length = source.length;
-            for(var i:int = 0; i < source.length; i++)
+            for (var i:int = 0; i < source.length; i++)
             {
                 result[i] = new Stream([i, source[i]]);
             }
@@ -77,7 +80,7 @@ package com.kemsky.impl
             var result:int = 0;
             for each (var item:* in source)
             {
-                if(callback(item))
+                if (callback(item))
                 {
                     return result;
                 }
@@ -90,7 +93,7 @@ package com.kemsky.impl
         {
             for each (var item:* in source)
             {
-                if(callback(item))
+                if (callback(item))
                 {
                     return item;
                 }
@@ -119,7 +122,7 @@ package com.kemsky.impl
             var result:uint = 0;
             for each (var item:* in source)
             {
-                if(callback(item))
+                if (callback(item))
                 {
                     result++;
                 }
@@ -403,28 +406,21 @@ package com.kemsky.impl
             return new Stream().concat(mapped);
         }
 
-        CONFIG::flex {
-
-            import mx.collections.ArrayCollection;
-            import mx.collections.ArrayList;
-
-            /**
-             * Returns new ArrayCollection created from items of current Stream
-             */
-            public function collection():ArrayCollection
-            {
-                return new ArrayCollection(source.concat());
-            }
+        /**
+         * Returns new ArrayCollection created from items of current Stream
+         */
+        public function collection():ArrayCollection
+        {
+            return new ArrayCollection(source.concat());
+        }
 
 
-            /**
-             * Returns new ArrayList created from items of current Stream
-             */
-            public function list():ArrayList
-            {
-                return new ArrayList(this.source.concat());
-            }
-
+        /**
+         * Returns new ArrayList created from items of current Stream
+         */
+        public function list():ArrayList
+        {
+            return new ArrayList(this.source.concat());
         }
 
         /**
@@ -446,7 +442,7 @@ package com.kemsky.impl
             var dict:Dictionary = new Dictionary(weak);
             for each (var item:* in source)
             {
-                if(item.hasOwnProperty(property))
+                if (item.hasOwnProperty(property))
                 {
                     var value:* = item[property];
                     dict[value] = item;
@@ -462,7 +458,7 @@ package com.kemsky.impl
             {
                 var key:* = callback(item);
                 var s:Stream = dict[key];
-                if(s == null)
+                if (s == null)
                 {
                     s = new Stream();
                     dict[key] = s;
@@ -482,7 +478,7 @@ package com.kemsky.impl
             var dict:Object = {};
             for each (var item:* in source)
             {
-                if(item.hasOwnProperty(property))
+                if (item.hasOwnProperty(property))
                 {
                     var value:* = item[property];
                     dict[value] = item;
