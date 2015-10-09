@@ -32,8 +32,7 @@ package com.kemsky.impl
 
         //todo add iterators for index, value and zipped
 
-        //todo zip
-        public function get entries():Stream
+        public function zip():Stream
         {
             var result:Array = [];
             result.length = source.length;
@@ -383,7 +382,7 @@ package com.kemsky.impl
             /**
              * Returns new ArrayCollection created from items of current Stream
              */
-            public function get collection():ArrayCollection
+            public function collection():ArrayCollection
             {
                 return new ArrayCollection(source.concat());
             }
@@ -392,7 +391,7 @@ package com.kemsky.impl
             /**
              * Returns new ArrayList created from items of current Stream
              */
-            public function get list():ArrayList
+            public function list():ArrayList
             {
                 return new ArrayList(this.source.concat());
             }
@@ -402,7 +401,7 @@ package com.kemsky.impl
         /**
          * Returns new Array created from items of current Stream
          */
-        public function get array():Array
+        public function array():Array
         {
             return source.concat();
         }

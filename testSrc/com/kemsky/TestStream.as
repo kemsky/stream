@@ -37,10 +37,10 @@ package com.kemsky
 
 
         [Test]
-        public function testEntries():void
+        public function testZip():void
         {
             var s:Stream = $("1", "2");
-            var e:Stream = s.entries;
+            var e:Stream = s.zip();
             assertEquals(e.length, s.length);
             assertTrue(e.first is Stream);
             assertTrue(e.second is Stream);
@@ -645,17 +645,17 @@ package com.kemsky
             assertEquals(array[2], 3);
             assertEquals(array.last, 3);
             verify(array, original);
-            verify(array.array, original);
+            verify(array.array(), original);
             CONFIG::flex {
-                verify(array.collection, original);
-                verify(array.list, original);
+                verify(array.collection(), original);
+                verify(array.list(), original);
             }
 
-            assertTrue(array.array is Array);
+            assertTrue(array.array() is Array);
 
             CONFIG::flex {
-                assertTrue(array.collection is ArrayCollection);
-                assertTrue(array.list is IList);
+                assertTrue(array.collection() is ArrayCollection);
+                assertTrue(array.list() is IList);
 
                 var collection:Stream = $(new ArrayCollection([1, 2, 3]));
                 assertEquals(collection.empty, false);
@@ -666,9 +666,9 @@ package com.kemsky
                 assertEquals(collection[2], 3);
                 assertEquals(collection.last, 3);
                 verify(collection, original);
-                verify(collection.array, original);
-                verify(collection.collection, original);
-                verify(collection.list, original);
+                verify(collection.array(), original);
+                verify(collection.collection(), original);
+                verify(collection.list(), original);
             }
 
             var args:Stream = $(1, 2, 3);
@@ -680,10 +680,10 @@ package com.kemsky
             assertEquals(args[2], 3);
             assertEquals(args.last, 3);
             verify(args, original);
-            verify(args.array, original);
+            verify(args.array(), original);
             CONFIG::flex {
-                verify(args.collection, original);
-                verify(args.list, original);
+                verify(args.collection(), original);
+                verify(args.list(), original);
             }
 
 
