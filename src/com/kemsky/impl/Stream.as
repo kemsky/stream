@@ -30,6 +30,9 @@ package com.kemsky.impl
          * -------------------------------------------
          */
 
+        //todo add iterators for index, value and zipped
+
+        //todo zip
         public function get entries():Stream
         {
             var result:Array = [];
