@@ -127,7 +127,7 @@ package com.kemsky
         {
             var item:Item = new Item("name1", 5, 0);
             var s:Stream = $(item);
-            assertEquals(s.map(prop("name")).first, "name1");
+            assertEquals(s.map(prop(_, "name")).first, "name1");
         }
 
         [Test]
@@ -143,8 +143,8 @@ package com.kemsky
 
             var s:Stream = $(item);
 
-            assertEquals(s.filter(mapped(prop("name"), d)).length, 1);
-            assertEquals(s.filter(mapped(prop("name"), o)).length, 1);
+            assertEquals(s.filter(mapped(prop(_, "name"), d)).length, 1);
+            assertEquals(s.filter(mapped(prop(_, "name"), o)).length, 1);
 
 
             var p:Stream = $("name", "price", "vat");
@@ -159,8 +159,8 @@ package com.kemsky
             item2.bool = true;
             var s:Stream = $(item1, item2);
 
-            assertEquals(s.filter(eq(prop("bool"), true)).first, item2);
-            assertEquals(s.filter(eq(prop("bool"), false)).first, item1);
+            assertEquals(s.filter(eq(prop(_, "bool"), true)).first, item2);
+            assertEquals(s.filter(eq(prop(_, "bool"), false)).first, item1);
         }
 
         [Test]
@@ -345,7 +345,7 @@ package com.kemsky
 
             var s:Stream = $(item1, item2);
 
-            var result:Stream = s.filter(gt(prop("price"), 1));
+            var result:Stream = s.filter(gt(prop(_, "price"), 1));
             assertEquals(result.length, 1);
             assertEquals(result.first, item2);
 
@@ -357,20 +357,23 @@ package com.kemsky
             assertEquals(result.length, 1);
             assertEquals(result.first, item2.price);
 
-            result = s.filter(ge(prop("price"), 2));
+            result = s.filter(ge(prop(_, "price"), 2));
             assertEquals(result.length, 1);
             assertEquals(result.first, item2);
 
-            result = s.filter(gt(add(prop("price"), prop("vat")), 2));
+            result = s.filter(gt(add(prop(_, "price"), prop(_, "vat")), 2));
             assertEquals(result.length, 1);
             assertEquals(result.first, item1);
 
-            result = s.filter(gt(subtract(prop("price"), prop("vat")), 0));
+            result = s.filter(gt(subtract(prop(_, "price"), prop(_, "vat")), 0));
             assertEquals(result.length, 1);
             assertEquals(result.first, item2);
 
             result = s.filter(gt(0, 1));
             assertEquals(result.length, 0);
+
+            result = s.filter(ge(prop(prop(_, "name"), "length"), 1));
+            assertEquals(result.length, 2);
 
             //some fun
             result = s.filter(ge(function (item:Item):Number

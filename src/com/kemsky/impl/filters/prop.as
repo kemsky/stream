@@ -1,10 +1,11 @@
 package com.kemsky.impl.filters
 {
-    public function prop(name:String):Function
+    public function prop(val:*, name:String):Function
     {
         return function (item:*):*
         {
-            return item.hasOwnProperty(name) ? item[name] : null;
+            item = toValue(item, val);
+            return item.hasOwnProperty(name) ? item[name] : undefined;
         };
     }
 }
