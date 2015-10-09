@@ -30,7 +30,16 @@ package com.kemsky.impl
          * -------------------------------------------
          */
 
-        //todo add iterators for index, value and zipped
+        public function fill(value:*, length:int = -1):Stream
+        {
+            var count:uint = length == -1 ? source.length : length;
+
+            for (var i:int = 0; i < count; i++)
+            {
+                source[i] = value;
+            }
+            return this;
+        }
 
         public function zip():Stream
         {

@@ -37,6 +37,18 @@ package com.kemsky
 
 
         [Test]
+        public function testFill():void
+        {
+            var s:Stream = $();
+            s.fill(1);
+            assertEquals(s.length, 0);
+
+            s.fill(1, 1);
+            assertEquals(s.length, 1);
+            assertEquals(s.first, 1);
+        }
+
+        [Test]
         public function testZip():void
         {
             var s:Stream = $("1", "2");
