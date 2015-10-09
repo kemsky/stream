@@ -36,6 +36,26 @@ package com.kemsky
         {
         }
 
+        [Test]
+        public function testPartition():void
+        {
+            var s:Stream = $(1, 2, 3, 4, 5, 6);
+            var groups:Stream = s.partition(function (item:Number):Boolean
+            {
+                return item <= 3;
+            });
+
+            assertEquals(groups.length, 2);
+
+            var g1:Stream = groups[0];
+            assertEquals(g1.length, 3);
+            assertEquals(g1.third, 3);
+
+            var g2:Stream = groups[1];
+            assertEquals(g2.length, 3);
+            assertEquals(g2.third, 6);
+        }
+
 
         [Test]
         public function testDefined():void

@@ -30,6 +30,26 @@ package com.kemsky.impl
          * -------------------------------------------
          */
 
+        public function partition(callback:Function):Stream
+        {
+            var first:Stream = new Stream();
+            var second:Stream = new Stream();
+
+            for each (var item:* in source)
+            {
+                if(callback(item))
+                {
+                    first.push(item);
+                }
+                else
+                {
+                    second.push(item);
+                }
+            }
+
+            return new Stream([first, second]);
+        }
+
         public function fill(value:*, length:int = -1):Stream
         {
             var count:uint = length == -1 ? source.length : length;
