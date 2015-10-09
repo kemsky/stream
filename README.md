@@ -1,5 +1,5 @@
-# stream
-###Modern ActionScript collection library ![Build Status](https://api.travis-ci.org/kemsky/stream.svg)
+# stream ![Build Status](https://api.travis-ci.org/kemsky/stream.svg)
+###Modern ActionScript collection library
 
 Basically it is Array wrapper that adds many useful methods and properties (filter, iterate, map, fold, flatMap, first, second .. twentieth, last, empty etc.).
 
