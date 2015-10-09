@@ -1,4 +1,4 @@
-# stream ![Build Status](https://api.travis-ci.org/kemsky/stream.svg)
+# stream [![Build Status](https://api.travis-ci.org/kemsky/stream.svg)](https://travis-ci.org/kemsky/stream)
 ###Modern ActionScript collection library
 
 Basically it is Array wrapper that adds many useful methods and properties (filter, iterate, map, fold, flatMap, first, second .. twentieth, last, empty etc.).
@@ -155,5 +155,5 @@ If you need better performance (3x slower than Array) use methods to access stre
 
 ## Build
 
-You can build library using Intelij Idea or Apache Maven.
-Generate ASDoc: `mvn flexmojos:asdoc`
+You can build library using **Intelij Idea** or **Apache Maven**.
+Generate ASDoc(not yet complete): `mvn flexmojos:asdoc`
