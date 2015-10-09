@@ -20,7 +20,7 @@ package com.kemsky
             if(Flex.available && [0] is Flex.collection)
             {
                 //$ from collection
-                return new Stream(rest[0].source);
+                return new Stream(rest[0].toArray());
             }
             else if(rest[0] is Array)
             {
