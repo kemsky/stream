@@ -30,6 +30,20 @@ package com.kemsky.impl
          * -------------------------------------------
          */
 
+        public function findIndex(callback:Function):int
+        {
+            var result:int = 0;
+            for each (var item:* in source)
+            {
+                if(callback(item))
+                {
+                    return result;
+                }
+                result++;
+            }
+            return -1;
+        }
+
         public function find(callback:Function):*
         {
             for each (var item:* in source)
