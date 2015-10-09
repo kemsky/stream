@@ -146,7 +146,7 @@ trace(s.count(function(item:Item):Boolean
 //prints 1
 ```
 
-Also you can clone stream (even deep clone using AMF tricks)
+And many other methods: `group`,`partition`,`fill`,`find`,`findIndex`, `drop`, `zip`, `skip` etc. 
 
 ## Performance
 
