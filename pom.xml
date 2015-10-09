@@ -25,11 +25,6 @@
                 <version>${flexmojos.version}</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <!--<testRunner>-->
-                        <!--<launcher>-->
-                            <!--<flashplayerCommand>${flashPlayer.command}</flashplayerCommand>-->
-                        <!--</launcher>-->
-                    <!--</testRunner>-->
                     <headlessServer>true</headlessServer>
                     <verboseStacktraces>true</verboseStacktraces>
                     <includeTestFiles>
@@ -39,7 +34,6 @@
                     <storepass/>
                 </configuration>
                 <dependencies>
-                    <!-- Nice POM bundle available per SDK on Sonatype thanks to Flex-Mojos -->
                     <dependency>
                         <groupId>com.adobe.flex</groupId>
                         <artifactId>compiler</artifactId>
