@@ -5,6 +5,7 @@ package com.kemsky
     import com.kemsky.impl.filters._;
     import com.kemsky.impl.filters.add;
     import com.kemsky.impl.filters.and;
+    import com.kemsky.impl.filters.defined;
     import com.kemsky.impl.filters.either;
     import com.kemsky.impl.filters.eq;
     import com.kemsky.impl.filters.ge;
@@ -35,6 +36,19 @@ package com.kemsky
         {
         }
 
+
+        [Test]
+        public function testDefined():void
+        {
+            var s:Stream = $();
+            s[0] = 0;
+            s[10] = 1;
+
+            var r:Stream = s.filter(defined(_));
+            assertEquals(r.length, 2);
+            assertEquals(r.first, 0);
+            assertEquals(r.second, 1);
+        }
 
         [Test]
         public function testFill():void
