@@ -156,4 +156,6 @@ If you need better performance (3x slower than Array) use methods to access stre
 ## Build
 
 You can build library using **Intelij Idea** or **Apache Maven**.
-Generate ASDoc(not yet complete): `mvn flexmojos:asdoc`
+Maven compile `mvn compile`
+Maven run tests `mvn test -DflashPlayer.command="/Applications/Flash Player.app/Contents/MacOS/Flash Player Debugger"`
+Maven generate ASDoc(not yet complete): `mvn flexmojos:asdoc`
