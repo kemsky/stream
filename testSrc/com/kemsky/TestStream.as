@@ -35,6 +35,22 @@ package com.kemsky
         {
         }
 
+
+        [Test]
+        public function testEntries():void
+        {
+            var s:Stream = $("1", "2");
+            var e:Stream = s.entries;
+            assertEquals(e.length, s.length);
+            assertTrue(e.first is Stream);
+            assertTrue(e.second is Stream);
+            assertEquals(e.first.length, 2);
+            assertEquals(e.first.first, 0);
+            assertEquals(e.first.second, "1");
+            assertEquals(e.second.first, 1);
+            assertEquals(e.second.second, "2");
+        }
+
         [Test]
         public function testFindIndex():void
         {

@@ -30,6 +30,17 @@ package com.kemsky.impl
          * -------------------------------------------
          */
 
+        public function get entries():Stream
+        {
+            var result:Array = [];
+            result.length = source.length;
+            for(var i:int = 0; i < source.length; i++)
+            {
+                result[i] = new Stream([i, source[i]]);
+            }
+            return new Stream(result);
+        }
+
         public function findIndex(callback:Function):int
         {
             var result:int = 0;
@@ -53,7 +64,7 @@ package com.kemsky.impl
                     return item;
                 }
             }
-            return null;
+            return undefined;
         }
 
         public function drop(count:uint):Stream
