@@ -3,7 +3,7 @@
 
 Basically it is Array wrapper that adds many useful methods and properties (filter, iterate, map, fold, flatMap, first, second .. twentieth, last, empty etc.).
 
-Inspired by underscore.js and other libraries.
+Inspired by underscore.js and other libraries. 
 
 
 ## Create
@@ -152,3 +152,8 @@ And many other methods: `group`,`partition`,`fill`,`find`,`findIndex`, `drop`, `
 
 Stream is about 10x slower when accessed by index (`[index]`) and it seems to be Proxy overhead.
 If you need better performance (3x slower than Array) use methods to access stream items: `get(index:int):*` and `set(index:int, value:*):void`.
+
+## Build
+
+You can build library using Intelij Idea or Apache Maven.
+Generate ASDoc: `mvn flexmojos:asdoc`
