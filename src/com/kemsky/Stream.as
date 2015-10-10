@@ -547,7 +547,7 @@ package com.kemsky
                 }
                 else
                 {
-                    result = result.concat.apply(null, item);
+                    result = result.concat.apply(null, [item]);
                 }
             }
             return new Stream(result);

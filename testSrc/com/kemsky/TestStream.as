@@ -815,6 +815,7 @@ package com.kemsky
             }
 
             assertFalse(array.hasOwnProperty("4"));
+            assertFalse(array.hasOwnProperty("random"));
 
             try
             {
