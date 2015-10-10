@@ -497,6 +497,8 @@ package com.kemsky
 
             var c:Function = curry(b, 1);
             assertEquals(c(), 3);
+
+            assertEquals(curry(many)(1, 1)(1), 3);
         }
 
         [Test]

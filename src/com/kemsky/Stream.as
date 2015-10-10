@@ -581,7 +581,7 @@ package com.kemsky
             {
                 //this is error, don't want to trade type safety just for this case
                 //see 'unique' method
-                throw new Error();
+                throw new Error("Stream is not unique");
             }
             else if (result != source)
             {
@@ -597,7 +597,7 @@ package com.kemsky
 
             if (result == 0)
             {
-                return this;
+                throw new Error("Stream is not unique");
             }
             else if (result != source)
             {
@@ -716,7 +716,7 @@ package com.kemsky
 
             if (index == -1 || index > source.length)
             {
-                throw new Error();
+                throw new Error("Incorrect index: " + String(name));
             }
             else
             {
@@ -742,7 +742,7 @@ package com.kemsky
 
             if (index == -1)
             {
-                throw new Error();
+                throw new Error("Incorrect index: " + String(name));
             }
             else
             {
@@ -793,7 +793,7 @@ package com.kemsky
         {
             if (rest.length != 1 || !(rest[0] is Function))
             {
-                throw new Error();
+                throw new Error("Shortcut filter must have exactly one parameter (Function)");
             }
 
             var criteria:Function = rest[0] as Function;

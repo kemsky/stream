@@ -160,6 +160,18 @@ package com.kemsky
                 assertTrue(val >= s[i].price);
                 val = s[i].price;
             }
+
+
+            var item:Item = new Item("name");
+            var s2:Stream = $(item, item);
+            try
+            {
+                s2.sortOn("name", Stream.UNIQUESORT);
+                assertFalse(true);
+            }
+            catch(e:Error)
+            {
+            }
         }
 
         [Test]

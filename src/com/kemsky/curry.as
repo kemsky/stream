@@ -12,13 +12,13 @@ package com.kemsky
 
         function currying(func:Function, arity:int, args:Array):*
         {
-            return function curried(... moreArgs:Array):*
+            return function curried(...left):*
             {
-                if(moreArgs.length + args.length < arity)
+                if(left.length + args.length < arity)
                 {
-                    return currying(func, arity, args.concat(moreArgs));
+                    return currying(func, arity, args.concat(left));
                 }
-                return func.apply(this, args.concat(moreArgs));
+                return func.apply(this, args.concat(left));
             }
         }
 
