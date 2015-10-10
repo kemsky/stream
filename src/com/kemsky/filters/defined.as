@@ -1,5 +1,7 @@
-package com.kemsky.impl.filters
+package com.kemsky.filters
 {
+    import com.kemsky.util.toValue;
+
     public function defined(val:*):Function
     {
         return function (item:*):Boolean

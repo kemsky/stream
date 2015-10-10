@@ -1,4 +1,4 @@
-package com.kemsky.impl.filters
+package com.kemsky.filters
 {
     /**
      * Creates function that applies logical NOT to provided criteria

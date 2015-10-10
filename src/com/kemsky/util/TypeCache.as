@@ -1,8 +1,11 @@
-package com.kemsky.impl.filters
+package com.kemsky.util
 {
     import flash.utils.Dictionary;
     import flash.utils.getQualifiedClassName;
 
+    /**
+     * @private
+     */
     public class TypeCache
     {
         public static const NUMBER:String = "Number";

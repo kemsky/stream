@@ -1,4 +1,4 @@
-package com.kemsky.impl.filters
+package com.kemsky.filters
 {
     /**
      * Creates function that calculates sum of provided arguments for an item

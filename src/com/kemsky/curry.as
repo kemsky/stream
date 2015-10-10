@@ -1,4 +1,4 @@
-package com.kemsky.impl
+package com.kemsky
 {
     /**
      * Creates partially applied function

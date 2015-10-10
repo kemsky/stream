@@ -1,7 +1,7 @@
 package com.kemsky
 {
-    import com.kemsky.impl.Flex;
-    import com.kemsky.impl.Stream;
+    import com.kemsky.util.Flex;
+    import com.kemsky.Stream;
 
     /**
      * Global function that creates Stream objects

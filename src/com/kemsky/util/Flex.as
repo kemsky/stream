@@ -1,7 +1,10 @@
-package com.kemsky.impl
+package com.kemsky.util
 {
     import flash.utils.getDefinitionByName;
 
+    /**
+     * @private
+     */
     public class Flex
     {
         private static const instance:Flex = new Flex();

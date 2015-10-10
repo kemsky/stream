@@ -1,4 +1,4 @@
-package com.kemsky.impl.filters
+package com.kemsky.filters
 {
     /**
      * Creates function that calculates logical OR value of provided arguments for an item

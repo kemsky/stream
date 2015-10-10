@@ -1,6 +1,6 @@
-package com.kemsky.impl.filters
+package com.kemsky.filters
 {
-    public function divide(...rest):Function
+    public function subtract(...rest):Function
     {
         return function (item:*):*
         {
@@ -11,11 +11,11 @@ package com.kemsky.impl.filters
                 var f:* = rest[i];
                 if(f is Function)
                 {
-                    result /= f(item);
+                    result -= f(item);
                 }
                 else
                 {
-                    result /= f;
+                    result -= f;
                 }
             }
             return result;

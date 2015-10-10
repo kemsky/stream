@@ -1,6 +1,6 @@
 package com.kemsky
 {
-    import com.kemsky.impl.Stream;
+    import com.kemsky.Stream;
 
     import org.flexunit.asserts.assertEquals;
     import org.flexunit.asserts.assertFalse;

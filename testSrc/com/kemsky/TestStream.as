@@ -1,26 +1,26 @@
 package com.kemsky
 {
-    import com.kemsky.impl.Stream;
-    import com.kemsky.impl.curry;
-    import com.kemsky.impl.filters._;
-    import com.kemsky.impl.filters.add;
-    import com.kemsky.impl.filters.and;
-    import com.kemsky.impl.filters.comparator;
-    import com.kemsky.impl.filters.defined;
-    import com.kemsky.impl.filters.divide;
-    import com.kemsky.impl.filters.either;
-    import com.kemsky.impl.filters.eq;
-    import com.kemsky.impl.filters.ge;
-    import com.kemsky.impl.filters.gt;
-    import com.kemsky.impl.filters.le;
-    import com.kemsky.impl.filters.lt;
-    import com.kemsky.impl.filters.mapped;
-    import com.kemsky.impl.filters.multiply;
-    import com.kemsky.impl.filters.ne;
-    import com.kemsky.impl.filters.not;
-    import com.kemsky.impl.filters.or;
-    import com.kemsky.impl.filters.prop;
-    import com.kemsky.impl.filters.subtract;
+    import com.kemsky.Stream;
+    import com.kemsky.curry;
+    import com.kemsky.filters._;
+    import com.kemsky.filters.add;
+    import com.kemsky.filters.and;
+    import com.kemsky.filters.compare;
+    import com.kemsky.filters.defined;
+    import com.kemsky.filters.divide;
+    import com.kemsky.filters.either;
+    import com.kemsky.filters.eq;
+    import com.kemsky.filters.ge;
+    import com.kemsky.filters.gt;
+    import com.kemsky.filters.le;
+    import com.kemsky.filters.lt;
+    import com.kemsky.filters.mapped;
+    import com.kemsky.filters.multiply;
+    import com.kemsky.filters.ne;
+    import com.kemsky.filters.not;
+    import com.kemsky.filters.or;
+    import com.kemsky.filters.prop;
+    import com.kemsky.filters.subtract;
 
     import flash.utils.ByteArray;
     import flash.utils.Dictionary;
@@ -44,40 +44,40 @@ package com.kemsky
         {
             var date:Date = new Date(2000);
 
-            assertEquals(comparator(null, null), 0);
-            assertEquals(comparator(null, 1), -1);
-            assertEquals(comparator(null, 1, Stream.DESCENDING), 1);
-            assertEquals(comparator(1, null), 1);
-            assertEquals(comparator(1, 1, Stream.NUMERIC), 0);
-            assertEquals(comparator(1, "1"), -1);
+            assertEquals(compare(null, null), 0);
+            assertEquals(compare(null, 1), -1);
+            assertEquals(compare(null, 1, Stream.DESCENDING), 1);
+            assertEquals(compare(1, null), 1);
+            assertEquals(compare(1, 1, Stream.NUMERIC), 0);
+            assertEquals(compare(1, "1"), -1);
 
-            assertEquals(comparator(new Date(), date), 1);
-            assertEquals(comparator(date, date), 0);
-            assertEquals(comparator(date, new Date()), -1);
+            assertEquals(compare(new Date(), date), 1);
+            assertEquals(compare(date, date), 0);
+            assertEquals(compare(date, new Date()), -1);
 
 
-            assertEquals(comparator(NaN, 1), -1);
-            assertEquals(comparator(NaN, NaN), 0);
-            assertEquals(comparator(1, NaN), 1);
+            assertEquals(compare(NaN, 1), -1);
+            assertEquals(compare(NaN, NaN), 0);
+            assertEquals(compare(1, NaN), 1);
 
-            assertEquals(comparator("abc", "def"), -1);
-            assertEquals(comparator("t", "t"), 0);
-            assertEquals(comparator("def", "abc"), 1);
+            assertEquals(compare("abc", "def"), -1);
+            assertEquals(compare("t", "t"), 0);
+            assertEquals(compare("def", "abc"), 1);
 
 
             var xs1:XML = <a>123</a>;
             var xs2:XML = <a>1</a>;
-            assertEquals(comparator(xs1, xs2), 1);
-            assertEquals(comparator(xs2, xs2), 0);
-            assertEquals(comparator(xs2, xs1), -1);
+            assertEquals(compare(xs1, xs2), 1);
+            assertEquals(compare(xs2, xs2), 0);
+            assertEquals(compare(xs2, xs1), -1);
 
-            assertEquals(comparator(xs1, xs2, Stream.NUMERIC), 1);
-            assertEquals(comparator(xs2, xs2, Stream.NUMERIC), 0);
-            assertEquals(comparator(xs2, xs1, Stream.NUMERIC), -1);
+            assertEquals(compare(xs1, xs2, Stream.NUMERIC), 1);
+            assertEquals(compare(xs2, xs2, Stream.NUMERIC), 0);
+            assertEquals(compare(xs2, xs1, Stream.NUMERIC), -1);
 
             try
             {
-                comparator(new Item(), new Item());
+                compare(new Item(), new Item());
                 assertFalse(true);
             }
             catch (e:Error)

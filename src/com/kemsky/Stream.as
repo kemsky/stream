@@ -1,5 +1,6 @@
-package com.kemsky.impl
+package com.kemsky
 {
+    import com.kemsky.util.*;
     import flash.utils.ByteArray;
     import flash.utils.Dictionary;
     import flash.utils.IDataInput;
@@ -11,7 +12,7 @@ package com.kemsky.impl
     import mx.collections.ArrayCollection;
     import mx.collections.ArrayList;
 
-    [RemoteClass(alias="com.kemsky.impl.Stream")]
+    [RemoteClass(alias="com.kemsky.Stream")]
     public dynamic class Stream extends Proxy implements IExternalizable
     {
         public static const CASEINSENSITIVE:uint = 1;

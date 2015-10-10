@@ -1,4 +1,4 @@
-package com.kemsky.impl.filters
+package com.kemsky.filters
 {
     /**
      * Loopback function, allows to use stream item as an argument for other functions

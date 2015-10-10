@@ -1,6 +1,6 @@
 package benchmark.iterate
 {
-    import com.kemsky.impl.Stream;
+    import com.kemsky.Stream;
 
     import flash.utils.getTimer;
 

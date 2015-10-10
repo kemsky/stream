@@ -1,5 +1,7 @@
-package com.kemsky.impl.filters
+package com.kemsky.filters
 {
+    import com.kemsky.util.toValue;
+
     /**
      * Creates function that extracts named property from value
      * @param value item or function applied to item

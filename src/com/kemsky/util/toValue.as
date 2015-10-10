@@ -1,4 +1,4 @@
-package com.kemsky.impl.filters
+package com.kemsky.util
 {
     /**
      * @private
