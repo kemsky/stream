@@ -5,7 +5,9 @@ package com.kemsky
     import com.kemsky.impl.filters._;
     import com.kemsky.impl.filters.add;
     import com.kemsky.impl.filters.and;
+    import com.kemsky.impl.filters.comparator;
     import com.kemsky.impl.filters.defined;
+    import com.kemsky.impl.filters.divide;
     import com.kemsky.impl.filters.either;
     import com.kemsky.impl.filters.eq;
     import com.kemsky.impl.filters.ge;
@@ -13,7 +15,9 @@ package com.kemsky
     import com.kemsky.impl.filters.le;
     import com.kemsky.impl.filters.lt;
     import com.kemsky.impl.filters.mapped;
+    import com.kemsky.impl.filters.multiply;
     import com.kemsky.impl.filters.ne;
+    import com.kemsky.impl.filters.not;
     import com.kemsky.impl.filters.or;
     import com.kemsky.impl.filters.prop;
     import com.kemsky.impl.filters.subtract;
@@ -32,6 +36,85 @@ package com.kemsky
     {
         public function TestStream()
         {
+        }
+
+
+        [Test]
+        public function testComparator():void
+        {
+            var date:Date = new Date(2000);
+
+            assertEquals(comparator(null, null), 0);
+            assertEquals(comparator(null, 1), -1);
+            assertEquals(comparator(null, 1, Stream.DESCENDING), 1);
+            assertEquals(comparator(1, null), 1);
+            assertEquals(comparator(1, 1, Stream.NUMERIC), 0);
+            assertEquals(comparator(1, "1"), -1);
+
+            assertEquals(comparator(new Date(), date), 1);
+            assertEquals(comparator(date, date), 0);
+            assertEquals(comparator(date, new Date()), -1);
+
+
+            assertEquals(comparator(NaN, 1), -1);
+            assertEquals(comparator(NaN, NaN), 0);
+            assertEquals(comparator(1, NaN), 1);
+
+            assertEquals(comparator("test", "t"), 1);
+            assertEquals(comparator("t", "t"), 0);
+            assertEquals(comparator("t", "test"), -1);
+
+
+            var xs1:XML = <a>123</a>;
+            var xs2:XML = <a>1</a>;
+            assertEquals(comparator(xs1, xs2), 1);
+            assertEquals(comparator(xs2, xs2), 0);
+            assertEquals(comparator(xs2, xs1), -1);
+
+            assertEquals(comparator(xs1, xs2, Stream.NUMERIC), 1);
+            assertEquals(comparator(xs2, xs2, Stream.NUMERIC), 0);
+            assertEquals(comparator(xs2, xs1, Stream.NUMERIC), -1);
+
+            try
+            {
+                comparator(new Item(), new Item());
+                assertFalse(true);
+            }
+            catch (e:Error)
+            {
+            }
+        }
+
+        [Test]
+        public function testMultiply():void
+        {
+            var s:Stream = $(1, 2).filter(eq(multiply(_, 2), 4));
+            assertEquals(s.length, 1);
+            assertEquals(s.first, 2);
+        }
+
+        [Test]
+        public function testDivide():void
+        {
+            var s:Stream = $(2, 4).filter(eq(divide(_, 2), 2));
+            assertEquals(s.length, 1);
+            assertEquals(s.first, 4);
+
+            s = $(2, 4).filter(eq(divide(_, _), 1));
+            assertEquals(s.length, 2);
+            assertEquals(s.first, 2);
+            assertEquals(s.second, 4);
+        }
+
+        [Test]
+        public function testNot():void
+        {
+            var s:Stream = $("1", "2").filter(not(function (item:String):Boolean
+            {
+                return item == "2";
+            }));
+            assertEquals(s.first, "1");
+            assertEquals(s.length, 1);
         }
 
         [Test]
@@ -169,6 +252,15 @@ package com.kemsky
 
             assertEquals(s.count(either(_, [1, 2])), 2);
             assertEquals(s.count(either(_, [4])), 0);
+
+            try
+            {
+                s.count(either(_));
+                assertFalse(true);
+            }
+            catch (e:Error)
+            {
+            }
         }
 
         [Test]
@@ -359,11 +451,15 @@ package com.kemsky
             assertEquals(result.length, 1);
             assertEquals(result.first, item2);
 
-            result = s.filter(gt(add(prop(_, "price"), prop(_, "vat")), 2));
+            result = s.filter(gt(add(prop(_, "price"), prop(_, "vat"), 0), 2));
             assertEquals(result.length, 1);
             assertEquals(result.first, item1);
 
             result = s.filter(gt(subtract(prop(_, "price"), prop(_, "vat")), 0));
+            assertEquals(result.length, 1);
+            assertEquals(result.first, item2);
+
+            result = s.filter(gt(subtract(prop(_, "price"), 1), 0));
             assertEquals(result.length, 1);
             assertEquals(result.first, item2);
 

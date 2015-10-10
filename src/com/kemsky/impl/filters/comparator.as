@@ -38,7 +38,6 @@ package com.kemsky.impl.filters
             else
             {
                 var caseInsensitive:Boolean = (options & Stream.CASEINSENSITIVE) == Stream.CASEINSENSITIVE;
-                var descending:Boolean = (options & Stream.DESCENDING) == Stream.DESCENDING;
 
                 var typeOfA:String = TypeCache.getQualifiedClassName(a);
                 var typeOfB:String = TypeCache.getQualifiedClassName(b);
@@ -53,6 +52,8 @@ package com.kemsky.impl.filters
                             break;
                         }
 
+                        case TypeCache.INT:
+                        case TypeCache.UINT:
                         case TypeCache.NUMBER:
                         {
                             result = Comparator.numericCompare(a as Number, b as Number);
@@ -96,7 +97,7 @@ package com.kemsky.impl.filters
             }
         }
 
-        if(descending)
+        if((options & Stream.DESCENDING) == Stream.DESCENDING)
         {
             result *= -1;
         }
@@ -113,10 +114,10 @@ class Comparator
             return 0;
 
         if (isNaNFast(fa))
-            return 1;
+            return -1;
 
         if (isNaNFast(fb))
-            return -1;
+            return 1;
 
         if (fa < fb)
             return -1;
@@ -180,7 +181,7 @@ class Comparator
         {
         }
 
-        if(numeric == true)
+        if(numeric)
         {
             return numericCompare(parseFloat(sa), parseFloat(sb));
         }
