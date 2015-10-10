@@ -174,32 +174,18 @@ class Comparator
 
     public static function xmlCompare(a:XML, b:XML, numeric:Boolean, caseInsensitive:Boolean):int
     {
-        var sa:String;
-        try
-        {
-            sa = a.toString();
-        }
-        catch (error:Error)
-        {
-        }
-
-        var sb:String;
-        try
-        {
-            sb = b.toString();
-        }
-        catch (error:Error)
-        {
-        }
+        var result:int = 0;
 
         if (numeric)
         {
-            return numericCompare(parseFloat(sa), parseFloat(sb));
+            result = numericCompare(parseFloat(String(a)), parseFloat(String(b)));
         }
         else
         {
-            return stringCompare(sa, sb, caseInsensitive);
+            result = stringCompare(String(a), String(b), caseInsensitive);
         }
+
+        return result;
     }
 
     private static function isNaNFast(target:*):Boolean
