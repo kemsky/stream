@@ -8,7 +8,7 @@
     <artifactId>stream</artifactId>
     <version>1.0.0</version>
     <packaging>swc</packaging>
-    <name>stream</name>
+    <name>Modern ActionScript collection library</name>
 
     <properties>
         <flex.sdk.version>4.6.b.23201</flex.sdk.version>
@@ -25,6 +25,8 @@
                 <version>${flexmojos.version}</version>
                 <extensions>true</extensions>
                 <configuration>
+                    <coverage>true</coverage>
+                    <coverageProvider>cobertura</coverageProvider>
                     <flashPlayerCommand>${flashPlayer.command}</flashPlayerCommand>
                     <headlessServer>true</headlessServer>
                     <verboseStacktraces>true</verboseStacktraces>
@@ -65,24 +67,12 @@
         <repository>
             <id>flex-mojos-repository</id>
             <url>http://repository.sonatype.org/content/groups/flexgroup</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
         </repository>
     </repositories>
     <pluginRepositories>
         <pluginRepository>
             <id>flex-mojos-plugin-repository</id>
             <url>http://repository.sonatype.org/content/groups/flexgroup</url>
-            <releases>
-                <enabled>true</enabled>
-            </releases>
-            <snapshots>
-                <enabled>false</enabled>
-            </snapshots>
         </pluginRepository>
     </pluginRepositories>
 </project>
