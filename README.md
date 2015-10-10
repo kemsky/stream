@@ -5,6 +5,7 @@ Basically it is Array wrapper that adds many useful methods and properties (filt
 
 Inspired by underscore.js and other libraries. 
 
+Travis CI integration, 100% code coverage.
 
 ## Create
 ```as3
