@@ -1,8 +1,11 @@
 package com.kemsky.filters
 {
     import com.kemsky.Stream;
-    import com.kemsky.util.Comparator;
     import com.kemsky.util.TypeCache;
+    import com.kemsky.util.compareDate;
+    import com.kemsky.util.compareNumber;
+    import com.kemsky.util.compareString;
+    import com.kemsky.util.compareXML;
 
     /**
      * Allows to use generic compare functions(le, ge, lt and others) for the following types:
@@ -44,7 +47,7 @@ package com.kemsky.filters
                 {
                     case TypeCache.BOOLEAN:
                     {
-                        result = Comparator.numericCompare(Number(a), Number(b));
+                        result = compareNumber(Number(a), Number(b));
                         break;
                     }
 
@@ -52,25 +55,25 @@ package com.kemsky.filters
                     case TypeCache.UINT:
                     case TypeCache.NUMBER:
                     {
-                        result = Comparator.numericCompare(a as Number, b as Number);
+                        result = compareNumber(a as Number, b as Number);
                         break;
                     }
 
                     case TypeCache.STRING:
                     {
-                        result = Comparator.stringCompare(a as String, b as String, caseInsensitive);
+                        result = compareString(a as String, b as String, caseInsensitive);
                         break;
                     }
 
                     case TypeCache.DATE:
                     {
-                        result = Comparator.dateCompare(a as Date, b as Date);
+                        result = compareDate(a as Date, b as Date);
                         break;
                     }
 
                     case TypeCache.XML_TYPE:
                     {
-                        result = Comparator.xmlCompare(a as XML, b as XML, numeric, caseInsensitive);
+                        result = compareXML(a as XML, b as XML, numeric, caseInsensitive);
                         break;
                     }
                     default:
@@ -88,7 +91,7 @@ package com.kemsky.filters
             }
             else // be consistent with the order we return here
             {
-                result = Comparator.stringCompare(typeOfA, typeOfB, caseInsensitive);
+                result = compareString(typeOfA, typeOfB, caseInsensitive);
             }
         }
 

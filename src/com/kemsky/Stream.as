@@ -688,11 +688,6 @@ package com.kemsky
         {
             var result:Array = [];
 
-            if (name is QName)
-            {
-                name = name.localName;
-            }
-
             for each (var item:* in source)
             {
                 if (item != null && item.hasOwnProperty(name))
@@ -705,11 +700,6 @@ package com.kemsky
 
         override flash_proxy function getProperty(name:*):*
         {
-            if (name is QName)
-            {
-                name = name.localName;
-            }
-
             var index:int = -1;
             try
             {
@@ -736,11 +726,6 @@ package com.kemsky
 
         override flash_proxy function setProperty(name:*, value:*):void
         {
-            if (name is QName)
-            {
-                name = name.localName;
-            }
-
             var index:int = -1;
             try
             {
@@ -767,11 +752,6 @@ package com.kemsky
 
         override flash_proxy function hasProperty(name:*):Boolean
         {
-            if (name is QName)
-            {
-                name = name.localName;
-            }
-
             var index:int = -1;
             try
             {
@@ -811,11 +791,6 @@ package com.kemsky
 
         override flash_proxy function callProperty(name:*, ...rest):*
         {
-            if (name is QName)
-            {
-                name = name.localName;
-            }
-
             if (rest.length != 1 || !(rest[0] is Function))
             {
                 throw new Error();
@@ -831,11 +806,6 @@ package com.kemsky
 
         override flash_proxy function deleteProperty(name:*):Boolean
         {
-            if (name is QName)
-            {
-                name = name.localName;
-            }
-
             var index:int = -1;
             try
             {
@@ -850,14 +820,14 @@ package com.kemsky
             {
             }
 
-            if (index == -1 || index >= source.length)
+            if (index == -1)
             {
                 return false;
             }
 
-            source.splice(index, 1);
+            var result:Array = source.splice(index, 1);
 
-            return true;
+            return result.length > 0;
         }
 
 

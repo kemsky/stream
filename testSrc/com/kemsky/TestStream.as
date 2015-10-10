@@ -183,6 +183,8 @@ package com.kemsky
         {
             var s:Stream = $(1, 2, 4, 3);
             assertEquals(s.findIndex(gt(_, 2)), 2);
+
+            assertTrue(s.findIndex(gt(_, 4)) == -1);
         }
 
         [Test]
@@ -190,6 +192,7 @@ package com.kemsky
         {
             var s:Stream = $(1, 2, 4, 3);
             assertEquals(s.find(gt(_, 2)), 4);
+            assertTrue(s.find(gt(_, 4)) === undefined);
         }
 
         [Test]
@@ -740,6 +743,15 @@ package com.kemsky
             {
                 assertEquals(flatMap[k], 3);
             }
+
+            flatMap = s.flatMap(function (item:*):*
+            {
+                return item.length;
+            });
+            for (var m:int = 0; m < flatMap.length; m++)
+            {
+                assertEquals(flatMap[m], 3);
+            }
         }
 
         [Test]
@@ -774,6 +786,7 @@ package com.kemsky
             assertEquals(empty.empty, true);
             assertEquals(empty.length, 0);
 
+            assertEquals(empty.toString(), "Stream{}");
 
             var original:Array = [1, 2, 3];
 
@@ -791,9 +804,14 @@ package com.kemsky
             verify(array.list(), original);
 
             assertTrue(array.array() is Array);
-
             assertTrue(array.collection() is ArrayCollection);
             assertTrue(array.list() is IList);
+
+            for(var p:String in array)
+            {
+                assertTrue(array.hasOwnProperty(p));
+            }
+
 
             var collection:Stream = $(new ArrayCollection([1, 2, 3]));
             assertEquals(collection.empty, false);

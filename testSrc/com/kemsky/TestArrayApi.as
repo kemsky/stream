@@ -1,7 +1,5 @@
 package com.kemsky
 {
-    import com.kemsky.Stream;
-
     import org.flexunit.asserts.assertEquals;
     import org.flexunit.asserts.assertFalse;
     import org.flexunit.asserts.assertTrue;
@@ -199,22 +197,17 @@ package com.kemsky
         {
             var s:Stream = $(1, 2, 3, 4, 5);
             var length:int = s.length;
-            if (length == 0)
+            try
             {
-                try
-                {
-                    delete s[0];
-                    assertFalse(true);
-                }
-                catch (e:Error)
-                {
-                }
+                delete s[10];
+                assertFalse(true);
             }
-            else
+            catch (e:Error)
             {
-                delete s[0];
-                assertEquals(s.length, length - 1);
             }
+
+            delete s[0];
+            assertEquals(s.length, length - 1);
         }
 
         [Test]
