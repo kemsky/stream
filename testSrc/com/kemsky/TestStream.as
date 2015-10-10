@@ -60,9 +60,9 @@ package com.kemsky
             assertEquals(comparator(NaN, NaN), 0);
             assertEquals(comparator(1, NaN), 1);
 
-            assertEquals(comparator("test", "t"), 1);
+            assertEquals(comparator("abc", "def"), -1);
             assertEquals(comparator("t", "t"), 0);
-            assertEquals(comparator("t", "test"), -1);
+            assertEquals(comparator("def", "abc"), 1);
 
 
             var xs1:XML = <a>123</a>;

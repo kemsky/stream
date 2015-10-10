@@ -31,73 +31,66 @@ package com.kemsky.impl.filters
         {
             var numeric:Boolean = (options & Stream.NUMERIC) == Stream.NUMERIC;
 
-            if (numeric)
-            {
-                result = Comparator.numericCompare(Number(a), Number(b));
-            }
-            else
-            {
-                var caseInsensitive:Boolean = (options & Stream.CASEINSENSITIVE) == Stream.CASEINSENSITIVE;
+            var caseInsensitive:Boolean = (options & Stream.CASEINSENSITIVE) == Stream.CASEINSENSITIVE;
 
-                var typeOfA:String = TypeCache.getQualifiedClassName(a);
-                var typeOfB:String = TypeCache.getQualifiedClassName(b);
+            var typeOfA:String = TypeCache.getQualifiedClassName(a);
+            var typeOfB:String = TypeCache.getQualifiedClassName(b);
 
-                if (typeOfA == typeOfB)
+            if (typeOfA == typeOfB)
+            {
+                switch (typeOfA)
                 {
-                    switch (typeOfA)
+                    case TypeCache.BOOLEAN:
                     {
-                        case TypeCache.BOOLEAN:
-                        {
-                            result = Comparator.numericCompare(Number(a), Number(b));
-                            break;
-                        }
+                        result = Comparator.numericCompare(Number(a), Number(b));
+                        break;
+                    }
 
-                        case TypeCache.INT:
-                        case TypeCache.UINT:
-                        case TypeCache.NUMBER:
-                        {
-                            result = Comparator.numericCompare(a as Number, b as Number);
-                            break;
-                        }
+                    case TypeCache.INT:
+                    case TypeCache.UINT:
+                    case TypeCache.NUMBER:
+                    {
+                        result = Comparator.numericCompare(a as Number, b as Number);
+                        break;
+                    }
 
-                        case TypeCache.STRING:
-                        {
-                            result = Comparator.stringCompare(a as String, b as String, caseInsensitive);
-                            break;
-                        }
+                    case TypeCache.STRING:
+                    {
+                        result = Comparator.stringCompare(a as String, b as String, caseInsensitive);
+                        break;
+                    }
 
-                        case TypeCache.DATE:
-                        {
-                            result = Comparator.dateCompare(a as Date, b as Date);
-                            break;
-                        }
+                    case TypeCache.DATE:
+                    {
+                        result = Comparator.dateCompare(a as Date, b as Date);
+                        break;
+                    }
 
-                        case TypeCache.XML_TYPE:
+                    case TypeCache.XML_TYPE:
+                    {
+                        result = Comparator.xmlCompare(a as XML, b as XML, numeric, caseInsensitive);
+                        break;
+                    }
+                    default:
+                    {
+                        if (equals)
                         {
-                            result = Comparator.xmlCompare(a as XML, b as XML, numeric, caseInsensitive);
-                            break;
+                            result = a == b ? 0 : -1;
                         }
-                        default:
+                        else
                         {
-                            if(equals)
-                            {
-                                result = a == b ? 0 : -1;
-                            }
-                            else
-                            {
-                                throw new Error("Sort is not supported: " + typeOfA);
-                            }
+                            throw new Error("Sort is not supported: " + typeOfA);
                         }
                     }
                 }
-                else // be consistent with the order we return here
-                {
-                    result = Comparator.stringCompare(typeOfA, typeOfB, caseInsensitive);
-                }
+            }
+            else // be consistent with the order we return here
+            {
+                result = Comparator.stringCompare(typeOfA, typeOfB, caseInsensitive);
             }
         }
 
-        if((options & Stream.DESCENDING) == Stream.DESCENDING)
+        if ((options & Stream.DESCENDING) == Stream.DESCENDING)
         {
             result *= -1;
         }
@@ -111,19 +104,29 @@ class Comparator
     public static function numericCompare(fa:Number, fb:Number):int
     {
         if (isNaNFast(fa) && isNaNFast(fb))
+        {
             return 0;
+        }
 
         if (isNaNFast(fa))
+        {
             return -1;
+        }
 
         if (isNaNFast(fb))
+        {
             return 1;
+        }
 
         if (fa < fb)
+        {
             return -1;
+        }
 
         if (fa > fb)
+        {
             return 1;
+        }
 
         return 0;
     }
@@ -134,10 +137,14 @@ class Comparator
         var nb:Number = fb.getTime();
 
         if (na < nb)
+        {
             return -1;
+        }
 
         if (na > nb)
+        {
             return 1;
+        }
 
         return 0;
     }
@@ -154,9 +161,13 @@ class Comparator
         var result:int = fa.localeCompare(fb);
 
         if (result < -1)
+        {
             result = -1;
+        }
         else if (result > 1)
+        {
             result = 1;
+        }
 
         return result;
     }
@@ -168,7 +179,7 @@ class Comparator
         {
             sa = a.toString();
         }
-        catch(error:Error)
+        catch (error:Error)
         {
         }
 
@@ -177,11 +188,11 @@ class Comparator
         {
             sb = b.toString();
         }
-        catch(error:Error)
+        catch (error:Error)
         {
         }
 
-        if(numeric)
+        if (numeric)
         {
             return numericCompare(parseFloat(sa), parseFloat(sb));
         }

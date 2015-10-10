@@ -17,12 +17,7 @@ package com.kemsky
         }
         else if(rest.length == 1)
         {
-            if(Flex.available && [0] is Flex.collection)
-            {
-                //$ from collection
-                return new Stream(rest[0].toArray());
-            }
-            else if(rest[0] is Array)
+            if(rest[0] is Array)
             {
                 //$ from array
                 return new Stream((rest[0] as Array).concat());
@@ -31,11 +26,6 @@ package com.kemsky
             {
                 //$ from list
                 return new Stream(rest[0].toArray());
-            }
-            else if(rest[0] == null || rest[0] === undefined)
-            {
-                //$ empty
-                return new Stream();
             }
             else
             {

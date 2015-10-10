@@ -383,10 +383,6 @@ package com.kemsky.impl
                 {
                     result = item;
                 }
-                else if (Flex.available && item is Flex.collection)
-                {
-                    result = item.source;
-                }
                 else if (Flex.available && item is Flex.list)
                 {
                     result = item.toArray();
@@ -540,13 +536,9 @@ package com.kemsky.impl
                 {
                     result = result.concat.apply(null, item);
                 }
-                else if (Flex.available && item is Flex.collection)
+                else if (Flex.available && item is Flex.list)
                 {
-                    result = result.concat.apply(null, item.source);
-                }
-                else if (Flex.available && item is Flex.collection)
-                {
-                    result = item.toArray();
+                    result = result.concat.apply(null, item.toArray());
                 }
                 else if (item is Stream)
                 {
