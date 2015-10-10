@@ -24,7 +24,6 @@ package com.kemsky
 
     import flash.utils.ByteArray;
     import flash.utils.Dictionary;
-
     import mx.collections.ArrayCollection;
     import mx.collections.IList;
 
@@ -38,6 +37,19 @@ package com.kemsky
         {
         }
 
+
+        [Test]
+        public function testCompact():void
+        {
+            var s:Stream = $();
+            s[0] = 1;
+            s[10] = 2;
+
+            var c:Stream = s.compact();
+            assertEquals(c.length, 2);
+            assertEquals(c.first, 1);
+            assertEquals(c.second, 2);
+        }
 
         [Test]
         public function testComparator():void

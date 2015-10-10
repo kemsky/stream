@@ -1,5 +1,7 @@
 package com.kemsky
 {
+    import com.kemsky.filters._;
+    import com.kemsky.filters.defined;
     import com.kemsky.util.*;
     import flash.utils.ByteArray;
     import flash.utils.Dictionary;
@@ -33,6 +35,11 @@ package com.kemsky
          * Extended part
          * -------------------------------------------
          */
+
+        public function compact():Stream
+        {
+            return filter(defined(_));
+        }
 
         public function partition(callback:Function):Stream
         {
