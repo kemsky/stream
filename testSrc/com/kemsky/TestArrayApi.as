@@ -162,8 +162,9 @@ package com.kemsky
             }
 
 
-            var item:Item = new Item("name");
-            var s2:Stream = $(item, item);
+            var item1:Item = new Item("name", 2);
+            var item2:Item = new Item("name", 1);
+            var s2:Stream = $(item1, item2);
             try
             {
                 s2.sortOn("name", Stream.UNIQUESORT);
@@ -172,6 +173,12 @@ package com.kemsky
             catch(e:Error)
             {
             }
+
+            var s3:Stream = $(item1, item2);
+            var s4:Stream = s3.sortOn("price", Stream.NUMERIC | Stream.UNIQUESORT | Stream.DESCENDING | Stream.RETURNINDEXEDARRAY);
+            assertFalse(s3 === s4);
+            assertEquals(s4[0], 0);
+            assertEquals(s4[1], 1);
         }
 
         [Test]

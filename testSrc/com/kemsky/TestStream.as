@@ -814,6 +814,36 @@ package com.kemsky
                 assertTrue(array.hasOwnProperty(p));
             }
 
+            assertFalse(array.hasOwnProperty("4"));
+
+            try
+            {
+                array.random();
+                assertFalse(true);
+            }
+            catch(e:Error)
+            {
+            }
+
+            try
+            {
+                array["random"] = 1;
+                assertFalse(true);
+            }
+            catch(e:Error)
+            {
+            }
+
+            try
+            {
+                var m:* = array["random"];
+                assertFalse(true);
+            }
+            catch(e:Error)
+            {
+            }
+
+            assertFalse(delete array["random"]);
 
             var collection:Stream = $(new ArrayCollection([1, 2, 3]));
             assertEquals(collection.empty, false);
