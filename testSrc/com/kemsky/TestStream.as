@@ -282,8 +282,8 @@ package com.kemsky
         public function testSet():void
         {
             var s:Stream = $(1, 2, 3);
-            s.set(2, 1);
-            s.set(0, 3);
+            s.setItem(2, 1);
+            s.setItem(0, 3);
             assertEquals(s[0], 3);
             assertEquals(s[1], 2);
             assertEquals(s[2], 1);
@@ -293,11 +293,11 @@ package com.kemsky
         public function testGet():void
         {
             var s:Stream = $(1, 2, 3);
-            assertEquals(s.get(0), 1);
-            assertEquals(s.get(1), 2);
-            assertEquals(s.get(2), 3);
+            assertEquals(s.getItem(0), 1);
+            assertEquals(s.getItem(1), 2);
+            assertEquals(s.getItem(2), 3);
 
-            assertTrue(s.get(3) === undefined);
+            assertTrue(s.getItem(3) === undefined);
         }
 
         [Test]

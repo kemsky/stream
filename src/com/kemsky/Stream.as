@@ -114,13 +114,13 @@ package com.kemsky
             return this.slice(0, length - count);
         }
 
-        public function get(index:int):*
+        public function getItem(index:int):*
         {
             return source[index];
         }
 
 
-        public function set(index:int, value:*):void
+        public function setItem(index:int, value:*):void
         {
             source[index] = value;
         }
@@ -848,9 +848,7 @@ package com.kemsky
                 return false;
             }
 
-            var result:Array = source.splice(index, 1);
-
-            return result.length > 0;
+            return (source.splice(index, 1) as Array).length > 0;
         }
 
 
