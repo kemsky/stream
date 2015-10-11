@@ -328,6 +328,8 @@ package com.kemsky
             });
 
             assertEquals(count, 1);
+
+            assertEquals(s.count(eq(_, 2)), 1);
         }
 
         [Test]
