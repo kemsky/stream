@@ -399,6 +399,14 @@ package com.kemsky
                 {
                     result = Stream(item).source;
                 }
+                else if (item is Vector.<*> || item is Vector.<Number> || item is Vector.<int> || item is Vector.<uint>)
+                {
+                    result = [];
+                    for (var i:int = 0; i < item.length; i++)
+                    {
+                        result.push(item[i]);
+                    }
+                }
                 else
                 {
                     result = [item];
@@ -551,6 +559,13 @@ package com.kemsky
                 else if (item is Stream)
                 {
                     result = result.concat.apply(null, Stream(item).source);
+                }
+                else if (item is Vector.<*> || item is Vector.<Number> || item is Vector.<int> || item is Vector.<uint>)
+                {
+                    for (var i:int = 0; i < item.length; i++)
+                    {
+                        result.push(item[i]);
+                    }
                 }
                 else
                 {

@@ -1,7 +1,6 @@
 package com.kemsky
 {
     import com.kemsky.util.Flex;
-    import com.kemsky.Stream;
 
     /**
      * Global function that creates Stream objects
@@ -10,27 +9,38 @@ package com.kemsky
      */
     public function $(...rest):Stream
     {
-        if(rest.length == 0)
+        if (rest.length == 0)
         {
             //empty $
             return new Stream();
         }
-        else if(rest.length == 1)
+        else if (rest.length == 1)
         {
-            if(rest[0] is Array)
+            var arg:* = rest[0];
+
+            if (arg is Array)
             {
                 //$ from array
-                return new Stream((rest[0] as Array).concat());
+                return new Stream((arg as Array).concat());
             }
-            else if(Flex.available && rest[0] is Flex.list)
+            else if (arg is Vector.<*> || arg is Vector.<Number> || arg is Vector.<int> || arg is Vector.<uint>)
+            {
+                var a:Array = [];
+                for (var i:int = 0; i < arg.length; i++)
+                {
+                    a[i] = arg[i];
+                }
+                return new Stream(a);
+            }
+            else if (Flex.available && arg is Flex.list)
             {
                 //$ from list
-                return new Stream(rest[0].toArray());
+                return new Stream(arg.toArray());
             }
             else
             {
                 //$ from one item
-                return new Stream([rest[0]]);
+                return new Stream([arg]);
             }
         }
 

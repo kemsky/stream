@@ -17,11 +17,12 @@ package com.kemsky
         public function testConcat():void
         {
             var s:Stream = $();
-            var s2:Stream = s.concat(1, [2], new ArrayCollection([3]));
-            assertEquals(s2.length, 3);
+            var s2:Stream = s.concat(1, [2], new ArrayCollection([3]), new <Number>[4]);
+            assertEquals(s2.length, 4);
             assertEquals(s2.first, 1);
             assertEquals(s2.second, 2);
             assertEquals(s2.third, 3);
+            assertEquals(s2.fourth, 4);
         }
 
         [Test]

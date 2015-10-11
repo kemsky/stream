@@ -742,10 +742,12 @@ package com.kemsky
         {
             var s:Stream = new Stream([[1, 2, 3], $(4, 5, 6)]);
 
-            s.push(new ArrayCollection([7, 8, 9]));
+            s.push(new ArrayCollection([7, 8, 9]), new <Number>[10, 11, 12]);
 
+            assertEquals(s.length, 4);
 
             var flatDefault:Stream = s.flatten();
+            assertEquals(flatDefault.length, 12);
             for (var i:int = 0; i < flatDefault.length; i++)
             {
                 assertEquals(flatDefault[i], i + 1);
@@ -894,6 +896,13 @@ package com.kemsky
             assertEquals(single.first, "item");
             assertEquals(single.last, "item");
             assertEquals(single.first, single.last);
+
+            var vector:Vector.<Number> = new <Number>[1, 2, 3];
+            var v:Stream = $(vector);
+            assertEquals(v.length, 3);
+            assertEquals(v[0], 1);
+            assertEquals(v[1], 2);
+            assertEquals(v[2], 3);
         }
 
         private static function verify(s:*, o:Array):void
