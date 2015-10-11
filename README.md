@@ -3,7 +3,7 @@
 
 Basically it is Array wrapper that adds many useful methods and properties (filter, iterate, map, fold, flatMap, first, second ...  , last, empty etc.).
 
-Inspired by underscore.js and other libraries. 
+Inspired by Javascript and Ruby arrays and Scala collections. 
 
 Travis CI integration, 100% code coverage.
 
