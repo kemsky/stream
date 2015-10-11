@@ -720,6 +720,7 @@ package com.kemsky
             return new Stream(result);
         }
 
+        //todo access by negative index from the end of stream like Ruby
         override flash_proxy function getProperty(name:*):*
         {
             var index:int = -1;
