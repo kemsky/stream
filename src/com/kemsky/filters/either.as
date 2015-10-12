@@ -16,7 +16,7 @@ package com.kemsky.filters
 
         if (values.length == 0)
         {
-            throw new Error();
+            throw new Error("Function 'either' must have two or more arguments");
         }
 
         return function (item:*):Boolean
