@@ -25,6 +25,7 @@ package com.kemsky
     import flash.utils.ByteArray;
     import flash.utils.Dictionary;
     import mx.collections.ArrayCollection;
+    import mx.collections.ArrayList;
     import mx.collections.IList;
 
     import org.flexunit.asserts.assertEquals;
@@ -797,14 +798,74 @@ package com.kemsky
             assertEquals(names[2], "third");
         }
 
+
+        [Test]
+        public function testHasOwnProperty():void
+        {
+            var array:Stream = $([1, 2, 3]);
+
+            for(var p:String in array)
+            {
+                assertTrue(array.hasOwnProperty(p));
+            }
+
+            assertFalse(array.hasOwnProperty("4"));
+            assertFalse(array.hasOwnProperty("random"));
+        }
+
+        [Test]
+        public function testToString():void
+        {
+            var empty:Stream = $();
+            assertEquals(empty.toString(), "Stream{}");
+
+            var s:Stream = $(1);
+            assertEquals(s.toString(), "Stream{1}");
+        }
+
+
+        [Test]
+        public function testArray():void
+        {
+            var original:Array = [1, 2, 3];
+
+            var array:Stream = $([1, 2, 3]);
+
+            verify(array.array(), original);
+
+            assertTrue(array.array() is Array);
+        }
+
+        [Test]
+        public function testCollection():void
+        {
+            var original:Array = [1, 2, 3];
+
+            var array:Stream = $([1, 2, 3]);
+
+            verify(array.collection(), original);
+
+            assertTrue(array.collection() is ArrayCollection);
+        }
+
+        [Test]
+        public function testList():void
+        {
+            var original:Array = [1, 2, 3];
+
+            var array:Stream = $([1, 2, 3]);
+
+            verify(array.list(), original);
+
+            assertTrue(array.list() is ArrayList);
+        }
+
         [Test]
         public function testCreateStream():void
         {
             var empty:Stream = $();
             assertEquals(empty.empty, true);
             assertEquals(empty.length, 0);
-
-            assertEquals(empty.toString(), "Stream{}");
 
             var original:Array = [1, 2, 3];
 
@@ -817,21 +878,6 @@ package com.kemsky
             assertEquals(array[2], 3);
             assertEquals(array.last, 3);
             verify(array, original);
-            verify(array.array(), original);
-            verify(array.collection(), original);
-            verify(array.list(), original);
-
-            assertTrue(array.array() is Array);
-            assertTrue(array.collection() is ArrayCollection);
-            assertTrue(array.list() is IList);
-
-            for(var p:String in array)
-            {
-                assertTrue(array.hasOwnProperty(p));
-            }
-
-            assertFalse(array.hasOwnProperty("4"));
-            assertFalse(array.hasOwnProperty("random"));
 
             try
             {
@@ -860,8 +906,6 @@ package com.kemsky
             {
             }
 
-            assertFalse(delete array["random"]);
-
             var collection:Stream = $(new ArrayCollection([1, 2, 3]));
             assertEquals(collection.empty, false);
             assertEquals(collection.length, 3);
@@ -871,9 +915,6 @@ package com.kemsky
             assertEquals(collection[2], 3);
             assertEquals(collection.last, 3);
             verify(collection, original);
-            verify(collection.array(), original);
-            verify(collection.collection(), original);
-            verify(collection.list(), original);
 
             var args:Stream = $(1, 2, 3);
             assertEquals(args.empty, false);
@@ -884,10 +925,6 @@ package com.kemsky
             assertEquals(args[2], 3);
             assertEquals(args.last, 3);
             verify(args, original);
-            verify(args.array(), original);
-            verify(args.collection(), original);
-            verify(args.list(), original);
-
 
             var single:Stream = $("item");
             assertEquals(single.empty, false);
@@ -903,16 +940,7 @@ package com.kemsky
             assertEquals(v[0], 1);
             assertEquals(v[1], 2);
             assertEquals(v[2], 3);
-        }
-
-        private static function verify(s:*, o:Array):void
-        {
-            var index:int = 0;
-            for each (var item:* in s)
-            {
-                assertEquals(item, o[index]);
-                index++;
-            }
+            verify(v, vector);
         }
 
         [Test]
@@ -927,6 +955,16 @@ package com.kemsky
             for (var i:int = 0; i < s.length; i++)
             {
                 assertEquals(s[i], r[i]);
+            }
+        }
+
+        private static function verify(s:*, o:*):void
+        {
+            var index:int = 0;
+            for each (var item:* in s)
+            {
+                assertEquals(item, o[index]);
+                index++;
             }
         }
     }

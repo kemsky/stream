@@ -242,6 +242,8 @@ package com.kemsky
 
             delete s[0];
             assertEquals(s.length, length - 1);
+
+            assertFalse(delete s["random"]);
         }
 
         [Test]
