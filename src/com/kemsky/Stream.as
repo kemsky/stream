@@ -720,81 +720,75 @@ package com.kemsky
             return new Stream(result);
         }
 
-        //todo access by negative index from the end of stream like Ruby
         override flash_proxy function getProperty(name:*):*
         {
-            var index:int = -1;
+            var index:Number = NaN;
             try
             {
                 // If caller passed in a number such as 5.5, it will be floored.
-                var n:Number = parseInt(String(name));
-                if (!isNaNFast(n))
-                {
-                    index = int(n);
-                }
+                index = parseInt(String(name));
             }
             catch (e:Error) // localName was not a number
             {
             }
 
-            if (index == -1 || index > source.length)
+            if (isNaNFast(index))
             {
                 throw new Error("Incorrect index: " + String(name));
             }
             else
             {
-                return source[index];
+                return index < 0 ? source[source.length + index] : source[index];
             }
         }
 
         override flash_proxy function setProperty(name:*, value:*):void
         {
-            var index:int = -1;
+            var index:Number = NaN;
             try
             {
                 // If caller passed in a number such as 5.5, it will be floored.
-                var n:Number = parseInt(String(name));
-                if (!isNaNFast(n))
-                {
-                    index = int(n);
-                }
+                index = parseInt(String(name));
             }
             catch (e:Error) // localName was not a number
             {
             }
 
-            if (index == -1)
+            if (isNaNFast(index))
             {
                 throw new Error("Incorrect index: " + String(name));
             }
             else
             {
-                source[index] = value;
+                if(index < 0)
+                {
+                    source[index] = value;
+                }
+                else
+                {
+                    source[source.length + index] = value;
+                }
             }
         }
 
         override flash_proxy function hasProperty(name:*):Boolean
         {
-            var index:int = -1;
+            var index:Number = NaN;
             try
             {
                 // If caller passed in a number such as 5.5, it will be floored.
-                var n:Number = parseInt(String(name));
-                if (!isNaNFast(n))
-                {
-                    index = int(n);
-                }
+                index = parseInt(String(name));
             }
             catch (e:Error) // localName was not a number
             {
             }
 
-            if (index == -1)
+            if (isNaNFast(index))
             {
                 return false;
             }
 
-            return index >= 0 && index < source.length;
+            return (index >= 0 && index < source.length) || (index < 0 && index >= -source.length);
         }
 
         override flash_proxy function nextNameIndex(index:int):int
@@ -829,26 +823,29 @@ package com.kemsky
 
         override flash_proxy function deleteProperty(name:*):Boolean
         {
-            var index:int = -1;
+            var index:Number = NaN;
             try
             {
                 // If caller passed in a number such as 5.5, it will be floored.
-                var n:Number = parseInt(String(name));
-                if (!isNaNFast(n))
-                {
-                    index = int(n);
-                }
+                index = parseInt(String(name));
             }
             catch (e:Error) // localName was not a number
             {
             }
 
-            if (index == -1)
+            if(isNaNFast(index))
             {
                 return false;
             }
 
-            return (source.splice(index, 1) as Array).length > 0;
+            if(index < 0)
+            {
+                return (source.splice(source.length + index, 1) as Array).length > 0;
+            }
+            else
+            {
+                return (source.splice(index, 1) as Array).length > 0;
+            }
         }
 
 

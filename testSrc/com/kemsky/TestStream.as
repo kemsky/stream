@@ -818,6 +818,11 @@ package com.kemsky
                 assertTrue(array.hasOwnProperty(p));
             }
 
+            assertTrue(array.hasOwnProperty("-1"));
+            assertTrue(array.hasOwnProperty("-2"));
+            assertTrue(array.hasOwnProperty("-3"));
+            assertFalse(array.hasOwnProperty("-4"));
+
             assertFalse(array.hasOwnProperty("4"));
             assertFalse(array.hasOwnProperty("random"));
         }

@@ -244,6 +244,10 @@ package com.kemsky
             assertEquals(s.length, length - 1);
 
             assertFalse(delete s["random"]);
+
+            assertTrue(delete s[-1]);
+            assertEquals(s.last, 4);
+            assertEquals(s.length, length - 2);
         }
 
         [Test]
@@ -262,6 +266,18 @@ package com.kemsky
             }
             assertEquals(s.length, index - 1);
 
+            //negative index
+            for(var k:int = -1; k > -s.length; k--)
+            {
+                assertEquals(s[k], (s.length + k + 1));
+            }
+
+            for(var m:int = -1; m > -s.length; m--)
+            {
+                s[m] = s.length + m + 1;
+            }
+
+            //invalid index write
             try
             {
                 s["random"] = 1;
@@ -271,9 +287,10 @@ package com.kemsky
             {
             }
 
+            //invalid index read
             try
             {
-                var m:* = s["random"];
+                var l:* = s["random"];
                 assertFalse(true);
             }
             catch(e:Error)
