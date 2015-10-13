@@ -937,11 +937,10 @@ package com.kemsky
             output.writeObject(source);
         }
 
-        /*
-         * toString() part
-         * --------------------------------------------
+        /**
+         * Returns the string representation of Stream object.
+         * @return a String
          */
-
         public function toString():String
         {
             return "Stream{" + source.join(",") + "}";
