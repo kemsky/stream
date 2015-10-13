@@ -261,6 +261,25 @@ package com.kemsky
                 index++;
             }
             assertEquals(s.length, index - 1);
+
+            try
+            {
+                s["random"] = 1;
+                assertFalse(true);
+            }
+            catch(e:Error)
+            {
+            }
+
+            try
+            {
+                var m:* = s["random"];
+                assertFalse(true);
+            }
+            catch(e:Error)
+            {
+            }
+
         }
     }
 }

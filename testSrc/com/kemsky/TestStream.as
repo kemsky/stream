@@ -494,6 +494,15 @@ package com.kemsky
             }, 3));
             assertEquals(result.length, 1);
             assertEquals(result.first, item1);
+
+            try
+            {
+                s.random();
+                assertFalse(true);
+            }
+            catch(e:Error)
+            {
+            }
         }
 
         [Test]
@@ -878,33 +887,6 @@ package com.kemsky
             assertEquals(array[2], 3);
             assertEquals(array.last, 3);
             verify(array, original);
-
-            try
-            {
-                array.random();
-                assertFalse(true);
-            }
-            catch(e:Error)
-            {
-            }
-
-            try
-            {
-                array["random"] = 1;
-                assertFalse(true);
-            }
-            catch(e:Error)
-            {
-            }
-
-            try
-            {
-                var m:* = array["random"];
-                assertFalse(true);
-            }
-            catch(e:Error)
-            {
-            }
 
             var collection:Stream = $(new ArrayCollection([1, 2, 3]));
             assertEquals(collection.empty, false);
