@@ -5,4 +5,4 @@ before_script:
   - export "JAVA_HOME=`/usr/libexec/java_home`"
   - sh download.sh 'http://download.macromedia.com/pub/flashplayer/installers/archive/fp_11.7.700.225_archive.zip'
 
-script: mvn -q test -DflashPlayer.command=Flash\ Player\ Debugger.app/Contents/MacOS/Flash\ Player\ Debugger
+script: mvn test -DflashPlayer.command=Flash\ Player\ Debugger.app/Contents/MacOS/Flash\ Player\ Debugger
