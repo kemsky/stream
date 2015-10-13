@@ -3,6 +3,7 @@ package com.kemsky
     import com.kemsky.filters._;
     import com.kemsky.filters.defined;
     import com.kemsky.util.*;
+
     import flash.utils.ByteArray;
     import flash.utils.Dictionary;
     import flash.utils.IDataInput;
@@ -14,24 +15,58 @@ package com.kemsky
     import mx.collections.ArrayCollection;
     import mx.collections.ArrayList;
 
+    /**
+     * ActionScript modern collection/list implementation, Array replacement.
+     * Internally this is Array wrapper that adds many useful methods and properties:
+     * filter, iterate, map, fold, flatMap, first, second ... , last, empty etc.
+     * Inspired by Javascript and Ruby arrays and Scala collections.
+     */
     [RemoteClass(alias="com.kemsky.Stream")]
     public dynamic class Stream extends Proxy implements IExternalizable
     {
+        /**
+         * Specifies case-insensitive sorting for the Stream class sorting methods.
+         */
         public static const CASEINSENSITIVE:uint = 1;
+
+        /**
+         * Specifies descending sorting for the Stream class sorting methods.
+         */
         public static const DESCENDING:uint = 2;
+
+        /**
+         * Specifies numeric (instead of character-string) sorting for the Stream class sorting methods.
+         */
         public static const UNIQUESORT:uint = 4;
+
+        /**
+         * Specifies that a sort returns a stream that consists of array indices.
+         */
         public static const RETURNINDEXEDARRAY:uint = 8;
+
+        /**
+         * Specifies the unique sorting requirement for the Stream class sorting methods.
+         */
         public static const NUMERIC:uint = 16;
 
+        /**
+         *  The source of data in the Stream.
+         */
         public var source:Array;
 
+        /**
+         *  Constructor.
+         *
+         *  <p>Creates a new Stream using the specified source array.
+         *  If no array is specified an empty array will be used.</p>
+         */
         public function Stream(source:Array = null)
         {
             this.source = source == null ? [] : source;
         }
 
 
-        /**
+        /*
          * Extended part
          * -------------------------------------------
          */
@@ -48,7 +83,7 @@ package com.kemsky
 
             for each (var item:* in source)
             {
-                if (callback(item))
+                if(callback(item))
                 {
                     first.push(item);
                 }
@@ -65,7 +100,7 @@ package com.kemsky
         {
             var count:uint = length == -1 ? source.length : length;
 
-            for (var i:int = 0; i < count; i++)
+            for(var i:int = 0; i < count; i++)
             {
                 source[i] = value;
             }
@@ -76,7 +111,7 @@ package com.kemsky
         {
             var result:Array = [];
             result.length = source.length;
-            for (var i:int = 0; i < source.length; i++)
+            for(var i:int = 0; i < source.length; i++)
             {
                 result[i] = new Stream([i, source[i]]);
             }
@@ -88,7 +123,7 @@ package com.kemsky
             var result:int = 0;
             for each (var item:* in source)
             {
-                if (callback(item))
+                if(callback(item))
                 {
                     return result;
                 }
@@ -101,7 +136,7 @@ package com.kemsky
         {
             for each (var item:* in source)
             {
-                if (callback(item))
+                if(callback(item))
                 {
                     return item;
                 }
@@ -130,7 +165,7 @@ package com.kemsky
             var result:uint = 0;
             for each (var item:* in source)
             {
-                if (callback(item))
+                if(callback(item))
                 {
                     result++;
                 }
@@ -387,22 +422,22 @@ package com.kemsky
             var f:Function = function (item:*):*
             {
                 var result:Array = null;
-                if (item is Array)
+                if(item is Array)
                 {
                     result = item;
                 }
-                else if (Flex.available && item is Flex.list)
+                else if(Flex.available && item is Flex.list)
                 {
                     result = item.toArray();
                 }
-                else if (item is Stream)
+                else if(item is Stream)
                 {
                     result = Stream(item).source;
                 }
-                else if (item is Vector.<*> || item is Vector.<Number> || item is Vector.<int> || item is Vector.<uint>)
+                else if(item is Vector.<*> || item is Vector.<Number> || item is Vector.<int> || item is Vector.<uint>)
                 {
                     result = [];
-                    for (var i:int = 0; i < item.length; i++)
+                    for(var i:int = 0; i < item.length; i++)
                     {
                         result.push(item[i]);
                     }
@@ -454,7 +489,7 @@ package com.kemsky
             var dict:Dictionary = new Dictionary(weak);
             for each (var item:* in source)
             {
-                if (item.hasOwnProperty(property))
+                if(item.hasOwnProperty(property))
                 {
                     var value:* = item[property];
                     dict[value] = item;
@@ -470,7 +505,7 @@ package com.kemsky
             {
                 var key:* = callback(item);
                 var s:Stream = dict[key];
-                if (s == null)
+                if(s == null)
                 {
                     s = new Stream();
                     dict[key] = s;
@@ -490,7 +525,7 @@ package com.kemsky
             var dict:Object = {};
             for each (var item:* in source)
             {
-                if (item.hasOwnProperty(property))
+                if(item.hasOwnProperty(property))
                 {
                     var value:* = item[property];
                     dict[value] = item;
@@ -506,7 +541,7 @@ package com.kemsky
          */
         public function clone(deep:Boolean = false):Stream
         {
-            if (deep)
+            if(deep)
             {
                 var b:ByteArray = new ByteArray();
                 b.writeObject(this);
@@ -519,7 +554,7 @@ package com.kemsky
             }
         }
 
-        /**
+        /*
          * Array part
          * -------------------------------------------
          */
@@ -548,21 +583,21 @@ package com.kemsky
             var result:Array = source.concat();
             for each (var item:* in rest)
             {
-                if (item is Array)
+                if(item is Array)
                 {
                     result = result.concat.apply(null, item);
                 }
-                else if (Flex.available && item is Flex.list)
+                else if(Flex.available && item is Flex.list)
                 {
                     result = result.concat.apply(null, item.toArray());
                 }
-                else if (item is Stream)
+                else if(item is Stream)
                 {
                     result = result.concat.apply(null, Stream(item).source);
                 }
-                else if (item is Vector.<*> || item is Vector.<Number> || item is Vector.<int> || item is Vector.<uint>)
+                else if(item is Vector.<*> || item is Vector.<Number> || item is Vector.<int> || item is Vector.<uint>)
                 {
-                    for (var i:int = 0; i < item.length; i++)
+                    for(var i:int = 0; i < item.length; i++)
                     {
                         result.push(item[i]);
                     }
@@ -599,13 +634,13 @@ package com.kemsky
         {
             var result:* = source.sort.apply(null, rest);
 
-            if (result == 0)
+            if(result == 0)
             {
                 //this is error, don't want to trade type safety just for this case
                 //see 'unique' method
                 throw new Error("Stream is not unique");
             }
-            else if (result != source)
+            else if(result != source)
             {
                 return new Stream(result);
             }
@@ -617,11 +652,11 @@ package com.kemsky
         {
             var result:* = source.sortOn.apply(null, [names, options].concat(rest));
 
-            if (result == 0)
+            if(result == 0)
             {
                 throw new Error("Stream is not unique");
             }
-            else if (result != source)
+            else if(result != source)
             {
                 return new Stream(result);
             }
@@ -701,18 +736,21 @@ package com.kemsky
         }
 
 
-        /**
+        /*
          * Proxy part
          * --------------------------------------------
          */
 
+        /**
+         * @private
+         */
         override flash_proxy function getDescendants(name:*):*
         {
             var result:Array = [];
 
             for each (var item:* in source)
             {
-                if (item != null && item.hasOwnProperty(name))
+                if(item != null && item.hasOwnProperty(name))
                 {
                     result.push(item[name]);
                 }
@@ -720,6 +758,9 @@ package com.kemsky
             return new Stream(result);
         }
 
+        /**
+         * @private
+         */
         override flash_proxy function getProperty(name:*):*
         {
             var index:Number = NaN;
@@ -728,11 +769,11 @@ package com.kemsky
                 // If caller passed in a number such as 5.5, it will be floored.
                 index = parseInt(String(name));
             }
-            catch (e:Error) // localName was not a number
+            catch(e:Error) // localName was not a number
             {
             }
 
-            if (isNaNFast(index))
+            if(isNaNFast(index))
             {
                 throw new Error("Incorrect index: " + String(name));
             }
@@ -742,6 +783,9 @@ package com.kemsky
             }
         }
 
+        /**
+         * @private
+         */
         override flash_proxy function setProperty(name:*, value:*):void
         {
             var index:Number = NaN;
@@ -750,11 +794,11 @@ package com.kemsky
                 // If caller passed in a number such as 5.5, it will be floored.
                 index = parseInt(String(name));
             }
-            catch (e:Error) // localName was not a number
+            catch(e:Error) // localName was not a number
             {
             }
 
-            if (isNaNFast(index))
+            if(isNaNFast(index))
             {
                 throw new Error("Incorrect index: " + String(name));
             }
@@ -771,6 +815,9 @@ package com.kemsky
             }
         }
 
+        /**
+         * @private
+         */
         override flash_proxy function hasProperty(name:*):Boolean
         {
             var index:Number = NaN;
@@ -779,11 +826,11 @@ package com.kemsky
                 // If caller passed in a number such as 5.5, it will be floored.
                 index = parseInt(String(name));
             }
-            catch (e:Error) // localName was not a number
+            catch(e:Error) // localName was not a number
             {
             }
 
-            if (isNaNFast(index))
+            if(isNaNFast(index))
             {
                 return false;
             }
@@ -791,24 +838,36 @@ package com.kemsky
             return (index >= 0 && index < source.length) || (index < 0 && index >= -source.length);
         }
 
+        /**
+         * @private
+         */
         override flash_proxy function nextNameIndex(index:int):int
         {
             return index < length ? index + 1 : 0;
         }
 
+        /**
+         * @private
+         */
         override flash_proxy function nextName(index:int):String
         {
             return (index - 1).toString();
         }
 
+        /**
+         * @private
+         */
         override flash_proxy function nextValue(index:int):*
         {
             return source[index - 1];
         }
 
+        /**
+         * @private
+         */
         override flash_proxy function callProperty(name:*, ...rest):*
         {
-            if (rest.length != 1 || !(rest[0] is Function))
+            if(rest.length != 1 || !(rest[0] is Function))
             {
                 throw new Error("Shortcut filter must have exactly one parameter (Function)");
             }
@@ -821,6 +880,9 @@ package com.kemsky
             });
         }
 
+        /**
+         * @private
+         */
         override flash_proxy function deleteProperty(name:*):Boolean
         {
             var index:Number = NaN;
@@ -829,7 +891,7 @@ package com.kemsky
                 // If caller passed in a number such as 5.5, it will be floored.
                 index = parseInt(String(name));
             }
-            catch (e:Error) // localName was not a number
+            catch(e:Error) // localName was not a number
             {
             }
 
@@ -849,22 +911,33 @@ package com.kemsky
         }
 
 
-        /**
+        /*
          * IExternalizable part
          * --------------------------------------------
          */
 
+        /**
+         * A class implements this method to decode itself from a data stream by calling
+         * the methods of the IDataInput interface. This method must read the values in
+         * the same sequence and with the same types as were written by the writeExternal() method.
+         * @param input The name of the class that implements the IDataInput interface.
+         */
         public function readExternal(input:IDataInput):void
         {
             source = input.readObject() as Array;
         }
 
+        /**
+         * A class implements this method to encode itself for a data stream by calling
+         * the methods of the IDataOutput interface.
+         * @param output The name of the class that implements the IDataOutput interface.
+         */
         public function writeExternal(output:IDataOutput):void
         {
             output.writeObject(source);
         }
 
-        /**
+        /*
          * toString() part
          * --------------------------------------------
          */
@@ -874,6 +947,9 @@ package com.kemsky
             return "Stream{" + source.join(",") + "}";
         }
 
+        /**
+         * @private
+         */
         private static function isNaNFast(target:*):Boolean
         {
             return !(target <= 0) && !(target > 0);
