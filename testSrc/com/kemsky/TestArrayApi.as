@@ -246,7 +246,7 @@ package com.kemsky
             assertFalse(delete s["random"]);
 
             assertTrue(delete s[-1]);
-            assertEquals(s.last, 5);
+            assertEquals(s.last, 4);
             assertEquals(s.length, length - 2);
         }
 
