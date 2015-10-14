@@ -581,9 +581,9 @@ package com.kemsky
         }
 
         /**
-         * Creates a copy of current stream
+         * Creates a copy of the current stream
          * @param deep Create a deep copy using AMF serialization.
-         * @return A copy of current stream.
+         * @return A copy of the current stream.
          */
         public function clone(deep:Boolean = false):Stream
         {
@@ -618,6 +618,10 @@ package com.kemsky
             return source.join(sep);
         }
 
+        /**
+         * Creates reversed stream from the current one.
+         * @return A new reversed stream.
+         */
         public function reverse():Stream
         {
             //don't want to change local array
@@ -745,6 +749,14 @@ package com.kemsky
             return this;
         }
 
+        /**
+         * Executes a function on each item in a stream, and constructs a new
+         * stream of items corresponding to the results of the function on each
+         * item in the original stream.
+         * @param callback The function to run on each item in the stream.
+         *         <p><code>function(item:*):Boolean</code></p>
+         * @return A new stream that contains the results of the function on each item in the original stream.
+         */
         public function map(callback:Function):Stream
         {
             return new Stream(source.map(function (item:*, index:int, array:Array):*
@@ -757,7 +769,8 @@ package com.kemsky
          * Executes a test function on each item in the stream until an item is reached
          * that returns true. Use this method to determine whether any items in a
          * stream meet a criterion, such as having a value less than a particular number.
-         * @param callback
+         * @param callback The function to run on each item in the stream.
+         *                 <p><code>function(item:*):Boolean</code></p>
          * @return  A Boolean value of true if any items in the stream return true for the specified function; otherwise false.
          */
         public function some(callback:Function):Boolean
@@ -976,18 +989,12 @@ package com.kemsky
             }
         }
 
-
-        /*
-         * IExternalizable part
-         * --------------------------------------------
-         */
-
         /**
          * A class implements this method to decode itself from a data stream by calling
          * the methods of the IDataInput interface. This method must read the values in
          * the same sequence and with the same types as were written by the writeExternal() method.
          * @param input The name of the class that implements the IDataInput interface.
-         * @private
+         * @see flash.utils.IExternalizable#readExternal
          */
         public function readExternal(input:IDataInput):void
         {
@@ -998,7 +1005,7 @@ package com.kemsky
          * A class implements this method to encode itself for a data stream by calling
          * the methods of the IDataOutput interface.
          * @param output The name of the class that implements the IDataOutput interface.
-         * @private
+         * @see flash.utils.IExternalizable#readExternal
          */
         public function writeExternal(output:IDataOutput):void
         {
