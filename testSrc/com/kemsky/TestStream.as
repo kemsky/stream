@@ -727,6 +727,13 @@ package com.kemsky
             }, 10);
 
             assertEquals(sum2, 20);
+
+            var sum3:Number = $(0, 1, 2, 3, 4).foldLeft(function (prev:Number, current:Number):Number
+            {
+                return prev + current;
+            });
+
+            assertEquals(sum3, 10);
         }
 
         [Test]
@@ -745,6 +752,13 @@ package com.kemsky
             }, 10);
 
             assertEquals(sum2, 20);
+
+            var sum3:Number = $(0, 1, 2, 3, 4).foldRight(function (prev:Number, current:Number):Number
+            {
+                return prev + current;
+            });
+
+            assertEquals(sum3, 10);
         }
 
         [Test]

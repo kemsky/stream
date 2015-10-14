@@ -65,6 +65,19 @@ package com.kemsky
             this.source = source == null ? [] : source;
         }
 
+// todo
+//        public function remove(index:int, count:uint = 1):Stream
+//        {
+//            source.splice.apply(null, [index, count].concat());
+//            return this;
+//        }
+//
+//        public function insert(index:int, item:*, ...rest):Stream
+//        {
+//            source.splice.apply(null, [index, 0, item].concat());
+//            return this;
+//        }
+
         /**
          * Creates a new stream for all items that are not strictly equal to undefined (item !== <i>undefined</i>).
          * @return A new stream that contains all items from the original stream that are not equal to <i>undefined</i>.
@@ -480,12 +493,13 @@ package com.kemsky
          * @param initial The initial value for the accumulator.
          * @return The value of accumulator.
          */
-        public function foldLeft(callback:Function, initial:*):*
+        public function foldLeft(callback:Function, initial:* = undefined):*
         {
-            var context:* = initial;
-            for each (var item:* in source)
+            var context:* = initial === undefined ? first : initial;
+            var start:int = initial === undefined ? 0 : 1;
+            for (var i:int = start; i < source.length; i++)
             {
-                context = callback(item, context);
+                context = callback(source[i], context);
             }
             return context;
         }
@@ -496,12 +510,13 @@ package com.kemsky
          * @param initial The initial value for the accumulator.
          * @return The value of accumulator.
          */
-        public function foldRight(callback:Function, initial:*):*
+        public function foldRight(callback:Function, initial:* = undefined):*
         {
-            var context:* = initial;
-            for each (var item:* in source.reverse())
+            var context:* = initial === undefined ? last : initial;
+            var start:int = initial === undefined ? source.length - 2 : source.length - 1;
+            for (var i:int = start; i > 0; i--)
             {
-                context = callback(item, context);
+                context = callback(source[i], context);
             }
             return context;
         }
