@@ -714,14 +714,14 @@ package com.kemsky
             return this;
         }
 
-        public function indexOf(searchElement:*, fromIndex:* = 0):int
+        public function indexOf(item:*, fromIndex:* = 0):int
         {
-            return source.indexOf(searchElement, fromIndex);
+            return source.indexOf(item, fromIndex);
         }
 
-        public function lastIndexOf(searchElement:*, fromIndex:* = 2147483647):int
+        public function lastIndexOf(item:*, fromIndex:* = 2147483647):int
         {
-            return source.lastIndexOf(searchElement, fromIndex);
+            return source.lastIndexOf(item, fromIndex);
         }
 
         public function every(callback:Function):Boolean
@@ -792,8 +792,8 @@ package com.kemsky
         }
 
         /**
-         * Removes the last element from a stream and returns the value of that element.
-         * @return The value of the last element (of any data type) in the specified stream.
+         * Removes the last item from a stream and returns the value of that item.
+         * @return The value of the last item (of any data type) in the specified stream.
          */
         public function pop():*
         {
@@ -803,7 +803,7 @@ package com.kemsky
         /**
          * A non-negative integer specifying the number of items in the stream.
          * This property is automatically updated when new items are added to the stream.
-         * When you assign a value to a stream element (for example, my_stream[index] = value),
+         * When you assign a value to a stream item (for example, my_stream[index] = value),
          * if index is a number, and index+1 is greater than the length property,
          * the length property is updated to index+1.<p/>
          *
