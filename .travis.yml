@@ -8,8 +8,11 @@ script:
 after_success:
   - mvn flexmojos:asdoc-report -DflashPlayer.command=Flash\ Player\ Debugger.app/Contents/MacOS/Flash\ Player\ Debugger
   - mvn flexmojos:coverage-report -DflashPlayer.command=Flash\ Player\ Debugger.app/Contents/MacOS/Flash\ Player\ Debugger
+  - pushd .
+  - cd target/site
   - zip -r asdoc asdoc
   - zip -r coverage coverage
+  - popd
   - cp target/stream-*.*.*.swc target/site/stream.swc
 deploy:
   provider: releases
@@ -17,11 +20,8 @@ deploy:
     secure: 1ZloFQElw9KHlGQ3bxX31GE5fioGgjeiHfwrXb4ZDtMPCIdTlppHsvQPPE42dzUOpWWO1bSfrJPznxo33ddZZ3m7exiAlBEJoxNJQFDONso9nRJkSPhiNPZoB2V3X/AQrCA1/qZilIwm3iaxRMYJMAOg5dub1XCAz0BOyYsYcGeYVA3hWXP9FRhJgJUB8duSxM0y/ag4DiCe4Ckq0peXZXilZmVSERmWDZCFNrNRbDxuNIugAEFdIsN1jbyq/jNq3VkGkV/tlkfGUfPi9jb/1vxUQ6KRT/ApIbnZDmxIwF4f31J/7SlUsVB/rWbE5h2EBiD9wewsieY/kg88qyn1DjdEW2583wnY5tb94yHMRx8G2XGTo/yXPVyZkA7+Pi4u/bk6q8Gpw/KW1cCbEAEo3JzwgFZU+n2CAuKW7O0JVpcuYN9I4wypEKzyyFfAALoZXhJxQxcj4/vAbaoeDYZcSd44x4KHTn4hFCygrrrc60V+5qoVV0KrPTslSbK4pNDGweo3facMsb1qu7x3pokSrUc7/zaof1lzrvRPmYjcHqKX1BS2BncEJ3oGVqI6PJFFR2uPsC0+xRkaYULnTpJerYk1vV8zdWupMGSHDp0ffLwpxF6CzIXM91tj5w8pnfzL0Fq9p7dvcE+C1ewdfwH+4/GVg8kRV+3QcAwykPk1gwc=
   file:
     - target/site/stream.swc
-    - pushd .
-    - cd target/site
     - target/site/coverage.zip
     - target/site/asdoc.zip
-    - popd
   skip_cleanup: true
   on:
     tags: true
