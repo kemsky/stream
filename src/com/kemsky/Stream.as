@@ -76,7 +76,7 @@ package com.kemsky
 
         /**
          * Splits current stream into two streams depending on testing callback.
-         * @param callback A function to run on each item of the stream: <code>function(item:*):Boolean</code>.
+         * @param callback A function to run on each item of the stream: function(item:*):Boolean.
          * @return A new stream containing two streams: the first stream from items with positive test and second with negative.
          */
         public function partition(callback:Function):Stream
@@ -135,7 +135,7 @@ package com.kemsky
         /**
          * Returns an index of the item in the stream, if an item in the stream satisfies the provided testing callback.
          * Otherwise -1 is returned.
-         * @param callback The function to run on each item of the stream: <code>function(item:*):Boolean</code>.
+         * @param callback The function to run on each item of the stream: function(item:*):Boolean.
          * @return An index of the item that satisfies provided testing callback; otherwise -1 is returned.
          */
         public function findIndex(callback:Function):int
@@ -155,7 +155,7 @@ package com.kemsky
         /**
          * Returns a value in the stream, if an item in the stream satisfies the provided testing callback.
          * Otherwise <i>undefined</i> is returned.
-         * @param callback The function to run on each item of the stream: <code>function(item:*):Boolean</code>.
+         * @param callback The function to run on each item of the stream: function(item:*):Boolean.
          * @return An item that satisfies provided testing callback; otherwise <i>undefined</i> is returned.
          */
         public function find(callback:Function):*
@@ -476,7 +476,7 @@ package com.kemsky
 
         /**
          * Applies a binary callback to a start value and all items of this stream, going left to right.
-         * @param callback The function to execute on each value in the stream: <code>function(item:*, accumulator:*):*</code>.
+         * @param callback The function to execute on each value in the stream: function(item:*, accumulator:*):*.
          * @param initial The initial value for the accumulator.
          * @return The value of accumulator.
          */
@@ -492,7 +492,7 @@ package com.kemsky
 
         /**
          * Applies a binary callback to all items of this stream and a start value, going right to left.
-         * @param callback The function to execute on each value in the stream: <code>function(item:*, accumulator:*):*</code>.
+         * @param callback The function to execute on each value in the stream: function(item:*, accumulator:*):*.
          * @param initial The initial value for the accumulator.
          * @return The value of accumulator.
          */
@@ -529,8 +529,8 @@ package com.kemsky
         /**
          * Builds a new stream by applying a function to all items of this stream and using
          * the items of the resulting Streams, ArrayLists, ArrayCollections, Vectors.
-         * @param callback The function to execute on each value in the stream: <code>function(item:*):*</code>.
-         * @return
+         * @param callback The function to execute on each value in the stream: function(item:*):*.
+         * @return A new stream that contains flatten results of callback.
          */
         public function flatMap(callback:Function):Stream
         {
@@ -615,7 +615,7 @@ package com.kemsky
 
         /**
          * Groups items by key obtained via callback.
-         * @param callback The function to calculate key from item: <code>function(item:*):*</code>
+         * @param callback The function to calculate key from item: function(item:*):*
          * @param factory Class to be instantiated and returned instead of Dictionary.
          * @return A new Dictionary or custom class created from <i>factory</i> which contains groups.
          */
@@ -886,7 +886,7 @@ package com.kemsky
          * determine whether all items in a stream meet a criterion, such as
          * having values less than a particular number.
          * @param callback The function to run on each item in the stream.
-         *         <p><code>function(item:*):Boolean</code></p>
+         *         <p>function(item:*):Boolean</p>
          * @return A Boolean value of true if all items in the stream return true for the specified function; otherwise, false.
          */
         public function every(callback:Function):Boolean
@@ -902,7 +902,7 @@ package com.kemsky
          * for all items that return true for the specified function. If an item returns
          * false, it is not included in the new stream.
          * @param callback The function to run on each item in the stream.
-         *         <p><code>function(item:*):Boolean</code></p>
+         *         <p>function(item:*):Boolean</p>
          * @return A new stream that contains all items from the original stream that returned true.
          */
         public function filter(callback:Function):Stream
@@ -916,7 +916,7 @@ package com.kemsky
         /**
          * Executes a function on each item in the stream.
          * @param callback The function to run on each item in the stream.
-         *         <p><code>function(item:*):void</code></p>
+         *         <p>function(item:*):void</p>
          * @return Current stream
          */
         public function forEach(callback:Function):Stream
@@ -933,7 +933,7 @@ package com.kemsky
          * stream of items corresponding to the results of the function on each
          * item in the original stream.
          * @param callback The function to run on each item in the stream.
-         *         <p><code>function(item:*):Boolean</code></p>
+         *         <p>function(item:*):Boolean</p>
          * @return A new stream that contains the results of the function on each item in the original stream.
          */
         public function map(callback:Function):Stream
@@ -949,7 +949,7 @@ package com.kemsky
          * that returns true. Use this method to determine whether any items in a
          * stream meet a criterion, such as having a value less than a particular number.
          * @param callback The function to run on each item in the stream.
-         *                 <p><code>function(item:*):Boolean</code></p>
+         *                 <p>function(item:*):Boolean</p>
          * @return  A Boolean value of true if any items in the stream return true for the specified function; otherwise false.
          */
         public function some(callback:Function):Boolean
