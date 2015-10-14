@@ -1,6 +1,7 @@
 package com.kemsky
 {
     /**
+     * @private
      * Creates partially applied function
      * @param func source
      * @param args arguments to apply to func
