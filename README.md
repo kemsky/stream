@@ -5,9 +5,9 @@ Basically it is Array wrapper that adds many useful methods and properties (filt
 
 Inspired by Javascript and Ruby arrays and Scala collections. 
 
-Travis CI integration, 100% [code coverage](http://kemsky.github.io/stream/coverage/).
+Travis CI integration, 100% code coverage, automated artifact uploading.
 
-[ASDoc Documentation](http://kemsky.github.io/stream/asdoc/)
+See [Latest Release](http://kemsky.github.io/stream/coverage/).
 
 ## Create
 ```as3
