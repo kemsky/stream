@@ -6,8 +6,8 @@ before_script:
 script:
   - mvn package -DflashPlayer.command=Flash\ Player\ Debugger.app/Contents/MacOS/Flash\ Player\ Debugger
 after_success:
-  - mvn flexmojos:asdoc-report
-  - mvn flexmojos:coverage-report
+  - mvn flexmojos:asdoc-report -DflashPlayer.command=Flash\ Player\ Debugger.app/Contents/MacOS/Flash\ Player\ Debugger
+  - mvn flexmojos:coverage-report -DflashPlayer.command=Flash\ Player\ Debugger.app/Contents/MacOS/Flash\ Player\ Debugger
   - zip -r asdoc asdoc
   - zip -r coverage coverage
   - cp target/stream-*.*.*.swc target/site/stream.swc
