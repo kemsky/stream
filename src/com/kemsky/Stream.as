@@ -449,8 +449,8 @@ package com.kemsky
 
         /**
          * Creates a new stream that contains count of items starting from offset.
-         * @param count Maximum items to take.
-         * @param offset Index to start from.
+         * @param count The maximum items to take.
+         * @param offset The index to start from.
          * @return A new stream that contains count of items starting from offset.
          */
         public function take(count:int, offset:uint = 0):Stream
@@ -500,7 +500,7 @@ package com.kemsky
         }
 
         /**
-         * Returns new ArrayCollection created from items of current Stream
+         * Returns a new ArrayCollection created from items of current Stream
          */
         public function collection():ArrayCollection
         {
@@ -509,7 +509,7 @@ package com.kemsky
 
 
         /**
-         * Returns new ArrayList created from items of current Stream
+         * Returns a new ArrayList created from items of current Stream
          */
         public function list():ArrayList
         {
@@ -517,7 +517,7 @@ package com.kemsky
         }
 
         /**
-         * Returns new Array created from items of current Stream
+         * Returns a new Array created from items of current Stream
          */
         public function array():Array
         {
@@ -526,8 +526,8 @@ package com.kemsky
 
         /**
          * Creates new Dictionary from current Stream using specified property as keys
-         * @param property name of the property to be used as key
-         * @param weak create Dictionary with weak keys
+         * @param property The name of the property to be used as key
+         * @param weak Create a Dictionary with weak keys
          * @return A new Dictionary from current Stream using specified property as keys
          */
         public function dictionary(property:String, weak:Boolean = false):Dictionary
@@ -562,8 +562,8 @@ package com.kemsky
         }
 
         /**
-         * Creates new Object from current Stream using specified property as keys
-         * @param property name of the property to be used as key
+         * Creates new Object from the current stream using specified property as keys
+         * @param property The name of the property to be used as key.
          * @return A new Object from current Stream using specified property as keys
          */
         public function object(property:String):Object
@@ -581,9 +581,9 @@ package com.kemsky
         }
 
         /**
-         * Creates a copy of current Stream
-         * @param deep create deep copy using AMF serialization trick
-         * @return A copy of current Stream
+         * Creates a copy of current stream
+         * @param deep Create a deep copy using AMF serialization.
+         * @return A copy of current stream.
          */
         public function clone(deep:Boolean = false):Stream
         {
