@@ -19,5 +19,6 @@ deploy:
     - target/stream.swc
     - target/site/coverage.zip
     - target/site/asdoc.zip
+  skip_cleanup: true
   on:
     tags: true
