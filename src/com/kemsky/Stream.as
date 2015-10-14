@@ -458,11 +458,21 @@ package com.kemsky
             return slice(offset, offset + count);
         }
 
+        /**
+         * Flattens a nested Streams, ArrayLists, ArrayCollections, Vectors.
+         * @return
+         */
         public function flatten():Stream
         {
-            return flatMap(null);
+            return flatMap(null);//todo: unlimited depth?
         }
 
+        /**
+         * Builds a new stream by applying a function to all items of this stream and using
+         * the items of the resulting Streams, ArrayLists, ArrayCollections, Vectors.
+         * @param callback
+         * @return
+         */
         public function flatMap(callback:Function):Stream
         {
             var f:Function = function (item:*):*
@@ -602,7 +612,6 @@ package com.kemsky
 
         /*
          * Array part
-         * -------------------------------------------
          */
 
         /**
@@ -628,6 +637,15 @@ package com.kemsky
             return new Stream(source.concat().reverse());
         }
 
+        /**
+         * Concatenates the elements specified in the parameters with the
+         * elements in a stream and creates a new stream. If the parameters
+         * specify an stream, the elements of that array are concatenated.
+         * If you don't pass any parameters, the new stream is a duplicate
+         * (shallow clone) of the original stream.
+         * @param rest A value of any data type (such as numbers, elements, or strings) to be concatenated in a new stream.
+         * @return  A new stream that contains the items from this stream followed by items from the parameters.
+         */
         public function concat(...rest):Stream
         {
             var result:Array = source.concat();
@@ -660,31 +678,75 @@ package com.kemsky
             return new Stream(result);
         }
 
+        /**
+         * Removes the first item from a stream and returns that item.
+         * The remaining stream items are moved from their original position, i, to i-1.
+         * @return The first item (of any data type) in an stream.
+         */
         public function shift():*
         {
             return source.shift();
         }
 
-        public function slice(startIndex:int = 0, endIndex:int = 16777215):Stream
-        {
-            return new Stream(source.slice(startIndex, endIndex));
-        }
-
+        /**
+         * Adds one or more items to the beginning of a stream and
+         * returns the new length of the stream. The other items in the
+         * stream are moved from their original position, i, to i+1.
+         * @param rest One or more numbers, elements, or variables to be inserted at the beginning of the stream.
+         * @return An integer representing the new length of the stream.
+         */
         public function unshift(...rest):uint
         {
             return source.unshift.apply(null, rest);
         }
 
-        public function splice(...rest):Stream
+        /**
+         * Returns a new array that consists of a range of elements from the
+         * original stream, without modifying the original stream. The returned stream
+         * includes the startIndex item and all items up to, but not including, the endIndex item.
+         * @param startIndex A number specifying the index of the starting point for the slice.
+         *                  If startIndex is a negative number, the starting point begins at the end of the stream,
+         *                  where -1 is the last item.
+         * @param endIndex A number specifying the index of the ending point for the slice.
+         *                 If you omit this parameter, the slice includes all items from
+         *                 the starting point to the end of the stream. If endIndex is a negative number,
+         *                 the ending point is specified from the end of the stream, where -1 is the last item.
+         * @return A new stream that consists of a range of items from the original stream.
+         */
+        public function slice(startIndex:int = 0, endIndex:int = 16777215):Stream
         {
-            return new Stream(source.splice.apply(null, rest));
+            return new Stream(source.slice(startIndex, endIndex));
         }
 
+        /**
+         * Adds items to and removes elements from a stream. This method modifies the stream without making a copy.
+         * @param startIndex An integer that specifies the index of the item in the stream
+         *                   where the insertion or deletion begins. You can use a negative integer
+         *                   to specify a position relative to the end of the stream (for example, -1 is the last item of the stream).
+         * @param deleteCount An integer that specifies the number of items to be deleted.
+         *                    This number includes the item specified in the startIndex parameter.
+         *                    If you do not specify a value for the deleteCount parameter, the method deletes
+         *                    all of the values from the startIndex item to the last item in the stream.
+         *                    If the value is 0, no items are deleted.
+         * @param values An optional list of one or more comma-separated values to insert into the stream
+         *               at the position specified in the startIndex parameter.
+         * @return  A new stream containing the items that were removed from the original stream.
+         */
+        public function splice(startIndex:int, deleteCount:uint, ... values):Stream
+        {
+            return new Stream(source.splice.apply(null, [startIndex, deleteCount].concat(values)));
+        }
+
+        /**
+         * Sorts the elements in a stream. This method sorts according to Unicode values. (ASCII is a subset of Unicode.)
+         * @param rest The arguments specifying a comparison function and one or more values that determine the behavior of the sort.
+         * @return The return value depends on whether you pass any arguments.
+         */
         public function sort(...rest):Stream
         {
             var result:* = source.sort.apply(null, rest);
 
-            if(result == 0)
+            if(result == 0 && source.length > 1)
             {
                 //this is error, don't want to trade type safety just for this case
                 //see 'unique' method
@@ -698,9 +760,23 @@ package com.kemsky
             return this;
         }
 
-        public function sortOn(names:*, options:* = 0, ...rest):*
+        /**
+         * Sorts the items in a stream according to one or more fields in the stream.
+         * @param names A string that identifies a field to be used as the sort value,
+         *              or an array in which the first item represents the primary sort field,
+         *              the second represents the secondary sort field, and so on.
+         * @param options One or more numbers or names of defined constants, separated
+         *                by the bitwise OR (|) operator, that change the sorting behavior.
+         * @return The return value depends on whether you pass any parameters.
+         * @see com.kemsky.Stream#CASEINSENSITIVE
+         * @see com.kemsky.Stream#NUMERIC
+         * @see com.kemsky.Stream#DESCENDING
+         * @see com.kemsky.Stream#RETURNINDEXEDARRAY
+         * @see com.kemsky.Stream#UNIQUESORT
+         */
+        public function sortOn(names:Object, options:Object = null):*
         {
-            var result:* = source.sortOn.apply(null, [names, options].concat(rest));
+            var result:* = source.sortOn.apply(null, [names, options]);
 
             if(result == 0)
             {
@@ -714,16 +790,40 @@ package com.kemsky
             return this;
         }
 
+        /**
+         * Searches for an item in an stream by using strict equality (===) and returns the index position of the item.
+         * @param item The item to find in the stream.
+         * @param fromIndex The location in the stream from which to start searching for the item.
+         * @return A zero-based index position of the item in the stream. If the searchElement argument is not found, the return value is -1.
+         */
         public function indexOf(item:*, fromIndex:* = 0):int
         {
             return source.indexOf(item, fromIndex);
         }
 
+        /**
+         * Searches for an item in an stream, working backward from the last item, and returns
+         * the index position of the matching item using strict equality (===).
+         * @param item The item to find in the stream.
+         * @param fromIndex  The location in the stream from which to start searching for the item.
+         *                   The default is the maximum value allowed for an index.
+         *                   If you do not specify fromIndex, the search starts at the last item in the stream.
+         * @return A zero-based index position of the item in the stream. If the searchElement argument is not found, the return value is -1.
+         */
         public function lastIndexOf(item:*, fromIndex:* = 2147483647):int
         {
             return source.lastIndexOf(item, fromIndex);
         }
 
+        /**
+         * Executes a test function on each item in the stream until an item is reached
+         * that returns false for the specified function. You use this method to
+         * determine whether all items in a stream meet a criterion, such as
+         * having values less than a particular number.
+         * @param callback The function to run on each item in the stream.
+         *         <p><code>function(item:*):Boolean</code></p>
+         * @return A Boolean value of true if all items in the stream return true for the specified function; otherwise, false.
+         */
         public function every(callback:Function):Boolean
         {
             return source.every(function (item:*, index:int, array:Array):Boolean
@@ -732,6 +832,14 @@ package com.kemsky
             });
         }
 
+        /**
+         * Executes a test function on each item in the array and constructs a new stream
+         * for all items that return true for the specified function. If an item returns
+         * false, it is not included in the new stream.
+         * @param callback The function to run on each item in the stream.
+         *         <p><code>function(item:*):Boolean</code></p>
+         * @return A new stream that contains all items from the original stream that returned true.
+         */
         public function filter(callback:Function):Stream
         {
             return new Stream(source.filter(function (item:*, index:int, array:Array):Boolean
@@ -740,6 +848,12 @@ package com.kemsky
             }));
         }
 
+        /**
+         * Executes a function on each item in the stream.
+         * @param callback The function to run on each item in the stream.
+         *         <p><code>function(item:*):void</code></p>
+         * @return Current stream
+         */
         public function forEach(callback:Function):Stream
         {
             source.forEach(function (item:*, index:int, array:Array):void
