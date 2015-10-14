@@ -74,6 +74,11 @@ package com.kemsky
             return filter(defined(_));
         }
 
+        /**
+         * Splits current stream into two streams depending on testing callback.
+         * @param callback A function to run on each item of the stream: <code>function(item:*):Boolean</code>.
+         * @return A new stream containing two streams: the first stream from items with positive test and second with negative.
+         */
         public function partition(callback:Function):Stream
         {
             var first:Stream = new Stream();
@@ -94,6 +99,12 @@ package com.kemsky
             return new Stream([first, second]);
         }
 
+        /**
+         * Fills current stream with provided value.
+         * @param value An item used to fill the stream.
+         * @param length An Integer that specifies the how many items to set.
+         * @return Current stream.
+         */
         public function fill(value:*, length:int = -1):Stream
         {
             var count:uint = length == -1 ? source.length : length;
@@ -105,6 +116,11 @@ package com.kemsky
             return this;
         }
 
+        /**
+         * Creates a new stream of streams created from the items and their corresponding indices.
+         * For example: [1, 2] => [[0, 1][1, 2]].
+         * @return A new stream of streams created from the items and their corresponding indices.
+         */
         public function zip():Stream
         {
             var result:Array = [];
@@ -116,6 +132,12 @@ package com.kemsky
             return new Stream(result);
         }
 
+        /**
+         * Returns an index of the item in the stream, if an item in the stream satisfies the provided testing callback.
+         * Otherwise -1 is returned.
+         * @param callback The function to run on each item of the stream: <code>function(item:*):Boolean</code>.
+         * @return An index of the item that satisfies provided testing callback; otherwise -1 is returned.
+         */
         public function findIndex(callback:Function):int
         {
             var result:int = 0;
@@ -130,6 +152,12 @@ package com.kemsky
             return -1;
         }
 
+        /**
+         * Returns a value in the stream, if an item in the stream satisfies the provided testing callback.
+         * Otherwise <i>undefined</i> is returned.
+         * @param callback The function to run on each item of the stream: <code>function(item:*):Boolean</code>.
+         * @return An item that satisfies provided testing callback; otherwise <i>undefined</i> is returned.
+         */
         public function find(callback:Function):*
         {
             for each (var item:* in source)
@@ -142,22 +170,41 @@ package com.kemsky
             return undefined;
         }
 
-        public function drop(count:uint):Stream
+        /**
+         * Creates a new stream from items of the current stream skipping last <i>n</i> items.
+         * @param n An integer that specifies how may items to skip.
+         * @return A new stream without <i>n</i> last items.
+         */
+        public function drop(n:uint):Stream
         {
-            return this.slice(0, length - count);
+            return this.slice(0, length - n);
         }
 
+        /**
+         * Returns stream item at specified index.
+         * @param index An integer that specifies the position of the item in the stream.
+         * @return An item at specified position.
+         */
         public function getItem(index:int):*
         {
             return source[index];
         }
 
-
+        /**
+         * Sets item at specified position.
+         * @param index An integer that specifies the position in the stream where the item is to be set.
+         * @param value An item to set.
+         */
         public function setItem(index:int, value:*):void
         {
             source[index] = value;
         }
 
+        /**
+         * Executes a test function on each item and calculates number of successful tests.
+         * @param callback The function to run on each item in the stream.
+         * @return A number of successful tests.
+         */
         public function count(callback:Function):uint
         {
             var result:uint = 0;
@@ -183,8 +230,8 @@ package com.kemsky
         }
 
         /**
-         * Removes all items from the stream
-         * @return Current stream
+         * Removes all items from the stream.
+         * @return Current stream.
          */
         public function clear():Stream
         {
@@ -427,6 +474,12 @@ package com.kemsky
             source[source.length - 1] = item;
         }
 
+        /**
+         * Applies a binary callback to a start value and all items of this stream, going left to right.
+         * @param callback The function to execute on each value in the stream: <code>function(item:*, accumulator:*):*</code>.
+         * @param initial The initial value for the accumulator.
+         * @return The value of accumulator.
+         */
         public function foldLeft(callback:Function, initial:*):*
         {
             var context:* = initial;
@@ -437,6 +490,12 @@ package com.kemsky
             return context;
         }
 
+        /**
+         * Applies a binary callback to all items of this stream and a start value, going right to left.
+         * @param callback The function to execute on each value in the stream: <code>function(item:*, accumulator:*):*</code>.
+         * @param initial The initial value for the accumulator.
+         * @return The value of accumulator.
+         */
         public function foldRight(callback:Function, initial:*):*
         {
             var context:* = initial;
@@ -460,17 +519,17 @@ package com.kemsky
 
         /**
          * Flattens a nested Streams, ArrayLists, ArrayCollections, Vectors.
-         * @return
+         * @return A new stream from items of the nested Streams, ArrayLists, ArrayCollections, Vectors.
          */
         public function flatten():Stream
         {
-            return flatMap(null);//todo: unlimited depth?
+            return flatMap(null);
         }
 
         /**
          * Builds a new stream by applying a function to all items of this stream and using
          * the items of the resulting Streams, ArrayLists, ArrayCollections, Vectors.
-         * @param callback
+         * @param callback The function to execute on each value in the stream: <code>function(item:*):*</code>.
          * @return
          */
         public function flatMap(callback:Function):Stream
@@ -510,7 +569,7 @@ package com.kemsky
         }
 
         /**
-         * Returns a new ArrayCollection created from items of current Stream
+         * Creates a new ArrayCollection from items of current Stream
          */
         public function collection():ArrayCollection
         {
@@ -519,7 +578,7 @@ package com.kemsky
 
 
         /**
-         * Returns a new ArrayList created from items of current Stream
+         * Creates a new ArrayList from items of current Stream
          */
         public function list():ArrayList
         {
@@ -527,7 +586,7 @@ package com.kemsky
         }
 
         /**
-         * Returns a new Array created from items of current Stream
+         * Creates a new Array from items of current Stream
          */
         public function array():Array
         {
@@ -554,6 +613,12 @@ package com.kemsky
             return dict;
         }
 
+        /**
+         * Groups items by key obtained via callback.
+         * @param callback The function to calculate key from item: <code>function(item:*):*</code>
+         * @param factory Class to be instantiated and returned instead of Dictionary.
+         * @return A new Dictionary or custom class created from <i>factory</i> which contains groups.
+         */
         public function group(callback:Function, factory:Class = null):*
         {
             var dict:* = factory == null ? new Dictionary() : new factory();
@@ -593,7 +658,7 @@ package com.kemsky
         /**
          * Creates a copy of the current stream
          * @param deep Create a deep copy using AMF serialization.
-         * @return A copy of the current stream.
+         * @return A shallow copy of the current stream if <i>deep</i> is false; otherwise creates deep copy.
          */
         public function clone(deep:Boolean = false):Stream
         {
