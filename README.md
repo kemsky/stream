@@ -7,7 +7,7 @@ Inspired by Javascript and Ruby arrays and Scala collections.
 
 Travis CI integration, 100% code coverage, automated artifact uploading.
 
-See [Latest Release](http://kemsky.github.io/stream/coverage/).
+See [latest release](http://kemsky.github.io/stream/coverage/).
 
 ## Create
 ```as3
