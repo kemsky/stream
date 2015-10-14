@@ -50,14 +50,14 @@ package com.kemsky
         public static const NUMERIC:uint = 16;
 
         /**
-         *  The source of data in the Stream.
+         *  The source of data in the stream.
          */
         public var source:Array;
 
         /**
          *  Constructor.
          *
-         *  <p>Creates a new Stream using the specified source array.
+         *  <p>Creates a new stream using the specified source array.
          *  If no array is specified an empty array will be used.</p>
          */
         public function Stream(source:Array = null)
@@ -65,12 +65,10 @@ package com.kemsky
             this.source = source == null ? [] : source;
         }
 
-
-        /*
-         * Extended part
-         * -------------------------------------------
+        /**
+         * Creates a new stream for all items that are not strictly equal to undefined (item !== <i>undefined</i>).
+         * @return A new stream that contains all items from the original stream that are not equal to <i>undefined</i>.
          */
-
         public function compact():Stream
         {
             return filter(defined(_));
@@ -175,27 +173,27 @@ package com.kemsky
 
 
         /**
-         * Check if Stream contains specified item
-         * @param item
-         * @return <b>true</b> if Stream contains item, <b>false</b> in other case
+         * Checks if the stream contains specified item
+         * @param item An item to check.
+         * @return A Boolean value of true if stream contains an item; otherwise false.
          */
         public function contains(item:*):Boolean
         {
             return indexOf(item) > -1;
         }
 
-
         /**
-         * Removes all items from Stream
+         * Removes all items from the stream
+         * @return Current stream
          */
-        public function clear():void
+        public function clear():Stream
         {
             source = [];
+            return this;
         }
 
         /**
-         * Returns <b>true</b> if Stream does not contain any elements,
-         * else returns <b>false</b>.
+         * Returns a Boolean value of true if Stream does not contain any items; otherwise false.
          */
         public function get empty():Boolean
         {
@@ -203,23 +201,27 @@ package com.kemsky
         }
 
         /**
-         * Creates new Stream that contains items starting from count index.
-         * @param count number of items to skip
-         * @return new Stream that contains items starting from count index.
+         * Creates a new stream that contains items starting from count index.
+         * @param count A number of items to skip
+         * @return A new stream that contains items starting from count index.
          */
         public function skip(count:int):Stream
         {
             return this.slice(count);
         }
 
+        /**
+         * Returns a Boolean value of true if the stream contains unique items; otherwise false.
+         */
         public function get unique():Boolean
         {
             var result:* = source.concat().sort(Array.UNIQUESORT);
             return result != 0;
         }
 
-        //ordinals
-
+        /**
+         * The first item of the stream
+         */
         public function get first():*
         {
             return source[0];
@@ -230,6 +232,9 @@ package com.kemsky
             source[0] = item;
         }
 
+        /**
+         * The second item of the stream
+         */
         public function get second():*
         {
             return source[1];
@@ -240,6 +245,9 @@ package com.kemsky
             source[1] = item;
         }
 
+        /**
+         * The third item of the stream
+         */
         public function get third():*
         {
             return source[2];
@@ -250,6 +258,9 @@ package com.kemsky
             source[2] = item;
         }
 
+        /**
+         * The fourth item of the stream
+         */
         public function get fourth():*
         {
             return source[3];
@@ -260,6 +271,9 @@ package com.kemsky
             source[3] = item;
         }
 
+        /**
+         * The fifth item of the stream
+         */
         public function get fifth():*
         {
             return source[4];
@@ -270,6 +284,9 @@ package com.kemsky
             source[4] = item;
         }
 
+        /**
+         * The sixth item of the stream
+         */
         public function get sixth():*
         {
             return source[5];
@@ -280,6 +297,9 @@ package com.kemsky
             source[5] = item;
         }
 
+        /**
+         * The seventh of the stream
+         */
         public function get seventh():*
         {
             return source[6];
@@ -290,6 +310,9 @@ package com.kemsky
             source[6] = item;
         }
 
+        /**
+         * The eighth item of the stream
+         */
         public function get eighth():*
         {
             return source[7];
@@ -300,6 +323,9 @@ package com.kemsky
             source[7] = item;
         }
 
+        /**
+         * The ninth item of the stream
+         */
         public function get ninth():*
         {
             return source[8];
@@ -310,6 +336,9 @@ package com.kemsky
             source[8] = item;
         }
 
+        /**
+         * The tenth item of the stream
+         */
         public function get tenth():*
         {
             return source[9];
@@ -320,6 +349,9 @@ package com.kemsky
             source[9] = item;
         }
 
+        /**
+         * The eleventh item of the stream
+         */
         public function get eleventh():*
         {
             return source[10];
@@ -329,6 +361,9 @@ package com.kemsky
         {
             source[10] = item;
         }
+        /**
+         * The twelfth item of the stream
+         */
 
         public function get twelfth():*
         {
@@ -340,6 +375,9 @@ package com.kemsky
             source[11] = item;
         }
 
+        /**
+         * The thirteenth item of the stream
+         */
         public function get thirteenth():*
         {
             return source[12];
@@ -350,6 +388,9 @@ package com.kemsky
             source[12] = item;
         }
 
+        /**
+         * The fourteenth item of the stream
+         */
         public function get fourteenth():*
         {
             return source[13];
@@ -360,6 +401,9 @@ package com.kemsky
             source[13] = item;
         }
 
+        /**
+         * The fifteenth item of the stream
+         */
         public function get fifteenth():*
         {
             return source[14];
@@ -370,7 +414,9 @@ package com.kemsky
             source[14] = item;
         }
 
-
+        /**
+         * The last item of the stream
+         */
         public function get last():*
         {
             return source[source.length - 1];
@@ -402,10 +448,10 @@ package com.kemsky
         }
 
         /**
-         * Creates new Stream that contains count of items starting from offset.
-         * @param count maximum items to take
-         * @param offset index to start from
-         * @return new Stream that contains count of items starting from offset.
+         * Creates a new stream that contains count of items starting from offset.
+         * @param count Maximum items to take.
+         * @param offset Index to start from.
+         * @return A new stream that contains count of items starting from offset.
          */
         public function take(count:int, offset:uint = 0):Stream
         {
@@ -560,11 +606,11 @@ package com.kemsky
          */
 
         /**
-         * Converts the elements in an array to strings,
-         * inserts the specified separator between the elements,
+         * Converts the items in a stream to strings,
+         * inserts the specified separator between the items,
          * concatenates them, and returns the resulting string.
          * @param sep used as separator
-         * @return A string consisting of the elements of an array converted to strings
+         * @return A string consisting of the items of an array converted to strings
          * and separated by the specified parameter.
          */
         public function join(sep:* = null):String
@@ -707,6 +753,13 @@ package com.kemsky
             }));
         }
 
+        /**
+         * Executes a test function on each item in the stream until an item is reached
+         * that returns true. Use this method to determine whether any items in a
+         * stream meet a criterion, such as having a value less than a particular number.
+         * @param callback
+         * @return  A Boolean value of true if any items in the stream return true for the specified function; otherwise false.
+         */
         public function some(callback:Function):Boolean
         {
             return source.some(function (item:*, index:int, array:Array):Boolean
@@ -715,16 +768,35 @@ package com.kemsky
             });
         }
 
-        public function push(...rest):void
+        /**
+         * Adds one or more items to the end of a stream and returns the new length of the stream.
+         * @param rest One or more values to append to the stream.
+         * @return An integer representing the new length of the stream.
+         */
+        public function push(...rest):uint
         {
-            source.push.apply(null, rest);
+            return source.push.apply(null, rest);
         }
 
+        /**
+         * Removes the last element from a stream and returns the value of that element.
+         * @return The value of the last element (of any data type) in the specified stream.
+         */
         public function pop():*
         {
             return source.pop();
         }
 
+        /**
+         * A non-negative integer specifying the number of items in the stream.
+         * This property is automatically updated when new items are added to the stream.
+         * When you assign a value to a stream element (for example, my_stream[index] = value),
+         * if index is a number, and index+1 is greater than the length property,
+         * the length property is updated to index+1.<p/>
+         *
+         * <b>Note</b>: If you assign a value to the length property that is shorter
+         * than the existing length, the stream will be truncated.
+         */
         public function get length():int
         {
             return source.length;
@@ -734,12 +806,6 @@ package com.kemsky
         {
             source.length = value;
         }
-
-
-        /*
-         * Proxy part
-         * --------------------------------------------
-         */
 
         /**
          * @private
@@ -921,6 +987,7 @@ package com.kemsky
          * the methods of the IDataInput interface. This method must read the values in
          * the same sequence and with the same types as were written by the writeExternal() method.
          * @param input The name of the class that implements the IDataInput interface.
+         * @private
          */
         public function readExternal(input:IDataInput):void
         {
@@ -931,6 +998,7 @@ package com.kemsky
          * A class implements this method to encode itself for a data stream by calling
          * the methods of the IDataOutput interface.
          * @param output The name of the class that implements the IDataOutput interface.
+         * @private
          */
         public function writeExternal(output:IDataOutput):void
         {
