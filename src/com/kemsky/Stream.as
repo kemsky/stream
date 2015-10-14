@@ -746,7 +746,7 @@ package com.kemsky
         {
             var result:* = source.sort.apply(null, rest);
 
-            if(result == 0 && source.length > 1) //todo throw only if UNIQUESORT
+            if(result is Number && result == 0)
             {
                 //this is error, don't want to trade type safety just for this case
                 //see 'unique' method
@@ -778,7 +778,7 @@ package com.kemsky
         {
             var result:* = source.sortOn.apply(null, [names, options]);
 
-            if(result == 0 && source.length > 1) //todo throw only if UNIQUESORT
+            if(result is Number && result == 0)
             {
                 throw new Error("Stream is not unique");
             }
