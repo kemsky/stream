@@ -525,10 +525,10 @@ package com.kemsky
         }
 
         /**
-         * Creates new Dictionary from current Stream using specified property as keys
-         * @param property The name of the property to be used as key
-         * @param weak Create a Dictionary with weak keys
-         * @return A new Dictionary from current Stream using specified property as keys
+         * Creates a new Dictionary from the current stream using specified property values as keys
+         * @param property The name of the property to be used as key.
+         * @param weak Create a new Dictionary with weak keys.
+         * @return A new Dictionary from the current stream using specified property values as keys.
          */
         public function dictionary(property:String, weak:Boolean = false):Dictionary
         {
