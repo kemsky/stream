@@ -99,7 +99,7 @@ package com.kemsky
          *      var s:Stream = $(1, 2, 3);
          *      var groups:Stream = s.partition(function (item:Number):Boolean
          *      {
-         *          return item < 3;
+         *          return item &lt; 3;
          *      }
          *      trace(groups);
          *      //Stream{Stream{1, 2}, Stream{3}}
@@ -1327,7 +1327,7 @@ package com.kemsky
          *     var s:Stream = $(1, 2, 3);
          *     var c:Boolean = s.every(function(item:Number):Boolean
          *     {
-         *        return item < 3;
+         *        return item &lt; 3;
          *     });
          *     trace(c);
          *     //false
@@ -1353,7 +1353,7 @@ package com.kemsky
          *     var s:Stream = $(1, 2, 3);
          *     var c:Stream = s.filter(function(item:Number):Boolean
          *     {
-         *        return item < 3;
+         *        return item &lt; 3;
          *     });
          *     trace(c);
          *     //Stream{1, 2}
