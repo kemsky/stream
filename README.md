@@ -9,23 +9,20 @@ Complete documentation, unit tests with 100% code coverage, Travis CI integratio
 
 See [latest release](https://github.com/kemsky/stream/releases/latest).
 
-## Create
+## Creating stream
 ```as3
-//create empty Stream
-//$ - is provided global function
-var s:Stream = $(); 
-var s:Stream = new Stream();
-
-//create Stream from arguments, array or ArrayCollection
-var s:Stream = $(1, 2 , 3);
+var s:Stream = $(1, 2, 3);
 var s:Stream = $([1, 2, 3]);
 var s:Stream = $(new ArrayCollection([1, 2, 3]));
+var s:Stream = $(new ArrayList([1, 2, 3]));
+var s:Stream = $(new Stream([1, 2, 3]));
+var s:Stream = $([1], [2], [3]);//flattens arguments
 
-trace(s.join(","));
-//prints 1, 2, 3
+//All expressions are equivalent to:
+var s:Stream = new Stream([1, 2, 3])
 ```
 
-## Iterate
+## Iteration and element access
 Stream extends Proxy class and provides the same iteration capabilities as standard Array:
 ```as3
 var s:Stream = $(1, 2, 3);
@@ -37,13 +34,24 @@ for each (var item:* in s)
 for (var i:int = 0; i < s.length; i++)
 {
    trace(s[i]);
+   trace(s.getItem(i));
 }
-
 //prints 1, 2, 3
-```
 
-## Array methods
-Stream has all methods(every, forEach, map, some, slice, splice, etc.) that standard Array has:
+//set item at index 0
+s.setItem(0, 5);
+s[0] = 5;
+s.first = 5;
+
+//remove item from stream
+delete s[0];
+```
+*Stream is about 10x slower when accessed by index (`[index]`) and it seems to be Proxy overhead.
+If you need better performance (3x slower than Array) use methods to access stream items:
+ `getItem(index:int):*` and `setItem(index:int, value:*):void`.*
+
+## Array-like methods
+Stream has all methods(every, forEach, map, some, slice, splice, push, pop etc.) that standard Array has:
 ```as3
 var s:Stream = $(1, 2, 3);
 s.forEach(function(item:Number):void
@@ -53,12 +61,12 @@ s.forEach(function(item:Number):void
 
 //prints 1, 2, 3
 ```
-Notice that callback does not have `index:uint` and `array:Array` parameters - 
-it is the only difference between Array and Stream APIs.
+*Notice that callback does not have `index:uint` and `array:Array` parameters -
+it is one of the differences between Array and Stream APIs.*
 
 ## foldLeft, foldRight methods
 
-Javascript array has `reduce` method which is similar.
+Javascript Array has `reduce` method which is quite similar.
 ```as3
 var sum2:Number = $(0, 1, 2, 3, 4).foldRight(function (prev:Number, current:Number):Number
 {
@@ -68,7 +76,7 @@ trace(sum2);
 //prints 20
 ```
 
-## flatMap
+## flatMap, flatten
 ```as3
 var s:Stream = new Stream([1, 2, 3], $(4, 5, 6), new ArrayCollection([7, 8, 9]));
 var mapped:Stream = s.flatMap(function(item:*):*
@@ -81,7 +89,7 @@ trace(mapped);
 //prints 1, 2, 3, 4, 5, 6, 7, 8, 9
 ```
 
-## Various filter methods
+## Various filtering methods
 
 ```as3
 public class Item
@@ -121,7 +129,7 @@ trace(prices);
 //prints 1,2
 ```
 
-## Utility methods
+## Many other handy methods and properties
 Stream can be converted to Array, ArrayCollection, ArrayList, Object, Dictionary:
 ```as3
 var item1:Item = new Item("1", 1);
@@ -149,12 +157,7 @@ trace(s.count(function(item:Item):Boolean
 //prints 1
 ```
 
-And many other methods: `group`,`partition`,`fill`,`find`,`findIndex`, `drop`, `zip`, `skip` etc. 
-
-## Performance
-
-Stream is about 10x slower when accessed by index (`[index]`) and it seems to be Proxy overhead.
-If you need better performance (3x slower than Array) use methods to access stream items: `getItem(index:int):*` and `setItem(index:int, value:*):void`.
+See also: `group`,`partition`,`fill`,`find`,`findIndex`, `drop`, `zip`, `skip` etc.
 
 ## Build
 
