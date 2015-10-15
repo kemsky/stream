@@ -16,7 +16,6 @@ var s:Stream = $([1, 2, 3]);
 var s:Stream = $(new ArrayCollection([1, 2, 3]));
 var s:Stream = $(new ArrayList([1, 2, 3]));
 var s:Stream = $(new Stream([1, 2, 3]));
-var s:Stream = $([1], [2], [3]);//flattens arguments
 
 //All expressions are equivalent to:
 var s:Stream = new Stream([1, 2, 3])
