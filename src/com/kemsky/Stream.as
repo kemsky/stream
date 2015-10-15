@@ -974,6 +974,15 @@ package com.kemsky
          * @return A new Dictionary from the current stream using specified property values as keys.
          * @example
          * <pre>
+         *     var item1:Object = {id: 1, key: "key1"};
+         *     var item2:Object = {id: 2, key: "key1"};
+         *     var item3:Object = {id: 3, key: "key2"};
+         *     var s:Stream = $(item1, item2, item3);
+         *     var d:Dictionary = s.dictionary("key");
+         *     trace(d["key1"]);
+         *     //Stream{item1, item2}
+         *     trace(d["key2"]);
+         *     //Stream{item3}
          * </pre>
          */
         public function dictionary(property:String, weak:Boolean = false):Dictionary
@@ -997,6 +1006,21 @@ package com.kemsky
          * @return A new Dictionary or custom class created from <i>factory</i> which contains groups.
          * @example
          * <pre>
+         *     public class Groups
+         *     {
+         *        public var key1:Stream;
+         *        public var key2:Stream;
+         *     }
+         *
+         *     var item1:Object = {id: 1, key: "key1"};
+         *     var item2:Object = {id: 2, key: "key1"};
+         *     var item3:Object = {id: 3, key: "key2"};
+         *     var s:Stream = $(item1, item2, item3);
+         *     var d:Groups = s.group("key", Groups);
+         *     trace(d.key1);
+         *     //Stream{item1, item2}
+         *     trace(d.key2);
+         *     //Stream{item3}
          * </pre>
          */
         public function group(callback:Function, factory:Class = null):*
@@ -1022,6 +1046,15 @@ package com.kemsky
          * @return A new Object from current Stream using specified property as keys
          * @example
          * <pre>
+         *     var item1:Object = {id: 1, key: "key1"};
+         *     var item2:Object = {id: 2, key: "key1"};
+         *     var item3:Object = {id: 3, key: "key2"};
+         *     var s:Stream = $(item1, item2, item3);
+         *     var d:Object = s.object("key");
+         *     trace(d["key1"]);
+         *     //Stream{item1, item2}
+         *     trace(d["key2"]);
+         *     //Stream{item3}
          * </pre>
          */
         public function object(property:String):Object
@@ -1044,6 +1077,10 @@ package com.kemsky
          * @return A shallow copy of the current stream if <i>deep</i> is false; otherwise creates deep copy.
          * @example
          * <pre>
+         *     var s:Stream = $(1, 2);
+         *     var c:Stream = s.clone();
+         *     trace(c);
+         *     //Stream{1, 2}
          * </pre>
          */
         public function clone(deep:Boolean = false):Stream
@@ -1089,6 +1126,10 @@ package com.kemsky
          * @return A new reversed stream.
          * @example
          * <pre>
+         *     var s:Stream = $(1, 2);
+         *     var c:Stream = s.reverse();
+         *     trace(c);
+         *     //Stream{2, 1}
          * </pre>
          */
         public function reverse():Stream
@@ -1107,6 +1148,11 @@ package com.kemsky
          * @return  A new stream that contains the items from this stream followed by items from the parameters.
          * @example
          * <pre>
+         *     var a:Stream = $(1, 2);
+         *     var b:Stream = $(3);
+         *     var s:Stream = a.concat(b);
+         *     trace(s);
+         *     //Stream{1, 2, 3}
          * </pre>
          */
         public function concat(...rest):Stream
@@ -1147,6 +1193,10 @@ package com.kemsky
          * @return The first item (of any data type) in an stream.
          * @example
          * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     s.shift();
+         *     trace(s);
+         *     //Stream{2, 3}
          * </pre>
          */
         public function shift():*
@@ -1162,6 +1212,10 @@ package com.kemsky
          * @return An integer representing the new length of the stream.
          * @example
          * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     s.unshift(0);
+         *     trace(s);
+         *     //Stream{0, 1, 2, 3}
          * </pre>
          */
         public function unshift(...rest):uint
