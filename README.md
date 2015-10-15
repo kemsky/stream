@@ -47,8 +47,7 @@ s.first = 5;
 delete s[0];
 ```
 *Stream is about 10x slower when accessed by index (`[index]`) and it seems to be Proxy overhead.
-If you need better performance (3x slower than Array) use methods to access stream items:
- `getItem(index:int):*` and `setItem(index:int, value:*):void`.*
+If you need better performance (3x slower than Array) use methods to access stream items: `getItem(index)` and `setItem(index, value)`.*
 
 ## Array-like methods
 Stream has all methods(every, forEach, map, some, slice, splice, push, pop etc.) that standard Array has:
