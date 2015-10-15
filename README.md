@@ -42,6 +42,8 @@ for (var i:int = 0; i < s.length; i++)
 s.setItem(0, 5);
 s[0] = 5;
 s.first = 5;
+//last item also has index -1, item before last -2 and etc. (Ruby-like)
+s[-3] = 5;
 
 //remove item from stream
 delete s[0];
