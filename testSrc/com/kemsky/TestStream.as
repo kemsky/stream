@@ -38,6 +38,29 @@ package com.kemsky
 
 
         [Test]
+        public function testValues():void
+        {
+            var s:Stream = $(1, 2, 3);
+            var iterator:Iterator = s.values();
+
+            var count:int = 1;
+            while(iterator.hasNext)
+            {
+                var n:Number = iterator.next();
+                assertEquals(n, count);
+                assertEquals(n, iterator.current);
+                iterator.remove();
+                count++;
+            }
+
+            assertEquals(s.length, 0);
+
+            if(undefined){
+                assertTrue(false);
+            }
+        }
+
+        [Test]
         public function testCompact():void
         {
             var s:Stream = $();

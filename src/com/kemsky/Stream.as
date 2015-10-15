@@ -72,6 +72,11 @@ package com.kemsky
             this.source = source == null ? [] : source;
         }
 
+        public function values():Iterator
+        {
+            return new StreamIterator(this);
+        }
+
         /**
          * Creates a new stream for all items that are not strictly equal to undefined (item !== <i>undefined</i>).
          * @return A new stream that contains all items from the original stream that are not equal to <i>undefined</i>.
