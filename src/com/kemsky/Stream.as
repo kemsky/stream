@@ -315,6 +315,9 @@ package com.kemsky
             return source[0];
         }
 
+        /**
+         * @private
+         */
         public function set first(item:*):void
         {
             source[0] = item;
@@ -328,6 +331,9 @@ package com.kemsky
             return source[1];
         }
 
+        /**
+         * @private
+         */
         public function set second(item:*):void
         {
             source[1] = item;
@@ -341,6 +347,9 @@ package com.kemsky
             return source[2];
         }
 
+        /**
+         * @private
+         */
         public function set third(item:*):void
         {
             source[2] = item;
@@ -354,6 +363,9 @@ package com.kemsky
             return source[3];
         }
 
+        /**
+         * @private
+         */
         public function set fourth(item:*):void
         {
             source[3] = item;
@@ -367,6 +379,9 @@ package com.kemsky
             return source[4];
         }
 
+        /**
+         * @private
+         */
         public function set fifth(item:*):void
         {
             source[4] = item;
@@ -380,6 +395,9 @@ package com.kemsky
             return source[5];
         }
 
+        /**
+         * @private
+         */
         public function set sixth(item:*):void
         {
             source[5] = item;
@@ -393,6 +411,9 @@ package com.kemsky
             return source[6];
         }
 
+        /**
+         * @private
+         */
         public function set seventh(item:*):void
         {
             source[6] = item;
@@ -406,6 +427,9 @@ package com.kemsky
             return source[7];
         }
 
+        /**
+         * @private
+         */
         public function set eighth(item:*):void
         {
             source[7] = item;
@@ -419,6 +443,9 @@ package com.kemsky
             return source[8];
         }
 
+        /**
+         * @private
+         */
         public function set ninth(item:*):void
         {
             source[8] = item;
@@ -432,6 +459,9 @@ package com.kemsky
             return source[9];
         }
 
+        /**
+         * @private
+         */
         public function set tenth(item:*):void
         {
             source[9] = item;
@@ -445,6 +475,9 @@ package com.kemsky
             return source[10];
         }
 
+        /**
+         * @private
+         */
         public function set eleventh(item:*):void
         {
             source[10] = item;
@@ -458,6 +491,9 @@ package com.kemsky
             return source[11];
         }
 
+        /**
+         * @private
+         */
         public function set twelfth(item:*):void
         {
             source[11] = item;
@@ -471,6 +507,9 @@ package com.kemsky
             return source[12];
         }
 
+        /**
+         * @private
+         */
         public function set thirteenth(item:*):void
         {
             source[12] = item;
@@ -484,6 +523,9 @@ package com.kemsky
             return source[13];
         }
 
+        /**
+         * @private
+         */
         public function set fourteenth(item:*):void
         {
             source[13] = item;
@@ -497,6 +539,9 @@ package com.kemsky
             return source[14];
         }
 
+        /**
+         * @private
+         */
         public function set fifteenth(item:*):void
         {
             source[14] = item;
@@ -510,6 +555,9 @@ package com.kemsky
             return source[source.length - 1];
         }
 
+        /**
+         * @private
+         */
         public function set last(item:*):void
         {
             source[source.length - 1] = item;
