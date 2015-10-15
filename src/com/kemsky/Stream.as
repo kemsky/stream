@@ -61,28 +61,29 @@ package com.kemsky
          *
          *  <p>Creates a new stream using the specified source array.
          *  If no array is specified an empty array will be used.</p>
+         * @example
+         * <pre>
+         *     var s:Stream = new Stream();
+         *     var s:Stream = new Stream([1, 2, 3]);
+         * </pre>
          */
         public function Stream(source:Array = null)
         {
             this.source = source == null ? [] : source;
         }
 
-// todo
-//        public function remove(index:int, count:uint = 1):Stream
-//        {
-//            source.splice.apply(null, [index, count].concat());
-//            return this;
-//        }
-//
-//        public function insert(index:int, item:*, ...rest):Stream
-//        {
-//            source.splice.apply(null, [index, 0, item].concat());
-//            return this;
-//        }
-
         /**
          * Creates a new stream for all items that are not strictly equal to undefined (item !== <i>undefined</i>).
          * @return A new stream that contains all items from the original stream that are not equal to <i>undefined</i>.
+         * @example
+         * <pre>
+         *     var s:Stream = new Stream();
+         *     s[0] = 1;
+         *     s[10] = 2;
+         *     var c:Stream = s.compact();
+         *     trace(c);
+         *     //Stream{1, 2}
+         * </pre>
          */
         public function compact():Stream
         {
@@ -93,6 +94,16 @@ package com.kemsky
          * Splits current stream into two streams depending on testing callback.
          * @param callback A function to run on each item of the stream: function(item:*):Boolean.
          * @return A new stream containing two streams: the first stream from items with positive test and second with negative.
+         * @example
+         * <pre>
+         *      var s:Stream = $(1, 2, 3);
+         *      var groups:Stream = s.partition(function (item:Number):Boolean
+         *      {
+         *          return item < 3;
+         *      }
+         *      trace(groups);
+         *      //Stream{Stream{1, 2}, Stream{3}}
+         * </pre>
          */
         public function partition(callback:Function):Stream
         {
@@ -119,6 +130,13 @@ package com.kemsky
          * @param value An item used to fill the stream.
          * @param length An Integer that specifies the how many items to set.
          * @return Current stream.
+         * @example
+         * <pre>
+         *     var s:Stream = $();
+         *     s.fill(1, 3);
+         *     trace(s);
+         *     //Stream{1, 1, 1}
+         * </pre>
          */
         public function fill(value:*, length:int = -1):Stream
         {
@@ -133,7 +151,13 @@ package com.kemsky
 
         /**
          * Creates a new stream of streams created from the items and their corresponding indices.
-         * For example: [1, 2] => [[0, 1][1, 2]].
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     var z:Stream = s.zip();
+         *     trace(z);
+         *     //Stream{Stream{0, 1}, Stream{1, 2}, Stream{2, 3}}
+         * </pre>
          * @return A new stream of streams created from the items and their corresponding indices.
          */
         public function zip():Stream
@@ -153,6 +177,16 @@ package com.kemsky
          * @param callback The function to run on each item of the stream: function(item:*):Boolean.
          * @param reverse Start search from the end of the stream.
          * @return An index of the item that satisfies provided testing callback; otherwise -1 is returned.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     var index:int = s.findIndex(function(item:Number):Boolean
+         *     {
+         *        return item > 1;
+         *     });
+         *     trace(index);
+         *     //1
+         * </pre>
          */
         public function findIndex(callback:Function, reverse:Boolean = false):int
         {
@@ -186,6 +220,16 @@ package com.kemsky
          * @param callback The function to run on each item of the stream: function(item:*):Boolean.
          * @param reverse
          * @return An item that satisfies provided testing callback; otherwise <i>undefined</i> is returned.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     var item:int = s.find(function(item:Number):Boolean
+         *     {
+         *        return item > 1;
+         *     });
+         *     trace(item);
+         *     //2
+         * </pre>
          */
         public function find(callback:Function, reverse:Boolean = false):*
         {
@@ -217,6 +261,13 @@ package com.kemsky
          * Creates a new stream from items of the current stream skipping last <i>n</i> items.
          * @param n An integer that specifies how may items to skip.
          * @return A new stream without <i>n</i> last items.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     var d:Stream = s.drop(2);
+         *     trace(d);
+         *     //Stream{1}
+         * </pre>
          */
         public function drop(n:uint):Stream
         {
@@ -227,6 +278,13 @@ package com.kemsky
          * Returns stream item at specified index.
          * @param index An integer that specifies the position of the item in the stream.
          * @return An item at specified position.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     var item:Number = s.getItem(1);
+         *     trace(item);
+         *     //2
+         * </pre>
          */
         public function getItem(index:int):*
         {
@@ -237,6 +295,13 @@ package com.kemsky
          * Sets item at specified position.
          * @param index An integer that specifies the position in the stream where the item is to be set.
          * @param value An item to set.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     s.setItem(1, 4);
+         *     trace(s);
+         *     //Stream{1, 4, 3}
+         * </pre>
          */
         public function setItem(index:int, value:*):void
         {
@@ -247,6 +312,16 @@ package com.kemsky
          * Executes a test function on each item and calculates number of successful tests.
          * @param callback The function to run on each item in the stream.
          * @return A number of successful tests.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     var count:int = s.count(function(item:Number):Boolean
+         *     {
+         *        return item > 1;
+         *     });
+         *     trace(count);
+         *     //2
+         * </pre>
          */
         public function count(callback:Function):uint
         {
@@ -266,6 +341,13 @@ package com.kemsky
          * Checks if the stream contains specified item
          * @param item An item to check.
          * @return A Boolean value of true if stream contains an item; otherwise false.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     var b:Boolean = s.contains(2);
+         *     trace(b);
+         *     //true
+         * </pre>
          */
         public function contains(item:*):Boolean
         {
@@ -275,6 +357,13 @@ package com.kemsky
         /**
          * Removes all items from the stream.
          * @return Current stream.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     s.clear();
+         *     trace(s);
+         *     //Stream{}
+         * </pre>
          */
         public function clear():Stream
         {
@@ -284,6 +373,12 @@ package com.kemsky
 
         /**
          * Returns a Boolean value of true if Stream does not contain any items; otherwise false.
+         * @example
+         * <pre>
+         *     var s:Stream = $();
+         *     trace(s.empty);
+         *     //true
+         * </pre>
          */
         public function get empty():Boolean
         {
@@ -294,6 +389,13 @@ package com.kemsky
          * Creates a new stream that contains items starting from count index.
          * @param count A number of items to skip
          * @return A new stream that contains items starting from count index.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     var c:Stream = s.skip(2);
+         *     trace(c);
+         *     //Stream{3}
+         * </pre>
          */
         public function skip(count:int):Stream
         {
@@ -302,6 +404,12 @@ package com.kemsky
 
         /**
          * Returns a Boolean value of true if the stream contains unique items; otherwise false.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 1, 3);
+         *     trace(s.unique);
+         *     //false
+         * </pre>
          */
         public function get unique():Boolean
         {
@@ -311,6 +419,12 @@ package com.kemsky
 
         /**
          * The first item of the stream
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+         *     trace(s.first);
+         *     //1
+         * </pre>
          */
         public function get first():*
         {
@@ -327,6 +441,12 @@ package com.kemsky
 
         /**
          * The second item of the stream
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+         *     trace(s.second);
+         *     //2
+         * </pre>
          */
         public function get second():*
         {
@@ -343,6 +463,12 @@ package com.kemsky
 
         /**
          * The third item of the stream
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+         *     trace(s.third);
+         *     //3
+         * </pre>
          */
         public function get third():*
         {
@@ -359,6 +485,12 @@ package com.kemsky
 
         /**
          * The fourth item of the stream
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+         *     trace(s.fourth);
+         *     //4
+         * </pre>
          */
         public function get fourth():*
         {
@@ -375,6 +507,12 @@ package com.kemsky
 
         /**
          * The fifth item of the stream
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+         *     trace(s.fifth);
+         *     //5
+         * </pre>
          */
         public function get fifth():*
         {
@@ -391,6 +529,12 @@ package com.kemsky
 
         /**
          * The sixth item of the stream
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+         *     trace(s.sixth);
+         *     //6
+         * </pre>
          */
         public function get sixth():*
         {
@@ -407,6 +551,12 @@ package com.kemsky
 
         /**
          * The seventh of the stream
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+         *     trace(s.seventh);
+         *     //7
+         * </pre>
          */
         public function get seventh():*
         {
@@ -423,6 +573,12 @@ package com.kemsky
 
         /**
          * The eighth item of the stream
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+         *     trace(s.eighth);
+         *     //8
+         * </pre>
          */
         public function get eighth():*
         {
@@ -439,6 +595,12 @@ package com.kemsky
 
         /**
          * The ninth item of the stream
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+         *     trace(s.ninth);
+         *     //9
+         * </pre>
          */
         public function get ninth():*
         {
@@ -455,6 +617,12 @@ package com.kemsky
 
         /**
          * The tenth item of the stream
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+         *     trace(s.tenth);
+         *     //10
+         * </pre>
          */
         public function get tenth():*
         {
@@ -471,6 +639,12 @@ package com.kemsky
 
         /**
          * The eleventh item of the stream
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+         *     trace(s.eleventh);
+         *     //11
+         * </pre>
          */
         public function get eleventh():*
         {
@@ -484,10 +658,16 @@ package com.kemsky
         {
             source[10] = item;
         }
+
         /**
          * The twelfth item of the stream
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+         *     trace(s.twelfth);
+         *     //12
+         * </pre>
          */
-
         public function get twelfth():*
         {
             return source[11];
@@ -503,6 +683,12 @@ package com.kemsky
 
         /**
          * The thirteenth item of the stream
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+         *     trace(s.thirteenth);
+         *     //13
+         * </pre>
          */
         public function get thirteenth():*
         {
@@ -519,6 +705,12 @@ package com.kemsky
 
         /**
          * The fourteenth item of the stream
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+         *     trace(s.fourteenth);
+         *     //14
+         * </pre>
          */
         public function get fourteenth():*
         {
@@ -535,6 +727,12 @@ package com.kemsky
 
         /**
          * The fifteenth item of the stream
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+         *     trace(s.fifteenth);
+         *     //15
+         * </pre>
          */
         public function get fifteenth():*
         {
@@ -551,6 +749,12 @@ package com.kemsky
 
         /**
          * The last item of the stream
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
+         *     trace(s.last);
+         *     //15
+         * </pre>
          */
         public function get last():*
         {
@@ -570,6 +774,15 @@ package com.kemsky
          * @param callback The function to execute on each value in the stream: function(item:*, accumulator:*):*.
          * @param initial The initial value for the accumulator.
          * @return The value of accumulator.
+         * @example
+         * <pre>
+         *     var sum:Number = $(0, 1, 2, 3, 4).foldLeft(function (prev:Number, current:Number):Number
+         *     {
+         *        return prev + current;
+         *     }, 0);
+         *     trace(sum);
+         *     //10
+         * </pre>
          */
         public function foldLeft(callback:Function, initial:* = undefined):*
         {
@@ -592,6 +805,15 @@ package com.kemsky
          * @param callback The function to execute on each value in the stream: function(item:*, accumulator:*):*.
          * @param initial The initial value for the accumulator.
          * @return The value of accumulator.
+         * @example
+         * <pre>
+         *     var sum:Number = $(0, 1, 2, 3, 4).foldRight(function (prev:Number, current:Number):Number
+         *     {
+         *        return prev + current;
+         *     }, 0);
+         *     trace(sum);
+         *     //10
+         * </pre>
          */
         public function foldRight(callback:Function, initial:* = undefined):*
         {
@@ -614,6 +836,13 @@ package com.kemsky
          * @param count The maximum items to take.
          * @param offset The index to start from.
          * @return A new stream that contains count of items starting from offset.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     var c:Stream = s.take(2, 0);
+         *     trace(c);
+         *     //Stream{1, 2}
+         * </pre>
          */
         public function take(count:int, offset:uint = 0):Stream
         {
@@ -623,6 +852,15 @@ package com.kemsky
         /**
          * Flattens a nested Streams, ArrayLists, ArrayCollections, Vectors.
          * @return A new stream from items of the nested Streams, ArrayLists, ArrayCollections, Vectors.
+         * @example
+         * <pre>
+         *     var s:Stream = new Stream([[1], [2], [3]]);
+         *     trace(s);
+         *     //Stream{[1], [2], [3]}
+         *     var c:Stream = s.flatten();
+         *     trace(c);
+         *     //Stream{1, 2, 3}
+         * </pre>
          */
         public function flatten():Stream
         {
@@ -634,6 +872,16 @@ package com.kemsky
          * the items of the resulting Streams, ArrayLists, ArrayCollections, Vectors.
          * @param callback The function to execute on each value in the stream: function(item:*):*.
          * @return A new stream that contains flatten results of callback.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     var c:Stream = s.flatMap(function(item:Number):Array
+         *     {
+         *        return [item];
+         *     });
+         *     trace(c);
+         *     //Stream{1, 2, 3}
+         * </pre>
          */
         public function flatMap(callback:Function):Stream
         {
@@ -679,9 +927,11 @@ package com.kemsky
             return new ArrayCollection(source.concat());
         }
 
-
         /**
          * Creates a new ArrayList from items of current Stream
+         * @example
+         * <pre>
+         * </pre>
          */
         public function list():ArrayList
         {
@@ -690,6 +940,9 @@ package com.kemsky
 
         /**
          * Creates a new Array from items of current Stream
+         * @example
+         * <pre>
+         * </pre>
          */
         public function array():Array
         {
@@ -701,6 +954,9 @@ package com.kemsky
          * @param property The name of the property to be used as key.
          * @param weak Create a new Dictionary with weak keys.
          * @return A new Dictionary from the current stream using specified property values as keys.
+         * @example
+         * <pre>
+         * </pre>
          */
         public function dictionary(property:String, weak:Boolean = false):Dictionary
         {
@@ -721,6 +977,9 @@ package com.kemsky
          * @param callback The function to calculate key from item: function(item:*):*
          * @param factory Class to be instantiated and returned instead of Dictionary.
          * @return A new Dictionary or custom class created from <i>factory</i> which contains groups.
+         * @example
+         * <pre>
+         * </pre>
          */
         public function group(callback:Function, factory:Class = null):*
         {
@@ -743,6 +1002,9 @@ package com.kemsky
          * Creates new Object from the current stream using specified property as keys
          * @param property The name of the property to be used as key.
          * @return A new Object from current Stream using specified property as keys
+         * @example
+         * <pre>
+         * </pre>
          */
         public function object(property:String):Object
         {
@@ -762,6 +1024,9 @@ package com.kemsky
          * Creates a copy of the current stream
          * @param deep Create a deep copy using AMF serialization.
          * @return A shallow copy of the current stream if <i>deep</i> is false; otherwise creates deep copy.
+         * @example
+         * <pre>
+         * </pre>
          */
         public function clone(deep:Boolean = false):Stream
         {
@@ -789,6 +1054,9 @@ package com.kemsky
          * @param sep used as separator
          * @return A string consisting of the items of an array converted to strings
          * and separated by the specified parameter.
+         * @example
+         * <pre>
+         * </pre>
          */
         public function join(sep:* = null):String
         {
@@ -798,6 +1066,9 @@ package com.kemsky
         /**
          * Creates reversed stream from the current one.
          * @return A new reversed stream.
+         * @example
+         * <pre>
+         * </pre>
          */
         public function reverse():Stream
         {
@@ -813,6 +1084,9 @@ package com.kemsky
          * (shallow clone) of the original stream.
          * @param rest A value of any data type (such as numbers, elements, or strings) to be concatenated in a new stream.
          * @return  A new stream that contains the items from this stream followed by items from the parameters.
+         * @example
+         * <pre>
+         * </pre>
          */
         public function concat(...rest):Stream
         {
@@ -850,6 +1124,9 @@ package com.kemsky
          * Removes the first item from a stream and returns that item.
          * The remaining stream items are moved from their original position, i, to i-1.
          * @return The first item (of any data type) in an stream.
+         * @example
+         * <pre>
+         * </pre>
          */
         public function shift():*
         {
@@ -862,6 +1139,9 @@ package com.kemsky
          * stream are moved from their original position, i, to i+1.
          * @param rest One or more numbers, elements, or variables to be inserted at the beginning of the stream.
          * @return An integer representing the new length of the stream.
+         * @example
+         * <pre>
+         * </pre>
          */
         public function unshift(...rest):uint
         {
@@ -880,6 +1160,13 @@ package com.kemsky
          *                 the starting point to the end of the stream. If endIndex is a negative number,
          *                 the ending point is specified from the end of the stream, where -1 is the last item.
          * @return A new stream that consists of a range of items from the original stream.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     var c:Stream = s.slice(1, 2);
+         *     trace(c);
+         *     //Stream{2}
+         * </pre>
          */
         public function slice(startIndex:int = 0, endIndex:int = 16777215):Stream
         {
@@ -899,6 +1186,15 @@ package com.kemsky
          * @param values An optional list of one or more comma-separated values to insert into the stream
          *               at the position specified in the startIndex parameter.
          * @return  A new stream containing the items that were removed from the original stream.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     var c:Stream = s.splice(1, 1);
+         *     trace(s);
+         *     //Stream{1, 3}
+         *     trace(c);
+         *     //Stream{2}
+         * </pre>
          */
         public function splice(startIndex:int, deleteCount:uint, ... values):Stream
         {
@@ -909,6 +1205,18 @@ package com.kemsky
          * Sorts the elements in a stream. This method sorts according to Unicode values. (ASCII is a subset of Unicode.)
          * @param rest The arguments specifying a comparison function and one or more values that determine the behavior of the sort.
          * @return The return value depends on whether you pass any arguments.
+         * @see com.kemsky.Stream#CASEINSENSITIVE
+         * @see com.kemsky.Stream#NUMERIC
+         * @see com.kemsky.Stream#DESCENDING
+         * @see com.kemsky.Stream#RETURNINDEXEDARRAY
+         * @see com.kemsky.Stream#UNIQUESORT
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     s.sort(Stream.DESCENDING);
+         *     trace(s);
+         *     //Stream{3, 2, 1}
+         * </pre>
          */
         public function sort(...rest):Stream
         {
@@ -941,6 +1249,14 @@ package com.kemsky
          * @see com.kemsky.Stream#DESCENDING
          * @see com.kemsky.Stream#RETURNINDEXEDARRAY
          * @see com.kemsky.Stream#UNIQUESORT
+         *
+         * @example
+         * <pre>
+         *     var s:Stream = $({id:1, price: 0}, {id:2, price: 1}, {id:3, price: 2});
+         *     s.sortOn("price", Stream.DESCENDING);
+         *     trace(s);
+         *     //Stream{{id:3, price: 2}, {id:2, price: 1}, {id:1, price: 0}}
+         * </pre>
          */
         public function sortOn(names:Object, options:Object = null):*
         {
@@ -962,7 +1278,14 @@ package com.kemsky
          * Searches for an item in an stream by using strict equality (===) and returns the index position of the item.
          * @param item The item to find in the stream.
          * @param fromIndex The location in the stream from which to start searching for the item.
-         * @return A zero-based index position of the item in the stream. If the searchElement argument is not found, the return value is -1.
+         * @return A zero-based index position of the item in the stream. If the searchElement
+         * argument is not found, the return value is -1.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     trace(s.indexOf(2));
+         *     //1
+         * </pre>
          */
         public function indexOf(item:*, fromIndex:* = 0):int
         {
@@ -976,7 +1299,14 @@ package com.kemsky
          * @param fromIndex  The location in the stream from which to start searching for the item.
          *                   The default is the maximum value allowed for an index.
          *                   If you do not specify fromIndex, the search starts at the last item in the stream.
-         * @return A zero-based index position of the item in the stream. If the searchElement argument is not found, the return value is -1.
+         * @return A zero-based index position of the item in the stream. If the searchElement
+         * argument is not found, the return value is -1.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3, 2);
+         *     trace(s.lastIndexOf(2));
+         *     //3
+         * </pre>
          */
         public function lastIndexOf(item:*, fromIndex:* = 2147483647):int
         {
@@ -990,7 +1320,18 @@ package com.kemsky
          * having values less than a particular number.
          * @param callback The function to run on each item in the stream.
          *         <p>function(item:*):Boolean</p>
-         * @return A Boolean value of true if all items in the stream return true for the specified function; otherwise, false.
+         * @return A Boolean value of true if all items in the stream return true for
+         * the specified function; otherwise, false.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     var c:Boolean = s.every(function(item:Number):Boolean
+         *     {
+         *        return item < 3;
+         *     });
+         *     trace(c);
+         *     //false
+         * </pre>
          */
         public function every(callback:Function):Boolean
         {
@@ -1007,6 +1348,16 @@ package com.kemsky
          * @param callback The function to run on each item in the stream.
          *         <p>function(item:*):Boolean</p>
          * @return A new stream that contains all items from the original stream that returned true.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     var c:Stream = s.filter(function(item:Number):Boolean
+         *     {
+         *        return item < 3;
+         *     });
+         *     trace(c);
+         *     //Stream{1, 2}
+         * </pre>
          */
         public function filter(callback:Function):Stream
         {
@@ -1021,6 +1372,17 @@ package com.kemsky
          * @param callback The function to run on each item in the stream.
          *         <p>function(item:*):void</p>
          * @return Current stream
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     s.forEach(function(item:Number):void
+         *     {
+         *         trace(item);
+         *     });
+         *     //1
+         *     //2
+         *     //3
+         * </pre>
          */
         public function forEach(callback:Function):Stream
         {
@@ -1038,6 +1400,16 @@ package com.kemsky
          * @param callback The function to run on each item in the stream.
          *         <p>function(item:*):Boolean</p>
          * @return A new stream that contains the results of the function on each item in the original stream.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     var c:Stream = s.map(function(item:Number):Array
+         *     {
+         *        return [item];
+         *     });
+         *     trace(c);
+         *     //Stream{[1], [2], [3]}
+         * </pre>
          */
         public function map(callback:Function):Stream
         {
@@ -1053,7 +1425,18 @@ package com.kemsky
          * stream meet a criterion, such as having a value less than a particular number.
          * @param callback The function to run on each item in the stream.
          *                 <p>function(item:*):Boolean</p>
-         * @return  A Boolean value of true if any items in the stream return true for the specified function; otherwise false.
+         * @return  A Boolean value of true if any items in the stream return true for
+         * the specified function; otherwise false.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     var c:Boolean = s.some(function(item:Number):Boolean
+         *     {
+         *        return item > 2;
+         *     });
+         *     trace(c);
+         *     //true
+         * </pre>
          */
         public function some(callback:Function):Boolean
         {
@@ -1067,6 +1450,13 @@ package com.kemsky
          * Adds one or more items to the end of a stream and returns the new length of the stream.
          * @param rest One or more values to append to the stream.
          * @return An integer representing the new length of the stream.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     s.push(4);
+         *     trace(s);
+         *     //Stream{1, 2, 3, 4}
+         * </pre>
          */
         public function push(...rest):uint
         {
@@ -1076,6 +1466,12 @@ package com.kemsky
         /**
          * Removes the last item from a stream and returns the value of that item.
          * @return The value of the last item (of any data type) in the specified stream.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     trace(s.pop());
+         *     //3
+         * </pre>
          */
         public function pop():*
         {
@@ -1091,12 +1487,21 @@ package com.kemsky
          *
          * <b>Note</b>: If you assign a value to the length property that is shorter
          * than the existing length, the stream will be truncated.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     trace(s.length);
+         *     //3
+         * </pre>
          */
         public function get length():int
         {
             return source.length;
         }
 
+        /**
+         * @private
+         */
         public function set length(value:int):void
         {
             source.length = value;
@@ -1272,6 +1677,7 @@ package com.kemsky
         }
 
         /**
+         * @private
          * A class implements this method to decode itself from a data stream by calling
          * the methods of the IDataInput interface. This method must read the values in
          * the same sequence and with the same types as were written by the writeExternal() method.
@@ -1284,6 +1690,7 @@ package com.kemsky
         }
 
         /**
+         * @private
          * A class implements this method to encode itself for a data stream by calling
          * the methods of the IDataOutput interface.
          * @param output The name of the class that implements the IDataOutput interface.
@@ -1297,6 +1704,12 @@ package com.kemsky
         /**
          * Returns the string representation of stream object.
          * @return a String
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     trace(s.toString());
+         *     //Stream{1, 2, 3}
+         * </pre>
          */
         public function toString():String
         {
