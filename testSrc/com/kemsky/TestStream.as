@@ -196,16 +196,22 @@ package com.kemsky
         {
             var s:Stream = $(1, 2, 4, 3);
             assertEquals(s.findIndex(gt(_, 2)), 2);
+            assertEquals(s.findIndex(gt(_, 2), true), 3);
 
-            assertTrue(s.findIndex(gt(_, 4)) == -1);
+            assertEquals(s.findIndex(gt(_, 4)), -1);
+            assertEquals(s.findIndex(gt(_, 4), true), -1);
         }
 
         [Test]
         public function testFind():void
         {
             var s:Stream = $(1, 2, 4, 3);
+
             assertEquals(s.find(gt(_, 2)), 4);
+            assertEquals(s.find(gt(_, 2), true), 3);
+
             assertTrue(s.find(gt(_, 4)) === undefined);
+            assertTrue(s.find(gt(_, 4), true) === undefined);
         }
 
         [Test]

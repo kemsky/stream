@@ -149,19 +149,32 @@ package com.kemsky
          * Returns an index of the item in the stream, if an item in the stream satisfies the provided testing callback.
          * Otherwise -1 is returned.
          * @param callback The function to run on each item of the stream: function(item:*):Boolean.
+         * @param reverse Start search from the end of the stream.
          * @return An index of the item that satisfies provided testing callback; otherwise -1 is returned.
          */
-        public function findIndex(callback:Function):int
+        public function findIndex(callback:Function, reverse:Boolean = false):int
         {
-            var result:int = 0;
-            for each (var item:* in source)
+            if(reverse)
             {
-                if(callback(item))
+                for(var k:int = source.length - 1; k > 0; k--)
                 {
-                    return result;
+                    if(callback(source[k]))
+                    {
+                        return k;
+                    }
                 }
-                result++;
             }
+            else
+            {
+                for(var i:int = 0; i < source.length; i++)
+                {
+                    if(callback(source[i]))
+                    {
+                        return i;
+                    }
+                }
+            }
+
             return -1;
         }
 
@@ -169,17 +182,32 @@ package com.kemsky
          * Returns a value in the stream, if an item in the stream satisfies the provided testing callback.
          * Otherwise <i>undefined</i> is returned.
          * @param callback The function to run on each item of the stream: function(item:*):Boolean.
+         * @param reverse
          * @return An item that satisfies provided testing callback; otherwise <i>undefined</i> is returned.
          */
-        public function find(callback:Function):*
+        public function find(callback:Function, reverse:Boolean = false):*
         {
-            for each (var item:* in source)
+            if(reverse)
             {
-                if(callback(item))
+                for(var k:int = source.length - 1; k > 0; k--)
                 {
-                    return item;
+                    if(callback(source[k]))
+                    {
+                        return source[k];
+                    }
                 }
             }
+            else
+            {
+                for(var i:int = 0; i < source.length; i++)
+                {
+                    if(callback(source[i]))
+                    {
+                        return source[i];
+                    }
+                }
+            }
+
             return undefined;
         }
 
