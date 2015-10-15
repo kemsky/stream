@@ -2,7 +2,7 @@ package com.kemsky.filters
 {
     import com.kemsky.$;
     import com.kemsky.Stream;
-    import com.kemsky.util.toValue;
+    import com.kemsky.support.toValue;
 
     /**
      * Creates function that checks if value equals to one of the arguments

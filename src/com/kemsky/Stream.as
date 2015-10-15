@@ -2,7 +2,7 @@ package com.kemsky
 {
     import com.kemsky.filters._;
     import com.kemsky.filters.defined;
-    import com.kemsky.util.*;
+    import com.kemsky.support.*;
 
     import flash.utils.ByteArray;
     import flash.utils.Dictionary;
@@ -14,6 +14,8 @@ package com.kemsky
 
     import mx.collections.ArrayCollection;
     import mx.collections.ArrayList;
+
+    use namespace stream_internal;
 
     /**
      * ActionScript modern collection/list implementation, Array replacement.
@@ -52,7 +54,7 @@ package com.kemsky
         /**
          *  The source of data in the stream.
          */
-        public var source:Array;
+        stream_internal var source:Array;
 
         /**
          *  Constructor.
@@ -1283,7 +1285,7 @@ package com.kemsky
         }
 
         /**
-         * Returns the string representation of Stream object.
+         * Returns the string representation of stream object.
          * @return a String
          */
         public function toString():String

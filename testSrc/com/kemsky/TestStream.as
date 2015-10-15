@@ -1,7 +1,5 @@
 package com.kemsky
 {
-    import com.kemsky.Stream;
-    import com.kemsky.curry;
     import com.kemsky.filters._;
     import com.kemsky.filters.add;
     import com.kemsky.filters.and;
@@ -21,12 +19,12 @@ package com.kemsky
     import com.kemsky.filters.or;
     import com.kemsky.filters.prop;
     import com.kemsky.filters.subtract;
+    import com.kemsky.support.stream_internal;
 
     import flash.utils.ByteArray;
     import flash.utils.Dictionary;
     import mx.collections.ArrayCollection;
     import mx.collections.ArrayList;
-    import mx.collections.IList;
 
     import org.flexunit.asserts.assertEquals;
     import org.flexunit.asserts.assertFalse;
@@ -406,7 +404,7 @@ package com.kemsky
             assertEquals(Item(objectClone[1]).vat, item2.vat);
 
             assertFalse(objectClone === object);
-            assertFalse(objectClone.source === object.source);
+            assertFalse(objectClone.stream_internal::source === object.stream_internal::source);
 
             var objectCloneDeep:Stream = object.clone(true);
             assertEquals(objectCloneDeep.length, 2);
@@ -422,7 +420,7 @@ package com.kemsky
             assertEquals(Item(objectCloneDeep[1]).vat, item2.vat);
 
             assertFalse(objectCloneDeep === object);
-            assertFalse(objectCloneDeep.source === object.source);
+            assertFalse(objectCloneDeep.stream_internal::source === object.stream_internal::source);
         }
 
         [Test]

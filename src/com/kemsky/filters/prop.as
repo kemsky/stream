@@ -1,6 +1,6 @@
 package com.kemsky.filters
 {
-    import com.kemsky.util.toValue;
+    import com.kemsky.support.toValue;
 
     /**
      * Creates function that extracts named property from value

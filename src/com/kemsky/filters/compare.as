@@ -1,11 +1,11 @@
 package com.kemsky.filters
 {
     import com.kemsky.Stream;
-    import com.kemsky.util.TypeCache;
-    import com.kemsky.util.compareDate;
-    import com.kemsky.util.compareNumber;
-    import com.kemsky.util.compareString;
-    import com.kemsky.util.compareXML;
+    import com.kemsky.support.TypeCache;
+    import com.kemsky.support.compareDate;
+    import com.kemsky.support.compareNumber;
+    import com.kemsky.support.compareString;
+    import com.kemsky.support.compareXML;
 
     /**
      * Allows to use generic compare functions(le, ge, lt and others) for the following types:

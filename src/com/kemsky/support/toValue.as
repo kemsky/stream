@@ -1,6 +1,7 @@
-package com.kemsky.util
+package com.kemsky.support
 {
     /**
+     * Converts value to actual value
      * @private
      */
     public function toValue(item:*, value:*):*

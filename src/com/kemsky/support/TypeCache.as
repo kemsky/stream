@@ -1,10 +1,12 @@
-package com.kemsky.util
+package com.kemsky.support
 {
     import flash.utils.Dictionary;
     import flash.utils.getQualifiedClassName;
 
     /**
+     * Fast getQualifiedClassName implementation.
      * @private
+     * @see flash.utils.getQualifiedClassName
      */
     public class TypeCache
     {

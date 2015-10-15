@@ -1,4 +1,4 @@
-package com.kemsky.util
+package com.kemsky.support
 {
     import flash.utils.getDefinitionByName;
 

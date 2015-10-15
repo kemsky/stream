@@ -1,6 +1,6 @@
 package com.kemsky.filters
 {
-    import com.kemsky.util.toValue;
+    import com.kemsky.support.toValue;
 
     public function ge(val1:*, val2:*, options:uint = 0):Function
     {
