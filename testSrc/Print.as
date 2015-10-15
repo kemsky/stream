@@ -15,9 +15,14 @@ package
             Log.addTarget(new TraceTarget());
         }
 
-        public static function print(msg:String, ...args):void
+        public static function message(msg:String, ...args):void
         {
             log.info.apply(null, [msg].concat(args));
+        }
+
+        public static function items(...args):void
+        {
+            log.info.apply(null, [args.join(",")]);
         }
     }
 }

@@ -1,6 +1,7 @@
 package benchmark.iterate
 {
     import com.kemsky.Stream;
+    import Print;
 
     import flash.utils.getTimer;
 
@@ -25,7 +26,7 @@ package benchmark.iterate
             }
 
             //Print Write Stream: 3283.8 ms
-            Print.print("Write Stream Mean: {0} ms", total/attempts);
+            Print.message("Write Stream Mean: {0} ms", total/attempts);
         }
 
         private function writeStream():Number
@@ -54,7 +55,7 @@ package benchmark.iterate
             }
 
             //Print Write Stream: 3283.8 ms
-            Print.print("Read Stream Mean: {0} ms", total/attempts);
+            Print.message("Read Stream Mean: {0} ms", total/attempts);
         }
 
         private function readStream():Number
@@ -85,7 +86,7 @@ package benchmark.iterate
             }
 
             //Print Write Stream: 138.7 ms
-            Print.print("Write Array Mean: {0} ms", total/attempts);
+            Print.message("Write Array Mean: {0} ms", total/attempts);
         }
 
         private function writeArray():Number
@@ -113,7 +114,7 @@ package benchmark.iterate
             }
 
             //Print Write Stream: 138.7 ms
-            Print.print("Read Array Mean: {0} ms", total/attempts);
+            Print.message("Read Array Mean: {0} ms", total/attempts);
         }
 
         private function readArray():Number
