@@ -424,6 +424,9 @@ package com.kemsky
          *     var s:Stream = $(1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15);
          *     trace(s.first);
          *     //1
+         *     s.first = -1;
+         *     trace(s.first);
+         *     //-1
          * </pre>
          */
         public function get first():*
@@ -921,6 +924,13 @@ package com.kemsky
 
         /**
          * Creates a new ArrayCollection from items of current Stream
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     var c:ArrayCollection = s.collection();
+         *     trace(c);
+         *     //ArrayCollection{1, 2, 3}
+         * </pre>
          */
         public function collection():ArrayCollection
         {
@@ -931,6 +941,10 @@ package com.kemsky
          * Creates a new ArrayList from items of current Stream
          * @example
          * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     var c:ArrayList = s.list();
+         *     trace(c);
+         *     //ArrayList{1, 2, 3}
          * </pre>
          */
         public function list():ArrayList
@@ -942,6 +956,10 @@ package com.kemsky
          * Creates a new Array from items of current Stream
          * @example
          * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     var c:Array = s.array();
+         *     trace(c);
+         *     //[1, 2, 3]
          * </pre>
          */
         public function array():Array
@@ -1056,6 +1074,9 @@ package com.kemsky
          * and separated by the specified parameter.
          * @example
          * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     trace(s.join(";"));
+         *     //1;2;3
          * </pre>
          */
         public function join(sep:* = null):String
