@@ -573,6 +573,11 @@ package com.kemsky
          */
         public function foldLeft(callback:Function, initial:* = undefined):*
         {
+            if(initial === undefined && source.length == 0)
+            {
+                throw new Error("Stream is empty");
+            }
+
             var context:* = initial === undefined ? first : initial;
             var start:int = initial === undefined ? 0 : 1;
             for (var i:int = start; i < source.length; i++)
@@ -590,6 +595,11 @@ package com.kemsky
          */
         public function foldRight(callback:Function, initial:* = undefined):*
         {
+            if(initial === undefined && source.length == 0)
+            {
+                throw new Error("Stream is empty");
+            }
+
             var context:* = initial === undefined ? last : initial;
             var start:int = initial === undefined ? source.length - 2 : source.length - 1;
             for (var i:int = start; i > 0; i--)
