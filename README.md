@@ -5,7 +5,7 @@ Basically it is Array wrapper that adds many useful methods and properties (filt
 
 Inspired by Javascript and Ruby arrays and Scala collections. 
 
-Complete documentation, Travis CI integration, unit tests, 100% code coverage, automated artifact uploading.
+Complete documentation, unit tests with 100% code coverage, Travis CI integration (automatic testing, asdoc and coverage report generation).
 
 See [latest release](https://github.com/kemsky/stream/releases/latest).
 
@@ -159,7 +159,7 @@ If you need better performance (3x slower than Array) use methods to access stre
 ## Build
 
 You can build library using **Intelij Idea** or **Apache Maven**.
-* Compile `mvn compile`
-* Run tests `mvn test -DflashPlayer.command="/Applications/Flash Player.app/Contents/MacOS/Flash Player Debugger"`
-* Coverage `mvn flexmojos:coverage-report -DflashPlayer.command="/Applications/Flash Player.app/Contents/MacOS/Flash Player Debugger"`
-* ASDoc: `mvn flexmojos:asdoc`
+ - Compile `mvn compile`
+ - Run tests `mvn test -DflashPlayer.command="<path to executable>"`
+ - Generate coverage report `mvn flexmojos:coverage-report -DflashPlayer.command="<path to executable>"`
+ - Generate documentation: `mvn flexmojos:asdoc`
