@@ -43,7 +43,7 @@ package com.kemsky
         public function testValues():void
         {
             var s:Stream = $(1, 2, 3);
-            var i:ListIterator = new ValueIterator(s);
+            var i:StreamIterator = new ValueIterator(s);
 
             var count:int = 1;
             while(i.hasNext)
@@ -58,7 +58,7 @@ package com.kemsky
             assertEquals(s.length, 0);
 
             var s1:Stream = $(1, 2, 3);
-            var i1:ListIterator = new ValueIterator(s1);
+            var i1:StreamIterator = new ValueIterator(s1);
             var count:int = 0;
             for each (var item:* in i1)
             {
@@ -69,7 +69,7 @@ package com.kemsky
                 }
             }
 
-            var i2:ListIterator = new EntryIterator(s1);
+            var i2:StreamIterator = new EntryIterator(s1);
 
             for each (var entry:Entry in i2)
             {

@@ -3,9 +3,9 @@ package com.kemsky
     public class Entry
     {
         private var _index:int;
-        private var iterator:ListIterator;
+        private var iterator:StreamIterator;
 
-        public function Entry(index:int, iterator:ListIterator)
+        public function Entry(index:int, iterator:StreamIterator)
         {
             this._index = index;
             this.iterator = iterator;

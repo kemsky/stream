@@ -1,6 +1,6 @@
 package com.kemsky
 {
-    public interface ListIterator extends Iterator
+    public interface StreamIterator extends Iterator
     {
         function get index():int;
 
