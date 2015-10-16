@@ -19,7 +19,8 @@ package com.kemsky
     import com.kemsky.filters.or;
     import com.kemsky.filters.prop;
     import com.kemsky.filters.subtract;
-    import Print;
+    import com.kemsky.support.EntryIterator;
+    import com.kemsky.support.ValueIterator;
     import com.kemsky.support.stream_internal;
 
     import flash.utils.ByteArray;
@@ -30,7 +31,6 @@ package com.kemsky
     import org.flexunit.asserts.assertEquals;
     import org.flexunit.asserts.assertFalse;
     import org.flexunit.asserts.assertTrue;
-    import org.hamcrest.collection.hasItem;
 
     public class TestStream
     {
@@ -43,7 +43,7 @@ package com.kemsky
         public function testValues():void
         {
             var s:Stream = $(1, 2, 3);
-            var i:ListIterator = s.values();
+            var i:ListIterator = new ValueIterator(s);
 
             var count:int = 1;
             while(i.hasNext)
@@ -58,7 +58,7 @@ package com.kemsky
             assertEquals(s.length, 0);
 
             var s1:Stream = $(1, 2, 3);
-            var i1:ListIterator = s1.values();
+            var i1:ListIterator = new ValueIterator(s1);
             var count:int = 0;
             for each (var item:* in i1)
             {
@@ -69,7 +69,7 @@ package com.kemsky
                 }
             }
 
-            var i2:ListIterator = s1.entries();
+            var i2:ListIterator = new EntryIterator(s1);
 
             for each (var entry:Entry in i2)
             {
