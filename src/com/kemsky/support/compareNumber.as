@@ -5,17 +5,17 @@ package com.kemsky.support
      */
     public function compareNumber(fa:Number, fb:Number):int
     {
-        if (isNaN(fa) && isNaN(fb))
+        if (isNaNFast(fa) && isNaNFast(fb))
         {
             return 0;
         }
 
-        if (isNaN(fa))
+        if (isNaNFast(fa))
         {
             return -1;
         }
 
-        if (isNaN(fb))
+        if (isNaNFast(fb))
         {
             return 1;
         }

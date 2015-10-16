@@ -1790,13 +1790,5 @@ package com.kemsky
         {
             return "Stream{" + source.join(",") + "}";
         }
-
-        /**
-         * @private
-         */
-        private static function isNaNFast(target:*):Boolean
-        {
-            return !(target <= 0) && !(target > 0);
-        }
     }
 }
