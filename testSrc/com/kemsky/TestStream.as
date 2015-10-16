@@ -19,7 +19,8 @@ package com.kemsky
     import com.kemsky.filters.or;
     import com.kemsky.filters.prop;
     import com.kemsky.filters.subtract;
-    import Print;
+    import com.kemsky.support.EntryIterator;
+    import com.kemsky.support.ValueIterator;
     import com.kemsky.support.stream_internal;
 
     import flash.utils.ByteArray;
@@ -30,7 +31,6 @@ package com.kemsky
     import org.flexunit.asserts.assertEquals;
     import org.flexunit.asserts.assertFalse;
     import org.flexunit.asserts.assertTrue;
-    import org.hamcrest.collection.hasItem;
 
     public class TestStream
     {
@@ -42,8 +42,8 @@ package com.kemsky
         [Test]
         public function testValues():void
         {
-            var s:List = $(1, 2, 3);
-            var i:ListIterator = s.values();
+            var s:Stream = $(1, 2, 3);
+            var i:ListIterator = new ValueIterator(s);
 
             var count:int = 1;
             while(i.hasNext)
@@ -57,8 +57,8 @@ package com.kemsky
 
             assertEquals(s.length, 0);
 
-            var s1:List = $(1, 2, 3);
-            var i1:ListIterator = s1.values();
+            var s1:Stream = $(1, 2, 3);
+            var i1:ListIterator = new ValueIterator(s1);
             var count:int = 0;
             for each (var item:* in i1)
             {
@@ -69,7 +69,7 @@ package com.kemsky
                 }
             }
 
-            var i2:ListIterator = s1.entries();
+            var i2:ListIterator = new EntryIterator(s1);
 
             for each (var entry:Entry in i2)
             {
@@ -84,11 +84,11 @@ package com.kemsky
         [Test]
         public function testCompact():void
         {
-            var s:List = $();
+            var s:Stream = $();
             s[0] = 1;
             s[10] = 2;
 
-            var c:List = s.compact();
+            var c:Stream = s.compact();
             assertEquals(c.length, 2);
             assertEquals(c.first, 1);
             assertEquals(c.second, 2);
@@ -101,9 +101,9 @@ package com.kemsky
 
             assertEquals(compare(null, null), 0);
             assertEquals(compare(null, 1), -1);
-            assertEquals(compare(null, 1, List.DESCENDING), 1);
+            assertEquals(compare(null, 1, Stream.DESCENDING), 1);
             assertEquals(compare(1, null), 1);
-            assertEquals(compare(1, 1, List.NUMERIC), 0);
+            assertEquals(compare(1, 1, Stream.NUMERIC), 0);
             assertEquals(compare(1, "1"), -1);
 
             assertEquals(compare(new Date(), date), 1);
@@ -126,9 +126,9 @@ package com.kemsky
             assertEquals(compare(xs2, xs2), 0);
             assertEquals(compare(xs2, xs1), -1);
 
-            assertEquals(compare(xs1, xs2, List.NUMERIC), 1);
-            assertEquals(compare(xs2, xs2, List.NUMERIC), 0);
-            assertEquals(compare(xs2, xs1, List.NUMERIC), -1);
+            assertEquals(compare(xs1, xs2, Stream.NUMERIC), 1);
+            assertEquals(compare(xs2, xs2, Stream.NUMERIC), 0);
+            assertEquals(compare(xs2, xs1, Stream.NUMERIC), -1);
 
             try
             {
@@ -143,7 +143,7 @@ package com.kemsky
         [Test]
         public function testMultiply():void
         {
-            var s:List = $(1, 2).filter(eq(multiply(_, 2), 4));
+            var s:Stream = $(1, 2).filter(eq(multiply(_, 2), 4));
             assertEquals(s.length, 1);
             assertEquals(s.first, 2);
         }
@@ -151,7 +151,7 @@ package com.kemsky
         [Test]
         public function testDivide():void
         {
-            var s:List = $(2, 4).filter(eq(divide(_, 2), 2));
+            var s:Stream = $(2, 4).filter(eq(divide(_, 2), 2));
             assertEquals(s.length, 1);
             assertEquals(s.first, 4);
 
@@ -164,7 +164,7 @@ package com.kemsky
         [Test]
         public function testNot():void
         {
-            var s:List = $("1", "2").filter(not(function (item:String):Boolean
+            var s:Stream = $("1", "2").filter(not(function (item:String):Boolean
             {
                 return item == "2";
             }));
@@ -175,19 +175,19 @@ package com.kemsky
         [Test]
         public function testPartition():void
         {
-            var s:List = $(1, 2, 3, 4, 5, 6);
-            var groups:List = s.partition(function (item:Number):Boolean
+            var s:Stream = $(1, 2, 3, 4, 5, 6);
+            var groups:Stream = s.partition(function (item:Number):Boolean
             {
                 return item <= 3;
             });
 
             assertEquals(groups.length, 2);
 
-            var g1:List = groups[0];
+            var g1:Stream = groups[0];
             assertEquals(g1.length, 3);
             assertEquals(g1.third, 3);
 
-            var g2:List = groups[1];
+            var g2:Stream = groups[1];
             assertEquals(g2.length, 3);
             assertEquals(g2.third, 6);
         }
@@ -196,11 +196,11 @@ package com.kemsky
         [Test]
         public function testDefined():void
         {
-            var s:List = $();
+            var s:Stream = $();
             s[0] = 0;
             s[10] = 1;
 
-            var r:List = s.filter(defined(_));
+            var r:Stream = s.filter(defined(_));
             assertEquals(r.length, 2);
             assertEquals(r.first, 0);
             assertEquals(r.second, 1);
@@ -209,7 +209,7 @@ package com.kemsky
         [Test]
         public function testFill():void
         {
-            var s:List = $();
+            var s:Stream = $();
             s.fill(1);
             assertEquals(s.length, 0);
 
@@ -221,11 +221,11 @@ package com.kemsky
         [Test]
         public function testZip():void
         {
-            var s:List = $("1", "2");
-            var e:List = s.zip();
+            var s:Stream = $("1", "2");
+            var e:Stream = s.zip();
             assertEquals(e.length, s.length);
-            assertTrue(e.first is List);
-            assertTrue(e.second is List);
+            assertTrue(e.first is Stream);
+            assertTrue(e.second is Stream);
             assertEquals(e.first.length, 2);
             assertEquals(e.first.first, 0);
             assertEquals(e.first.second, "1");
@@ -236,7 +236,7 @@ package com.kemsky
         [Test]
         public function testFindIndex():void
         {
-            var s:List = $(1, 2, 4, 3);
+            var s:Stream = $(1, 2, 4, 3);
             assertEquals(s.findIndex(gt(_, 2)), 2);
             assertEquals(s.findIndex(gt(_, 2), true), 3);
 
@@ -247,7 +247,7 @@ package com.kemsky
         [Test]
         public function testFind():void
         {
-            var s:List = $(1, 2, 4, 3);
+            var s:Stream = $(1, 2, 4, 3);
 
             assertEquals(s.find(gt(_, 2)), 4);
             assertEquals(s.find(gt(_, 2), true), 3);
@@ -259,11 +259,11 @@ package com.kemsky
         [Test]
         public function testDrop():void
         {
-            var s:List = $(1, 2, 3).drop(2);
+            var s:Stream = $(1, 2, 3).drop(2);
             assertEquals(s.length, 1);
             assertEquals(s.first, 1);
 
-            var s2:List = $().drop(2);
+            var s2:Stream = $().drop(2);
             assertEquals(s2.length, 0);
         }
 
@@ -271,7 +271,7 @@ package com.kemsky
         public function testMap():void
         {
             var item:Item = new Item("name1", 5, 0);
-            var s:List = $(item);
+            var s:Stream = $(item);
             assertEquals(s.map(prop(_, "name")).first, "name1");
         }
 
@@ -286,13 +286,13 @@ package com.kemsky
             var o:Object = {};
             o[item.name] = item;
 
-            var s:List = $(item);
+            var s:Stream = $(item);
 
             assertEquals(s.filter(mapped(prop(_, "name"), d)).length, 1);
             assertEquals(s.filter(mapped(prop(_, "name"), o)).length, 1);
 
 
-            var p:List = $("name", "price", "vat");
+            var p:Stream = $("name", "price", "vat");
             assertEquals(p.filter(mapped(_, item)).length, 3);
         }
 
@@ -302,7 +302,7 @@ package com.kemsky
             var item1:Item = new Item();
             var item2:Item = new Item();
             item2.bool = true;
-            var s:List = $(item1, item2);
+            var s:Stream = $(item1, item2);
 
             assertEquals(s.filter(eq(prop(_, "bool"), true)).first, item2);
             assertEquals(s.filter(eq(prop(_, "bool"), false)).first, item1);
@@ -311,7 +311,7 @@ package com.kemsky
         [Test]
         public function testEither():void
         {
-            var s:List = $(1, 2, 3);
+            var s:Stream = $(1, 2, 3);
             assertEquals(s.count(either(_, 1, 2)), 2);
 
             assertEquals(s.count(either(_, [1, 2])), 2);
@@ -330,7 +330,7 @@ package com.kemsky
         [Test]
         public function testSet():void
         {
-            var s:List = $(1, 2, 3);
+            var s:Stream = $(1, 2, 3);
             s.setItem(2, 1);
             s.setItem(0, 3);
             assertEquals(s[0], 3);
@@ -341,7 +341,7 @@ package com.kemsky
         [Test]
         public function testGet():void
         {
-            var s:List = $(1, 2, 3);
+            var s:Stream = $(1, 2, 3);
             assertEquals(s.getItem(0), 1);
             assertEquals(s.getItem(1), 2);
             assertEquals(s.getItem(2), 3);
@@ -352,17 +352,17 @@ package com.kemsky
         [Test]
         public function testGroup():void
         {
-            var s:List = $(1, 2, 3, 4, 5, 6);
+            var s:Stream = $(1, 2, 3, 4, 5, 6);
             var groups:Dictionary = s.group(function (item:Number):Number
             {
                 return item > 3 ? 2 : 1;
             });
 
-            var g1:List = groups[1];
+            var g1:Stream = groups[1];
             assertEquals(g1.length, 3);
             assertEquals(g1.third, 3);
 
-            var g2:List = groups[2];
+            var g2:Stream = groups[2];
             assertEquals(g2.length, 3);
             assertEquals(g2.third, 6);
         }
@@ -370,7 +370,7 @@ package com.kemsky
         [Test]
         public function testCount():void
         {
-            var s:List = $(1, 2, 3);
+            var s:Stream = $(1, 2, 3);
             var count:Number = s.count(function (item:Number):Boolean
             {
                 return item > 2;
@@ -399,7 +399,7 @@ package com.kemsky
         [Test]
         public function testClear():void
         {
-            var s:List = $(1, 2, 3);
+            var s:Stream = $(1, 2, 3);
 
             s.clear();
 
@@ -409,16 +409,16 @@ package com.kemsky
         [Test]
         public function testClonePrimitiveStream():void
         {
-            var primitive:List = $(1, 2, 3);
+            var primitive:Stream = $(1, 2, 3);
 
-            var primitiveClone:List = primitive.clone();
+            var primitiveClone:Stream = primitive.clone();
             assertEquals(primitiveClone.length, 3);
             assertEquals(primitiveClone[0], 1);
             assertEquals(primitiveClone[1], 2);
             assertEquals(primitiveClone[2], 3);
             assertFalse(primitiveClone === primitive);
 
-            var primitiveCloneDeep:List = primitive.clone(true);
+            var primitiveCloneDeep:Stream = primitive.clone(true);
             assertEquals(primitiveCloneDeep.length, 3);
             assertEquals(primitiveCloneDeep[0], 1);
             assertEquals(primitiveCloneDeep[1], 2);
@@ -432,9 +432,9 @@ package com.kemsky
             var item1:Item = new Item("name1", 1, 2);
             var item2:Item = new Item("name2", 2, 0);
 
-            var object:List = $(item1, item2);
+            var object:Stream = $(item1, item2);
 
-            var objectClone:List = object.clone();
+            var objectClone:Stream = object.clone();
             assertEquals(objectClone.length, 2);
 
             assertTrue(Item(objectClone[0]) === item1);
@@ -450,7 +450,7 @@ package com.kemsky
             assertFalse(objectClone === object);
             assertFalse(objectClone.stream_internal::source === object.stream_internal::source);
 
-            var objectCloneDeep:List = object.clone(true);
+            var objectCloneDeep:Stream = object.clone(true);
             assertEquals(objectCloneDeep.length, 2);
 
             assertFalse(Item(objectCloneDeep[0]) === item1);
@@ -473,7 +473,7 @@ package com.kemsky
             var item1:Item = new Item("1", 1, 2);
             var item2:Item = new Item("2", 2, 0);
 
-            var s:List = $(item1, item2);
+            var s:Stream = $(item1, item2);
 
             var d:Dictionary = s.dictionary("name");
             assertEquals(d["1"], item1);
@@ -486,7 +486,7 @@ package com.kemsky
             var item1:Item = new Item("1", 1, 2);
             var item2:Item = new Item("2", 2, 0);
 
-            var s:List = $(item1, item2);
+            var s:Stream = $(item1, item2);
 
             var d:Object = s.object("name");
             assertEquals(d["1"], item1);
@@ -499,9 +499,9 @@ package com.kemsky
             var item1:Item = new Item("1", 1, 2);
             var item2:Item = new Item("2", 2, 0);
 
-            var s:List = $(item1, item2);
+            var s:Stream = $(item1, item2);
 
-            var result:List = s.filter(gt(prop(_, "price"), 1));
+            var result:Stream = s.filter(gt(prop(_, "price"), 1));
             assertEquals(result.length, 1);
             assertEquals(result.first, item2);
 
@@ -576,7 +576,7 @@ package com.kemsky
         [Test]
         public function testFilter():void
         {
-            var s:List = $("1", "2", "1").filter(function (item:String):Boolean
+            var s:Stream = $("1", "2", "1").filter(function (item:String):Boolean
             {
                 return item == "2";
             });
@@ -587,25 +587,25 @@ package com.kemsky
         [Test]
         public function testEq():void
         {
-            var eq1:List = $(1, 2, 3).filter(eq(_, 2));
+            var eq1:Stream = $(1, 2, 3).filter(eq(_, 2));
             assertEquals(eq1.length, 1);
             assertEquals(eq1[0], 2);
 
             var item1:Item = new Item("test1", 6);
             var item2:Item = new Item("test2", 7);
 
-            var eq2:List = $(item1, item2).filter(eq(_, item1));
+            var eq2:Stream = $(item1, item2).filter(eq(_, item1));
             assertEquals(eq2.length, 1);
             assertEquals(eq2[0], item1);
 
 
-            var eq3:List = $("alex", "Alex", "ALEX").filter(eq(_, "alex", List.CASEINSENSITIVE));
+            var eq3:Stream = $("alex", "Alex", "ALEX").filter(eq(_, "alex", Stream.CASEINSENSITIVE));
             assertEquals(eq3.length, 3);
             assertEquals(eq3.first, "alex");
             assertEquals(eq3.second, "Alex");
             assertEquals(eq3.third, "ALEX");
 
-            var eq4:List = $("alex", "Alex", "ALEX").filter(eq(_, "alex"));
+            var eq4:Stream = $("alex", "Alex", "ALEX").filter(eq(_, "alex"));
             assertEquals(eq4.length, 1);
             assertEquals(eq4.first, "alex");
         }
@@ -613,7 +613,7 @@ package com.kemsky
         [Test]
         public function testNe():void
         {
-            var ne1:List = $(1, 2, 3).filter(ne(_, 2));
+            var ne1:Stream = $(1, 2, 3).filter(ne(_, 2));
             assertEquals(ne1.length, 2);
             assertEquals(ne1[0], 1);
             assertEquals(ne1[1], 3);
@@ -622,7 +622,7 @@ package com.kemsky
         [Test]
         public function testOr():void
         {
-            var or1:List = $(1, 2, 3).filter(or(eq(_, 1), eq(_, 3)));
+            var or1:Stream = $(1, 2, 3).filter(or(eq(_, 1), eq(_, 3)));
             assertEquals(or1.length, 2);
             assertEquals(or1[0], 1);
             assertEquals(or1[1], 3);
@@ -631,7 +631,7 @@ package com.kemsky
         [Test]
         public function testAnd():void
         {
-            var and1:List = $(1, 2, 3).filter(and(gt(_, 1), lt(_, 3)));
+            var and1:Stream = $(1, 2, 3).filter(and(gt(_, 1), lt(_, 3)));
             assertEquals(and1.length, 1);
             assertEquals(and1[0], 2);
         }
@@ -639,12 +639,12 @@ package com.kemsky
         [Test]
         public function testLe():void
         {
-            var le1:List = $(1, 2, 3).filter(le(_, 2));
+            var le1:Stream = $(1, 2, 3).filter(le(_, 2));
             assertEquals(le1.length, 2);
             assertEquals(le1[0], 1);
             assertEquals(le1[1], 2);
 
-            var gt2:List = $("test1", "", null).filter(le(_, ""));
+            var gt2:Stream = $("test1", "", null).filter(le(_, ""));
             assertEquals(gt2.length, 2);
             assertEquals(gt2[0], "");
             assertEquals(gt2[1], null);
@@ -653,11 +653,11 @@ package com.kemsky
         [Test]
         public function testLt():void
         {
-            var lt1:List = $(1, 2, 3).filter(lt(_, 2));
+            var lt1:Stream = $(1, 2, 3).filter(lt(_, 2));
             assertEquals(lt1.length, 1);
             assertEquals(lt1[0], 1);
 
-            var gt2:List = $("test1", "", null).filter(lt(_, ""));
+            var gt2:Stream = $("test1", "", null).filter(lt(_, ""));
             assertEquals(gt2.length, 1);
             assertEquals(gt2[0], null);
         }
@@ -665,12 +665,12 @@ package com.kemsky
         [Test]
         public function testGe():void
         {
-            var ge1:List = $(1, 2, 3).filter(ge(_, 2));
+            var ge1:Stream = $(1, 2, 3).filter(ge(_, 2));
             assertEquals(ge1.length, 2);
             assertEquals(ge1[0], 2);
             assertEquals(ge1[1], 3);
 
-            var gt2:List = $("test1", "", null).filter(ge(_, ""));
+            var gt2:Stream = $("test1", "", null).filter(ge(_, ""));
             assertEquals(gt2.length, 2);
             assertEquals(gt2[0], "test1");
             assertEquals(gt2[1], "");
@@ -679,11 +679,11 @@ package com.kemsky
         [Test]
         public function testGt():void
         {
-            var gt1:List = $(1, 2, 3).filter(gt(_, 2));
+            var gt1:Stream = $(1, 2, 3).filter(gt(_, 2));
             assertEquals(gt1.length, 1);
             assertEquals(gt1[0], 3);
 
-            var gt2:List = $("test1", "", null).filter(gt(_, ""));
+            var gt2:Stream = $("test1", "", null).filter(gt(_, ""));
             assertEquals(gt2.length, 1);
             assertEquals(gt2[0], "test1");
         }
@@ -691,7 +691,7 @@ package com.kemsky
         [Test]
         public function testSkip():void
         {
-            var s:List = $(1, 2);
+            var s:Stream = $(1, 2);
             assertEquals(s.skip(1).first, 2);
             assertEquals(s.skip(1).length, 1);
         }
@@ -699,7 +699,7 @@ package com.kemsky
         [Test]
         public function testTake():void
         {
-            var s:List = $(1, 2);
+            var s:Stream = $(1, 2);
 
             assertEquals(s.take(1, 1).first, 2);
             assertEquals(s.take(1, 1).length, 1);
@@ -711,7 +711,7 @@ package com.kemsky
         [Test]
         public function testLastFirst():void
         {
-            var s:List = $();
+            var s:Stream = $();
 
             s.first = 0;
             s.second = 1;
@@ -812,20 +812,20 @@ package com.kemsky
         [Test]
         public function testFlatMap():void
         {
-            var s:List = new List([[1, 2, 3], $(4, 5, 6)]);
+            var s:Stream = new Stream([[1, 2, 3], $(4, 5, 6)]);
 
             s.push(new ArrayCollection([7, 8, 9]), new <Number>[10, 11, 12]);
 
             assertEquals(s.length, 4);
 
-            var flatDefault:List = s.flatten();
+            var flatDefault:Stream = s.flatten();
             assertEquals(flatDefault.length, 12);
             for (var i:int = 0; i < flatDefault.length; i++)
             {
                 assertEquals(flatDefault[i], i + 1);
             }
 
-            var flatMap:List = s.flatMap(function (item:*):Array
+            var flatMap:Stream = s.flatMap(function (item:*):Array
             {
                 return [item.length];
             });
@@ -855,14 +855,14 @@ package com.kemsky
             var second:Object = {item: secondName};
             var third:Object = {item: thirdName};
 
-            var s:List = $([first, second, third]);
-            var items:List = s..item;
+            var s:Stream = $([first, second, third]);
+            var items:Stream = s..item;
             assertEquals(items.length, 3);
             assertEquals(items[0], firstName);
             assertEquals(items[1], secondName);
             assertEquals(items[2], thirdName);
 
-            var names:List = items..name;
+            var names:Stream = items..name;
             assertEquals(names.length, 3);
             assertEquals(names[0], "first");
             assertEquals(names[1], "second");
@@ -873,7 +873,7 @@ package com.kemsky
         [Test]
         public function testHasOwnProperty():void
         {
-            var array:List = $([1, 2, 3]);
+            var array:Stream = $([1, 2, 3]);
 
             for(var p:String in array)
             {
@@ -892,11 +892,11 @@ package com.kemsky
         [Test]
         public function testToString():void
         {
-            var empty:List = $();
-            assertEquals(empty.toString(), "List{}");
+            var empty:Stream = $();
+            assertEquals(empty.toString(), "Stream{}");
 
-            var s:List = $(1);
-            assertEquals(s.toString(), "List{1}");
+            var s:Stream = $(1);
+            assertEquals(s.toString(), "Stream{1}");
         }
 
 
@@ -905,7 +905,7 @@ package com.kemsky
         {
             var original:Array = [1, 2, 3];
 
-            var array:List = $([1, 2, 3]);
+            var array:Stream = $([1, 2, 3]);
 
             verify(array.array(), original);
 
@@ -917,7 +917,7 @@ package com.kemsky
         {
             var original:Array = [1, 2, 3];
 
-            var array:List = $([1, 2, 3]);
+            var array:Stream = $([1, 2, 3]);
 
             verify(array.collection(), original);
 
@@ -929,7 +929,7 @@ package com.kemsky
         {
             var original:Array = [1, 2, 3];
 
-            var array:List = $([1, 2, 3]);
+            var array:Stream = $([1, 2, 3]);
 
             verify(array.list(), original);
 
@@ -939,13 +939,13 @@ package com.kemsky
         [Test]
         public function testCreateStream():void
         {
-            var empty:List = $();
+            var empty:Stream = $();
             assertEquals(empty.empty, true);
             assertEquals(empty.length, 0);
 
             var original:Array = [1, 2, 3];
 
-            var array:List = $([1, 2, 3]);
+            var array:Stream = $([1, 2, 3]);
             assertEquals(array.empty, false);
             assertEquals(array.length, 3);
             assertEquals(array.first, 1);
@@ -955,7 +955,7 @@ package com.kemsky
             assertEquals(array.last, 3);
             verify(array, original);
 
-            var collection:List = $(new ArrayCollection([1, 2, 3]));
+            var collection:Stream = $(new ArrayCollection([1, 2, 3]));
             assertEquals(collection.empty, false);
             assertEquals(collection.length, 3);
             assertEquals(collection.first, 1);
@@ -965,7 +965,7 @@ package com.kemsky
             assertEquals(collection.last, 3);
             verify(collection, original);
 
-            var args:List = $(1, 2, 3);
+            var args:Stream = $(1, 2, 3);
             assertEquals(args.empty, false);
             assertEquals(args.length, 3);
             assertEquals(args.first, 1);
@@ -975,7 +975,7 @@ package com.kemsky
             assertEquals(args.last, 3);
             verify(args, original);
 
-            var single:List = $("item");
+            var single:Stream = $("item");
             assertEquals(single.empty, false);
             assertEquals(single.length, 1);
             assertEquals(single[0], "item");
@@ -984,7 +984,7 @@ package com.kemsky
             assertEquals(single.first, single.last);
 
             var vector:Vector.<Number> = new <Number>[1, 2, 3];
-            var v:List = $(vector);
+            var v:Stream = $(vector);
             assertEquals(v.length, 3);
             assertEquals(v[0], 1);
             assertEquals(v[1], 2);
@@ -995,11 +995,11 @@ package com.kemsky
         [Test]
         public function testSerialize():void
         {
-            var s:List = $(1, 2, 3);
+            var s:Stream = $(1, 2, 3);
             var b:ByteArray = new ByteArray();
             b.writeObject(s);
             b.position = 0;
-            var r:List = b.readObject();
+            var r:Stream = b.readObject();
 
             for (var i:int = 0; i < s.length; i++)
             {

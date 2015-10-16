@@ -17,6 +17,57 @@ package benchmark.iterate
 
 
         [Test]
+        public function testGlobalFunctions():void
+        {
+            const n:uint = 1000;
+            var i:int;
+            var number:Number = NaN;
+            var start:Number = 0;
+            var result:Boolean;
+
+            start = getTimer();
+            for(i = 0; i < n; i++)
+            {
+                result = isNaNFast(number) && isNaNFastInternal(number) && isNaN(number);
+            }
+            Print.message("Warm up: {0} ms", getTimer() - start);
+
+            start = getTimer();
+            for(i = 0; i < n; i++)
+            {
+                result = isNaNFast(number);
+            }
+            Print.message("Global: {0} ms", getTimer() - start);
+
+            start = getTimer();
+            for(i = 0; i < n; i++)
+            {
+                result = isNaNFastInternal(number);
+            }
+            Print.message("Method: {0} ms", getTimer() - start);
+
+            start = getTimer();
+            for(i = 0; i < n; i++)
+            {
+                result = !(number <= 0) && !(number > 0);
+            }
+            Print.message("Inline: {0} ms", getTimer() - start);
+
+            start = getTimer();
+            for(i = 0; i < n; i++)
+            {
+                result = isNaN(number);
+            }
+            Print.message("isNaN: {0} ms", getTimer() - start);
+
+            //10/16/2015 12:02:27.728 [INFO] Print Warm up: 1567 ms
+            //10/16/2015 12:02:32.558 [INFO] Print Global: 4829 ms
+            //10/16/2015 12:02:37.126 [INFO] Print Method: 4567 ms
+            //10/16/2015 12:02:38.153 [INFO] Print Inline: 1026 ms
+            //10/16/2015 12:02:39.837 [INFO] Print isNaN: 1683 ms
+        }
+
+        [Test]
         public function testWriteStream():void
         {
             var total:Number = 0;
@@ -132,6 +183,11 @@ package benchmark.iterate
             var result:Number = getTimer() - start;
             //Print.print("Read Array: {0} ms", result);
             return result;
+        }
+
+        private function isNaNFastInternal(target:*):Boolean
+        {
+            return !(target <= 0) && !(target > 0);
         }
     }
 }

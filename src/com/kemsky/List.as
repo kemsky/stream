@@ -72,16 +72,6 @@ package com.kemsky
             this.source = source == null ? [] : source;
         }
 
-        public function entries():ListIterator
-        {
-            return new EntryIterator(this);
-        }
-
-        public function values():ListIterator
-        {
-            return new ValueIterator(this);
-        }
-
         /**
          * Creates a new list for all items that are not strictly equal to undefined (item !== <i>undefined</i>).
          * @return A new list that contains all items from the original list that are not equal to <i>undefined</i>.
@@ -1624,7 +1614,7 @@ package com.kemsky
             {
             }
 
-            if(isNaNFast(index))
+            if(!(index <= 0) && !(index > 0))
             {
                 throw new Error("Incorrect index: " + String(name));
             }
@@ -1649,7 +1639,7 @@ package com.kemsky
             {
             }
 
-            if(isNaNFast(index))
+            if(!(index <= 0) && !(index > 0))
             {
                 throw new Error("Incorrect index: " + String(name));
             }
@@ -1681,7 +1671,7 @@ package com.kemsky
             {
             }
 
-            if(isNaNFast(index))
+            if(!(index <= 0) && !(index > 0))
             {
                 return false;
             }
@@ -1746,7 +1736,7 @@ package com.kemsky
             {
             }
 
-            if(isNaNFast(index))
+            if(!(index <= 0) && !(index > 0))
             {
                 return false;
             }
@@ -1799,14 +1789,6 @@ package com.kemsky
         public function toString():String
         {
             return "List{" + source.join(",") + "}";
-        }
-
-        /**
-         * @private
-         */
-        private static function isNaNFast(target:*):Boolean
-        {
-            return !(target <= 0) && !(target > 0);
         }
     }
 }

@@ -9,11 +9,11 @@ package com.kemsky.support
 
         if (numeric)
         {
-            result = compareNumber(parseFloat(String(a)), parseFloat(String(b)));
+            result = compareNumber(parseFloat(a.toString()), parseFloat(b.toString()));
         }
         else
         {
-            result = compareString(String(a), String(b), caseInsensitive);
+            result = compareString(a.toString(), b.toString(), caseInsensitive);
         }
 
         return result;
