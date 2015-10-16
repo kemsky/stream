@@ -1,7 +1,7 @@
 package benchmark.iterate
 {
     import com.kemsky.List;
-    import Print;
+    import com.kemsky.support.isNaNFast;
 
     import flash.utils.getTimer;
 
