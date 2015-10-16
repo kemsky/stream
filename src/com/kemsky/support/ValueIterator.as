@@ -1,6 +1,6 @@
 package com.kemsky.support
 {
-    import com.kemsky.Iterator;
+    import com.kemsky.ListIterator;
     import com.kemsky.Stream;
 
     import flash.utils.Proxy;
@@ -11,7 +11,7 @@ package com.kemsky.support
     /**
      * @private
      */
-    public class StreamIterator extends Proxy implements Iterator
+    public class ValueIterator extends Proxy implements ListIterator
     {
         protected var stream:Stream;
 
@@ -19,7 +19,7 @@ package com.kemsky.support
 
         protected var _current:int = -1;
 
-        public function StreamIterator(array:Stream, index:uint = 0)
+        public function ValueIterator(array:Stream, index:uint = 0)
         {
             stream = array;
 
@@ -43,7 +43,7 @@ package com.kemsky.support
 
         public function get hasPrevious():Boolean
         {
-            return _next && stream.length;
+            return _next > 0 && stream.length > 0;
         }
 
         public function previous():*
@@ -65,13 +65,13 @@ package com.kemsky.support
             return stream[_current];
         }
 
-        public function start():void
+        public function reset():void
         {
             _next = stream.length ? 0 : -1;
             _current = -1;
         }
 
-        public function end():void
+        public function stop():void
         {
             _next = _current = -1;
         }
@@ -112,8 +112,7 @@ package com.kemsky.support
         {
             if (_next == -1)
             {
-                _current = -1;
-                return undefined;
+                throw new Error();
             }
 
             _current = _next;
@@ -122,13 +121,22 @@ package com.kemsky.support
             return stream[_current];
         }
 
-        public function put(value:*):void
+        public function set(value:*):void
         {
             if (_current == -1 || _current == stream.length)
             {
                 throw new Error();
             }
             stream[_current] = value;
+        }
+
+        public function add(value:*):void
+        {
+            stream.push(value);
+            if(_next == -1)
+            {
+                _next = stream.length - 1;
+            }
         }
 
         protected function removeCurrent():void

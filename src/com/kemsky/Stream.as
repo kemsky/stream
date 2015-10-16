@@ -72,9 +72,14 @@ package com.kemsky
             this.source = source == null ? [] : source;
         }
 
-        public function values():Iterator
+        public function entries():ListIterator
         {
-            return new StreamIterator(this);
+            return new EntryIterator(this);
+        }
+
+        public function values():ListIterator
+        {
+            return new ValueIterator(this);
         }
 
         /**
