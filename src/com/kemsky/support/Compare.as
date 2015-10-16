@@ -1,6 +1,6 @@
 package com.kemsky.support
 {
-    import com.kemsky.List;
+    import com.kemsky.Stream;
 
     /**
      * todo: register custom compare functions for custom types
@@ -13,7 +13,7 @@ package com.kemsky.support
          * Number, Date, XML, String or Boolean
          * @param a first item
          * @param b second item
-         * @param options combination of List.CASEINSENSITIVE | List.DESCENDING | List.NUMERIC
+         * @param options combination of Stream.CASEINSENSITIVE | Stream.DESCENDING | Stream.NUMERIC
          * @param equals compare is used to check equality
          * @return -1 if a &lt; b, 0 if a == b and 1 if a &gt; b
          */
@@ -35,9 +35,9 @@ package com.kemsky.support
             }
             else
             {
-                var numeric:Boolean = (options & List.NUMERIC) == List.NUMERIC;
+                var numeric:Boolean = (options & Stream.NUMERIC) == Stream.NUMERIC;
 
-                var caseInsensitive:Boolean = (options & List.CASEINSENSITIVE) == List.CASEINSENSITIVE;
+                var caseInsensitive:Boolean = (options & Stream.CASEINSENSITIVE) == Stream.CASEINSENSITIVE;
 
                 var typeOfA:String = TypeCache.getQualifiedClassName(a);
                 var typeOfB:String = TypeCache.getQualifiedClassName(b);
@@ -96,7 +96,7 @@ package com.kemsky.support
                 }
             }
 
-            if ((options & List.DESCENDING) == List.DESCENDING)
+            if ((options & Stream.DESCENDING) == Stream.DESCENDING)
             {
                 result *= -1;
             }

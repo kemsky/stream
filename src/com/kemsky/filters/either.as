@@ -1,7 +1,7 @@
 package com.kemsky.filters
 {
     import com.kemsky.$;
-    import com.kemsky.List;
+    import com.kemsky.Stream;
     import com.kemsky.support.toValue;
 
     /**
@@ -12,7 +12,7 @@ package com.kemsky.filters
      */
     public function either(value:*, ...rest):Function
     {
-        var values:List = $.apply(null, rest);
+        var values:Stream = $.apply(null, rest);
 
         if (values.length == 0)
         {
