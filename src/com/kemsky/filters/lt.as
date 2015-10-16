@@ -1,12 +1,13 @@
 package com.kemsky.filters
 {
+    import com.kemsky.support.Compare;
     import com.kemsky.support.toValue;
 
     public function lt(val1:*, val2:*, options:uint = 0):Function
     {
         return function (item:*):Boolean
         {
-            return compare(toValue(item, val1), toValue(item, val2), options) < 0;
+            return Compare.compare(toValue(item, val1), toValue(item, val2), options) < 0;
         };
     }
 }
