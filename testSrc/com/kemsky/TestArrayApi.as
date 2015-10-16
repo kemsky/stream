@@ -16,8 +16,8 @@ package com.kemsky
         [Test]
         public function testConcat():void
         {
-            var s:Stream = $();
-            var s2:Stream = s.concat(1, [2], new ArrayCollection([3]), new <Number>[4]);
+            var s:List = $();
+            var s2:List = s.concat(1, [2], new ArrayCollection([3]), new <Number>[4]);
             assertEquals(s2.length, 4);
             assertEquals(s2.first, 1);
             assertEquals(s2.second, 2);
@@ -28,7 +28,7 @@ package com.kemsky
         [Test]
         public function testEach():void
         {
-            var s:Stream = $(1, 2, 3, 3);
+            var s:List = $(1, 2, 3, 3);
             var counter:int = 0;
             s.forEach(function (item:Number):void
             {
@@ -41,7 +41,7 @@ package com.kemsky
         [Test]
         public function testSome():void
         {
-            var s:Stream = $(1, 2, 3, 3);
+            var s:List = $(1, 2, 3, 3);
             assertTrue(s.some(function (item:Number):Boolean
             {
                 return item > 2;
@@ -52,7 +52,7 @@ package com.kemsky
         [Test]
         public function testEvery():void
         {
-            var s:Stream = $(1, 2, 3, 3);
+            var s:List = $(1, 2, 3, 3);
             assertTrue(s.every(function (item:Number):Boolean
             {
                 return item > 0;
@@ -62,14 +62,14 @@ package com.kemsky
         [Test]
         public function testLastIndex():void
         {
-            var s:Stream = $(1, 2, 3, 3);
+            var s:List = $(1, 2, 3, 3);
             assertEquals(s.lastIndexOf(3), s.length - 1);
         }
 
         [Test]
         public function testShift():void
         {
-            var s:Stream = $(1, 2, 3);
+            var s:List = $(1, 2, 3);
             var l:Number = s.shift();
 
             assertEquals(s.length, 2);
@@ -81,7 +81,7 @@ package com.kemsky
         [Test]
         public function testUnShift():void
         {
-            var s:Stream = $(2, 3);
+            var s:List = $(2, 3);
             var l:uint = s.unshift(1);
 
             assertEquals(s.length, 3);
@@ -92,15 +92,15 @@ package com.kemsky
         [Test]
         public function testSplice():void
         {
-            var s:Stream = $(1, 2, 3);
+            var s:List = $(1, 2, 3);
 
-            var r1:Stream = s.splice(0, 1);
+            var r1:List = s.splice(0, 1);
             assertEquals(s.length, 2);
             assertEquals(s.first, 2);
             assertEquals(r1.length, 1);
             assertEquals(r1.first, 1);
 
-            var r2:Stream = s.splice(0, 0, 1);
+            var r2:List = s.splice(0, 0, 1);
             assertEquals(s.length, 3);
             assertEquals(s.first, 1);
             assertEquals(r2.length, 0);
@@ -109,35 +109,35 @@ package com.kemsky
         [Test]
         public function testSort():void
         {
-            var s:Stream = $(1, 2);
+            var s:List = $(1, 2);
 
-            var s1:Stream = s.sort(Stream.NUMERIC | Stream.UNIQUESORT | Stream.DESCENDING);
+            var s1:List = s.sort(List.NUMERIC | List.UNIQUESORT | List.DESCENDING);
             assertEquals(s, s1);
             assertEquals(s1[0], 2);
             assertEquals(s1[1], 1);
 
-            var s2:Stream = s.sort(Stream.NUMERIC | Stream.UNIQUESORT | Stream.DESCENDING | Stream.RETURNINDEXEDARRAY);
+            var s2:List = s.sort(List.NUMERIC | List.UNIQUESORT | List.DESCENDING | List.RETURNINDEXEDARRAY);
             assertFalse(s === s2);
             assertEquals(s2[0], 0);
             assertEquals(s2[1], 1);
 
-            var s3:Stream = $(1, 2, 1);
+            var s3:List = $(1, 2, 1);
             try
             {
-                s3.sort(Stream.NUMERIC | Stream.UNIQUESORT);
+                s3.sort(List.NUMERIC | List.UNIQUESORT);
                 assertFalse(true);
             }
             catch (e:Error)
             {
             }
 
-            var s4:Stream = $("alex", "Alex", "Bob");
+            var s4:List = $("alex", "Alex", "Bob");
 
-            var ins:Stream = s4.sort();
+            var ins:List = s4.sort();
             assertEquals(ins.first, "Alex");
             assertEquals(ins.last, "alex");
 
-            var sens:Stream = s4.sort(Stream.CASEINSENSITIVE);
+            var sens:List = s4.sort(List.CASEINSENSITIVE);
             assertEquals(sens.first.toLowerCase(), "alex");
             assertEquals(sens.last, "Bob");
         }
@@ -146,7 +146,7 @@ package com.kemsky
         public function testReverse():void
         {
             var s:Array = [1, 2, 3];
-            var r:Stream = $(s).reverse();
+            var r:List = $(s).reverse();
 
             for (var i:int = 0; i < r.length; i++)
             {
@@ -158,7 +158,7 @@ package com.kemsky
         [Test]
         public function testSortOn():void
         {
-            var s:Stream = new Stream();
+            var s:List = new List();
             s.push(new Item("lettuce", 1.49));
             s.push(new Item("spinach", 1.89));
             s.push(new Item("asparagus", 3.99));
@@ -179,18 +179,18 @@ package com.kemsky
 
             var item1:Item = new Item("name", 2);
             var item2:Item = new Item("name", 1);
-            var s2:Stream = $(item1, item2);
+            var s2:List = $(item1, item2);
             try
             {
-                s2.sortOn("name", Stream.UNIQUESORT);
+                s2.sortOn("name", List.UNIQUESORT);
                 assertFalse(true);
             }
             catch(e:Error)
             {
             }
 
-            var s3:Stream = $(item1, item2);
-            var s4:Stream = s3.sortOn("price", Stream.NUMERIC | Stream.UNIQUESORT | Stream.DESCENDING | Stream.RETURNINDEXEDARRAY);
+            var s3:List = $(item1, item2);
+            var s4:List = s3.sortOn("price", List.NUMERIC | List.UNIQUESORT | List.DESCENDING | List.RETURNINDEXEDARRAY);
             assertFalse(s3 === s4);
             assertEquals(s4[0], 0);
             assertEquals(s4[1], 1);
@@ -199,7 +199,7 @@ package com.kemsky
         [Test]
         public function testJoin():void
         {
-            var s:Stream = $(1, 2, 3);
+            var s:List = $(1, 2, 3);
             var str:String = s.join(",");
             assertEquals(str, "1,2,3");
         }
@@ -207,7 +207,7 @@ package com.kemsky
         [Test]
         public function testPop():void
         {
-            var s:Stream = $(1, 2, 3, 4, 5);
+            var s:List = $(1, 2, 3, 4, 5);
             var length:int = s.length;
             var item:* = s[length - 1];
             var popped:* = s.pop();
@@ -218,7 +218,7 @@ package com.kemsky
         [Test]
         public function testPush():void
         {
-            var s:Stream = $(1, 2, 3, 4, 5);
+            var s:List = $(1, 2, 3, 4, 5);
             var length:int = s.length;
             var item:int = 6;
             s.push(item);
@@ -229,7 +229,7 @@ package com.kemsky
         [Test]
         public function testDelete():void
         {
-            var s:Stream = $(1, 2, 3, 4, 5);
+            var s:List = $(1, 2, 3, 4, 5);
             var length:int = s.length;
             try
             {
@@ -253,7 +253,7 @@ package com.kemsky
         [Test]
         public function testIterate():void
         {
-            var s:Stream = $(1, 2, 3, 4, 5);
+            var s:List = $(1, 2, 3, 4, 5);
             for (var i:int = 0; i < s.length; i++)
             {
                 assertEquals(s[i], i + 1);

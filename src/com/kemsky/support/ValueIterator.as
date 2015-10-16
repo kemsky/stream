@@ -1,7 +1,7 @@
 package com.kemsky.support
 {
     import com.kemsky.ListIterator;
-    import com.kemsky.Stream;
+    import com.kemsky.List;
 
     import flash.utils.Proxy;
     import flash.utils.flash_proxy;
@@ -13,13 +13,13 @@ package com.kemsky.support
      */
     public class ValueIterator extends Proxy implements ListIterator
     {
-        protected var stream:Stream;
+        protected var stream:List;
 
         protected var _next:int;
 
         protected var _current:int = -1;
 
-        public function ValueIterator(array:Stream, index:uint = 0)
+        public function ValueIterator(array:List, index:uint = 0)
         {
             stream = array;
 

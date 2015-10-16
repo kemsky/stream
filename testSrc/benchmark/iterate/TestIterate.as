@@ -1,6 +1,6 @@
 package benchmark.iterate
 {
-    import com.kemsky.Stream;
+    import com.kemsky.List;
     import Print;
 
     import flash.utils.getTimer;
@@ -25,13 +25,13 @@ package benchmark.iterate
                 total += writeStream();
             }
 
-            //Print Write Stream: 3283.8 ms
-            Print.message("Write Stream Mean: {0} ms", total/attempts);
+            //Print Write List: 3283.8 ms
+            Print.message("Write List Mean: {0} ms", total/attempts);
         }
 
         private function writeStream():Number
         {
-            var s:Stream = new Stream();
+            var s:List = new List();
             var i:int;
 
             var start:Number = getTimer();
@@ -40,7 +40,7 @@ package benchmark.iterate
                 s[i] = i;
             }
             var result:Number = getTimer() - start;
-            //Print.print("Write Stream: {0} ms", result);
+            //Print.print("Write List: {0} ms", result);
             return result;
         }
 
@@ -54,13 +54,13 @@ package benchmark.iterate
                 total += readStream();
             }
 
-            //Print Write Stream: 3283.8 ms
-            Print.message("Read Stream Mean: {0} ms", total/attempts);
+            //Print Write List: 3283.8 ms
+            Print.message("Read List Mean: {0} ms", total/attempts);
         }
 
         private function readStream():Number
         {
-            var s:Stream = new Stream();
+            var s:List = new List();
             s.length = count;
             var i:int;
 
@@ -71,7 +71,7 @@ package benchmark.iterate
                 item = s[i];
             }
             var result:Number = getTimer() - start;
-            //Print.print("Read Stream: {0} ms", result);
+            //Print.print("Read List: {0} ms", result);
             return result;
         }
 
@@ -85,7 +85,7 @@ package benchmark.iterate
                 total += writeArray();
             }
 
-            //Print Write Stream: 138.7 ms
+            //Print Write List: 138.7 ms
             Print.message("Write Array Mean: {0} ms", total/attempts);
         }
 
@@ -113,7 +113,7 @@ package benchmark.iterate
                 total += readArray();
             }
 
-            //Print Write Stream: 138.7 ms
+            //Print Write List: 138.7 ms
             Print.message("Read Array Mean: {0} ms", total/attempts);
         }
 

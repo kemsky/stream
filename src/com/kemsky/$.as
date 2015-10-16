@@ -3,28 +3,28 @@ package com.kemsky
     import com.kemsky.support.Flex;
 
     /**
-     * Global function that creates Stream objects
-     * @param rest objects used as source for Stream
-     * @return created Stream object
+     * Global function that creates List objects
+     * @param rest objects used as source for List
+     * @return created List object
      * @example
      * <pre>
-     *     var s:Stream = $(1, 2, 3);
-     *     var s:Stream = $([1, 2, 3]);
-     *     var s:Stream = $(new ArrayCollection([1, 2, 3]));
-     *     var s:Stream = $(new ArrayList([1, 2, 3]));
-     *     var s:Stream = $(new Stream([1, 2, 3]));
-     *     var s:Stream = $([1], [2], [3]);//flattens arguments
+     *     var s:List = $(1, 2, 3);
+     *     var s:List = $([1, 2, 3]);
+     *     var s:List = $(new ArrayCollection([1, 2, 3]));
+     *     var s:List = $(new ArrayList([1, 2, 3]));
+     *     var s:List = $(new List([1, 2, 3]));
+     *     var s:List = $([1], [2], [3]);//flattens arguments
      *
      *     //All expressions are equivalent to:
-     *     var s:Stream = new Stream([1, 2, 3])
+     *     var s:List = new List([1, 2, 3])
      * </pre>
      */
-    public function $(...rest):Stream
+    public function $(...rest):List
     {
         if (rest.length == 0)
         {
             //empty $
-            return new Stream();
+            return new List();
         }
         else if (rest.length == 1)
         {
@@ -33,7 +33,7 @@ package com.kemsky
             if (arg is Array)
             {
                 //$ from array
-                return new Stream((arg as Array).concat());
+                return new List((arg as Array).concat());
             }
             else if (arg is Vector.<*> || arg is Vector.<Number> || arg is Vector.<int> || arg is Vector.<uint>)
             {
@@ -42,21 +42,21 @@ package com.kemsky
                 {
                     a[i] = arg[i];
                 }
-                return new Stream(a);
+                return new List(a);
             }
             else if (Flex.available && arg is Flex.list)
             {
                 //$ from list
-                return new Stream(arg.toArray());
+                return new List(arg.toArray());
             }
             else
             {
                 //$ from one item
-                return new Stream([arg]);
+                return new List([arg]);
             }
         }
 
         //$ from argument list
-        return new Stream(rest.concat());
+        return new List(rest.concat());
     }
 }

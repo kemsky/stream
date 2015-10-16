@@ -1,6 +1,6 @@
 package com.kemsky.filters
 {
-    import com.kemsky.Stream;
+    import com.kemsky.List;
     import com.kemsky.support.TypeCache;
     import com.kemsky.support.compareDate;
     import com.kemsky.support.compareNumber;
@@ -12,7 +12,7 @@ package com.kemsky.filters
      * Number, Date, XML, String or Boolean
      * @param a first item
      * @param b second item
-     * @param options combination of Stream.CASEINSENSITIVE | Stream.DESCENDING | Stream.NUMERIC
+     * @param options combination of List.CASEINSENSITIVE | List.DESCENDING | List.NUMERIC
      * @param equals compare is used to check equality
      * @return -1 if a &lt; b, 0 if a == b and 1 if a &gt; b
      */
@@ -34,9 +34,9 @@ package com.kemsky.filters
         }
         else
         {
-            var numeric:Boolean = (options & Stream.NUMERIC) == Stream.NUMERIC;
+            var numeric:Boolean = (options & List.NUMERIC) == List.NUMERIC;
 
-            var caseInsensitive:Boolean = (options & Stream.CASEINSENSITIVE) == Stream.CASEINSENSITIVE;
+            var caseInsensitive:Boolean = (options & List.CASEINSENSITIVE) == List.CASEINSENSITIVE;
 
             var typeOfA:String = TypeCache.getQualifiedClassName(a);
             var typeOfB:String = TypeCache.getQualifiedClassName(b);
@@ -95,7 +95,7 @@ package com.kemsky.filters
             }
         }
 
-        if ((options & Stream.DESCENDING) == Stream.DESCENDING)
+        if ((options & List.DESCENDING) == List.DESCENDING)
         {
             result *= -1;
         }
