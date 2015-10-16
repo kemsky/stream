@@ -1614,7 +1614,7 @@ package com.kemsky
             {
             }
 
-            if(isNaNFast(index))
+            if(!(index <= 0) && !(index > 0))
             {
                 throw new Error("Incorrect index: " + String(name));
             }
@@ -1639,7 +1639,7 @@ package com.kemsky
             {
             }
 
-            if(isNaNFast(index))
+            if(!(index <= 0) && !(index > 0))
             {
                 throw new Error("Incorrect index: " + String(name));
             }
@@ -1671,7 +1671,7 @@ package com.kemsky
             {
             }
 
-            if(isNaNFast(index))
+            if(!(index <= 0) && !(index > 0))
             {
                 return false;
             }
@@ -1736,7 +1736,7 @@ package com.kemsky
             {
             }
 
-            if(isNaNFast(index))
+            if(!(index <= 0) && !(index > 0))
             {
                 return false;
             }
