@@ -5,9 +5,7 @@ package com.kemsky
      */
     public interface Iterator
     {
-        function remove():Boolean;
-
-        function get hasNext():Boolean;
+        function get available():Boolean;
 
         function next():*;
     }

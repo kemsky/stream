@@ -46,7 +46,7 @@ package com.kemsky
             var i:StreamIterator = new ValueIterator(s);
 
             var count:int = 1;
-            while(i.hasNext)
+            while(i.available)
             {
                 var n:Number = i.next();
                 assertEquals(n, count);
@@ -65,7 +65,7 @@ package com.kemsky
                 Print.items("for each: ", i1.current, item);
                 if(++count < 10)
                 {
-                    i1.add(count);
+                    i1.push(count);
                 }
             }
 

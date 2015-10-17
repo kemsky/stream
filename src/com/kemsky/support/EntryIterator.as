@@ -72,7 +72,7 @@ package com.kemsky.support
             _current = -1;
         }
 
-        public function stop():void
+        public function abort():void
         {
             _next = _current = -1;
         }
@@ -104,7 +104,7 @@ package com.kemsky.support
             return true;
         }
 
-        public function get hasNext():Boolean
+        public function get available():Boolean
         {
             return _next > -1;
         }
@@ -122,7 +122,7 @@ package com.kemsky.support
             return new Entry(_current, this);
         }
 
-        public function set(value:*):void
+        public function set current(value:*):void
         {
             if (_current == -1 || _current == stream.length)
             {
@@ -131,7 +131,7 @@ package com.kemsky.support
             stream[_current] = value;
         }
 
-        public function add(value:*):void
+        public function push(value:*):void
         {
             stream.push(value);
             if(_next == -1)
@@ -182,7 +182,7 @@ package com.kemsky.support
          */
         override flash_proxy function nextNameIndex(index:int):int
         {
-            return hasNext ? nextIndex + 1 : 0;
+            return available ? nextIndex + 1 : 0;
         }
 
         /**

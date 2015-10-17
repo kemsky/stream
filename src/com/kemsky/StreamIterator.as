@@ -10,12 +10,14 @@ package com.kemsky
 
         function get current():*;
 
+        function set current(value:*):void;
+
         function reset():void;
 
-        function stop():void;
+        function abort():void;
 
-        function set(value:*):void;
+        function push(value:*):void;
 
-        function add(value:*):void;
+        function remove():Boolean;
     }
 }
