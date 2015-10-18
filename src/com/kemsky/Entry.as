@@ -31,7 +31,7 @@ package com.kemsky
             {
                 throw new Error();
             }
-            iterator.put(value);
+            iterator.current = value;
         }
     }
 }
