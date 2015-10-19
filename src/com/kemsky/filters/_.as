@@ -1,7 +1,7 @@
 package com.kemsky.filters
 {
     /**
-     * Loopback function, allows to use stream item as an argument for other functions
+     * Loopback (identity function) function, allows to use stream item as an argument for other functions
      * @param item current item
      * @return item passed as an argument
      */
