@@ -3,9 +3,7 @@ package com.kemsky
     import com.kemsky.filters._;
     import com.kemsky.filters.eq;
     import com.kemsky.filters.gt;
-    import com.kemsky.filters.mapped;
     import com.kemsky.filters.prop;
-    import com.kemsky.support.Compare;
     import com.kemsky.support.EntryIterator;
     import com.kemsky.support.ValueIterator;
     import com.kemsky.support.stream_internal;
@@ -50,7 +48,7 @@ package com.kemsky
             var count:int = 0;
             for each (var item:* in i1)
             {
-                Print.items("for each: ", i1.current, item);
+//                Print.items("for each: ", i1.current, item);
                 if (++count < 10)
                 {
                     i1.push(count);
@@ -81,53 +79,6 @@ package com.kemsky
             assertEquals(c.first, 1);
             assertEquals(c.second, 2);
         }
-
-        [Test]
-        public function testComparator():void
-        {
-            var date:Date = new Date(2000);
-
-            assertEquals(Compare.compare(null, null), 0);
-            assertEquals(Compare.compare(null, 1), -1);
-            assertEquals(Compare.compare(null, 1, Stream.DESCENDING), 1);
-            assertEquals(Compare.compare(1, null), 1);
-            assertEquals(Compare.compare(1, 1, Stream.NUMERIC), 0);
-            assertEquals(Compare.compare(1, "1"), -1);
-
-            assertEquals(Compare.compare(new Date(), date), 1);
-            assertEquals(Compare.compare(date, date), 0);
-            assertEquals(Compare.compare(date, new Date()), -1);
-
-
-            assertEquals(Compare.compare(NaN, 1), -1);
-            assertEquals(Compare.compare(NaN, NaN), 0);
-            assertEquals(Compare.compare(1, NaN), 1);
-
-            assertEquals(Compare.compare("abc", "def"), -1);
-            assertEquals(Compare.compare("t", "t"), 0);
-            assertEquals(Compare.compare("def", "abc"), 1);
-
-
-            var xs1:XML = <a>123</a>;
-            var xs2:XML = <a>1</a>;
-            assertEquals(Compare.compare(xs1, xs2), 1);
-            assertEquals(Compare.compare(xs2, xs2), 0);
-            assertEquals(Compare.compare(xs2, xs1), -1);
-
-            assertEquals(Compare.compare(xs1, xs2, Stream.NUMERIC), 1);
-            assertEquals(Compare.compare(xs2, xs2, Stream.NUMERIC), 0);
-            assertEquals(Compare.compare(xs2, xs1, Stream.NUMERIC), -1);
-
-            try
-            {
-                Compare.compare(new Item(), new Item());
-                assertFalse(true);
-            }
-            catch (e:Error)
-            {
-            }
-        }
-
 
         [Test]
         public function testPartition():void
@@ -218,28 +169,6 @@ package com.kemsky
             var s:Stream = $(item);
             assertEquals(s.map(prop(_, "name")).first, "name1");
         }
-
-        [Test]
-        public function testMapped():void
-        {
-            var item:Item = new Item("name", 5, 0);
-
-            var d:Dictionary = new Dictionary();
-            d[item.name] = item;
-
-            var o:Object = {};
-            o[item.name] = item;
-
-            var s:Stream = $(item);
-
-            assertEquals(s.filter(mapped(prop(_, "name"), d)).length, 1);
-            assertEquals(s.filter(mapped(prop(_, "name"), o)).length, 1);
-
-
-            var p:Stream = $("name", "price", "vat");
-            assertEquals(p.filter(mapped(_, item)).length, 3);
-        }
-
 
         [Test]
         public function testSet():void

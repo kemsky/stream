@@ -3,6 +3,8 @@ package com.kemsky.filters
     import com.kemsky.$;
     import com.kemsky.Stream;
 
+    import flash.utils.Dictionary;
+
     import org.flexunit.asserts.assertEquals;
     import org.flexunit.asserts.assertFalse;
 
@@ -12,9 +14,31 @@ package com.kemsky.filters
         {
         }
 
+
+        [Test]
+        public function testUnderscore():void
+        {
+            var d:Date = new Date();
+
+            assertEquals(_("test"), "test");
+            assertEquals(_(1), 1);
+            assertEquals(_(d), d);
+
+            var s:Stream = $(true, false, false).filter(_);
+            assertEquals(s.length, 1);
+            assertEquals(s.first, true);
+        }
+
         [Test]
         public function testEq():void
         {
+            var d:Date = new Date();
+            assertEquals(eq("test", "test")(null), true);
+            assertEquals(eq(1, 1)(null), true);
+            assertEquals(eq(d, d)(null), true);
+            assertEquals(eq(_, _)(null), true);
+
+
             var eq1:Stream = $(1, 2, 3).filter(eq(_, 2));
             assertEquals(eq1.length, 1);
             assertEquals(eq1[0], 2);
@@ -182,6 +206,29 @@ package com.kemsky.filters
             {
             }
         }
+
+
+        [Test]
+        public function testMapped():void
+        {
+            var item:Item = new Item("name", 5, 0);
+
+            var d:Dictionary = new Dictionary();
+            d[item.name] = item;
+
+            var o:Object = {};
+            o[item.name] = item;
+
+            var s:Stream = $(item);
+
+            assertEquals(s.filter(mapped(prop(_, "name"), d)).length, 1);
+            assertEquals(s.filter(mapped(prop(_, "name"), o)).length, 1);
+
+
+            var p:Stream = $("name", "price", "vat");
+            assertEquals(p.filter(mapped(_, item)).length, 3);
+        }
+
 
         [Test]
         public function testEither():void

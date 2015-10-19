@@ -1,7 +1,7 @@
 package com.kemsky.support
 {
     import flash.utils.Dictionary;
-    import flash.utils.getQualifiedClassName;
+    import avmplus.getQualifiedClassName;
 
     /**
      * Fast getQualifiedClassName implementation.
@@ -11,8 +11,6 @@ package com.kemsky.support
     public class TypeCache
     {
         public static const NUMBER:String = "Number";
-        public static const INT:String = "int";
-        public static const UINT:String = "uint";
         public static const STRING:String = "String";
         public static const BOOLEAN:String = "Boolean";
         public static const DATE:String = "Date";
@@ -28,8 +26,6 @@ package com.kemsky.support
         public function TypeCache()
         {
             classToFullName[Number] = NUMBER;
-            classToFullName[int] = INT;
-            classToFullName[uint] = UINT;
             classToFullName[String] = STRING;
             classToFullName[Boolean] = BOOLEAN;
             classToFullName[Date] = DATE;
