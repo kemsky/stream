@@ -17,6 +17,7 @@ package com.kemsky.support
         public static const BOOLEAN:String = "Boolean";
         public static const DATE:String = "Date";
         public static const XML_TYPE:String = "XML";
+        public static const XML_LIST:String = "XMLList";
         public static const CLASS:String = "Class";
         public static const ARRAY:String = "Array";
 
@@ -35,6 +36,7 @@ package com.kemsky.support
             classToFullName[XML] = XML_TYPE;
             classToFullName[Class] = CLASS;
             classToFullName[Array] = ARRAY;
+            classToFullName[XMLList] = XML_LIST;
         }
 
         public static function getQualifiedClassName(object:*):String
