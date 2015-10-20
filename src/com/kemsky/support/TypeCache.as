@@ -18,6 +18,7 @@ package com.kemsky.support
         public static const XML_LIST:String = "XMLList";
         public static const CLASS:String = "Class";
         public static const ARRAY:String = "Array";
+        public static const UNDEFINED:String = "void";
 
         private static const classToFullName:Dictionary = new Dictionary(true);
 
@@ -33,6 +34,7 @@ package com.kemsky.support
             classToFullName[Class] = CLASS;
             classToFullName[Array] = ARRAY;
             classToFullName[XMLList] = XML_LIST;
+            classToFullName[undefined] = UNDEFINED;
         }
 
         public static function getQualifiedClassName(object:*):String

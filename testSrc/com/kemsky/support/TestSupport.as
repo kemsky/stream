@@ -37,6 +37,7 @@ package com.kemsky.support
             assertEquals(TypeCache.getQualifiedClassName(d), TypeCache.DATE);
             assertEquals(TypeCache.getQualifiedClassName(x), TypeCache.XML_TYPE);
             assertEquals(TypeCache.getQualifiedClassName(xl), TypeCache.XML_LIST);
+            assertEquals(TypeCache.getQualifiedClassName(undefined), TypeCache.UNDEFINED);
             assertEquals(TypeCache.getQualifiedClassName(item), "Item");
 
             assertEquals(TypeCache.getQualifiedClassName(n), getQualifiedClassName(n));
@@ -49,6 +50,7 @@ package com.kemsky.support
             assertEquals(TypeCache.getQualifiedClassName(x), getQualifiedClassName(x));
             assertEquals(TypeCache.getQualifiedClassName(xl), getQualifiedClassName(xl));
             assertEquals(TypeCache.getQualifiedClassName(item), getQualifiedClassName(item));
+            assertEquals(TypeCache.getQualifiedClassName(undefined), getQualifiedClassName(undefined));
         }
 
         [Test]
