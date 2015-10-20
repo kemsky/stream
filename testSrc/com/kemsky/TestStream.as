@@ -45,7 +45,7 @@ package com.kemsky
 
             var s1:Stream = $(1, 2, 3);
             var i1:StreamIterator = new ValueIterator(s1);
-            var count:int = 0;
+            count = 0;
             for each (var item:* in i1)
             {
 //                Print.items("for each: ", i1.current, item);
