@@ -1,6 +1,6 @@
 package com.kemsky
 {
-    import com.kemsky.support.Flex;
+    import mx.collections.IList;
 
     /**
      * Global function that creates Stream objects
@@ -44,7 +44,7 @@ package com.kemsky
                 }
                 return new Stream(a);
             }
-            else if (Flex.available && arg is Flex.list)
+            else if (arg is IList)
             {
                 //$ from list
                 return new Stream(arg.toArray());

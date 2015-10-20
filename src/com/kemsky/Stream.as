@@ -14,6 +14,7 @@ package com.kemsky
 
     import mx.collections.ArrayCollection;
     import mx.collections.ArrayList;
+    import mx.collections.IList;
 
     use namespace stream_internal;
 
@@ -895,7 +896,7 @@ package com.kemsky
                 {
                     result = item;
                 }
-                else if(Flex.available && item is Flex.list)
+                else if(item is IList)
                 {
                     result = item.toArray();
                 }
@@ -1164,7 +1165,7 @@ package com.kemsky
                 {
                     result = result.concat.apply(null, item);
                 }
-                else if(Flex.available && item is Flex.list)
+                else if(item is IList)
                 {
                     result = result.concat.apply(null, item.toArray());
                 }
