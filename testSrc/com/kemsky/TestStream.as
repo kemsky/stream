@@ -67,6 +67,30 @@ package com.kemsky
 //            }
         }
 
+
+        [Test]
+        public function testMinBy():void
+        {
+            assertEquals($(2, 3, 1).min(), 1);
+            assertEquals($(2, 3, 1).min(_), 1);
+            assertEquals($().min(_, 1), 1);
+
+            var item1:Item = new Item("item1", 1);
+            var item2:Item = new Item("item2", 2);
+
+            assertEquals($(item1, item2).min(prop("price")), item1);
+            assertEquals($().min(prop("price"), 1), 1);
+
+            try
+            {
+                $().min();
+                assertTrue(false);
+            }
+            catch(e:Error)
+            {
+            }
+        }
+
         [Test]
         public function testCompact():void
         {

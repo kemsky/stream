@@ -73,6 +73,42 @@ package com.kemsky
             this.source = source == null ? [] : source;
         }
 
+        //todo better design
+        public function min(callback:Function = null, defaultValue:* = undefined):*
+        {
+            if(this.length == 0)
+            {
+                if(arguments.length == 2)
+                {
+                    return defaultValue;
+                }
+                else
+                {
+                    throw new Error("Stream is empty and defaultValue is not provided");
+                }
+            }
+
+            if(callback == null)
+            {
+                callback = _;
+            }
+
+            var min:* = first;
+            var minValue:Number = callback(first);
+
+            forEach(function (current:*):void
+            {
+                var result:Number = callback(current);
+                if(minValue > result)
+                {
+                    minValue = result;
+                    min = current;
+                }
+            });
+
+            return min;
+        }
+
         /**
          * Creates a new list for all items that are not strictly equal to undefined (item !== <i>undefined</i>).
          * @return A new list that contains all items from the original list that are not equal to <i>undefined</i>.
