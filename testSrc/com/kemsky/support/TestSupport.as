@@ -65,10 +65,10 @@ package com.kemsky.support
             assertTrue(toValue(undefined, undefined) === undefined);
 
 
-            assertEquals(toValue(1, undefined), 1);
-            assertEquals(toValue("test", undefined), "test");
-            assertEquals(toValue(date, undefined), date);
-            assertEquals(toValue(null, undefined), null);
+            assertTrue(toValue(1, undefined) === undefined);
+            assertTrue(toValue("test", undefined) === undefined);
+            assertTrue(toValue(date, undefined) === undefined);
+            assertTrue(toValue(null, undefined) === undefined);
 
             var f:Function = function(value:*):*
             {

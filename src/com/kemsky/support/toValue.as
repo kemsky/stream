@@ -11,7 +11,7 @@ package com.kemsky.support
         {
             result = value(item);
         }
-        else if(value !== undefined)
+        else
         {
             result = value;
         }

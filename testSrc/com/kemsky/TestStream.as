@@ -45,13 +45,13 @@ package com.kemsky
 
             var s1:Stream = $(1, 2, 3);
             var i1:StreamIterator = new ValueIterator(s1);
-            var count:int = 0;
+            var count1:int = 0;
             for each (var item:* in i1)
             {
 //                Print.items("for each: ", i1.current, item);
-                if (++count < 10)
+                if (++count1 < 10)
                 {
-                    i1.push(count);
+                    i1.push(count1);
                 }
             }
 
@@ -167,7 +167,7 @@ package com.kemsky
         {
             var item:Item = new Item("name1", 5, 0);
             var s:Stream = $(item);
-            assertEquals(s.map(prop(_, "name")).first, "name1");
+            assertEquals(s.map(prop("name")).first, "name1");
         }
 
         [Test]
@@ -463,6 +463,18 @@ package com.kemsky
             });
 
             assertEquals(sum3, 10);
+
+            try
+            {
+                $().foldLeft(function (prev:Number, current:Number):Number
+                {
+                    return prev + current;
+                });
+                assertTrue(false);
+            }
+            catch(e:Error)
+            {
+            }
         }
 
         [Test]
@@ -488,6 +500,18 @@ package com.kemsky
             });
 
             assertEquals(sum3, 10);
+
+            try
+            {
+                $().foldRight(function (prev:Number, current:Number):Number
+                {
+                    return prev + current;
+                });
+                assertTrue(false);
+            }
+            catch(e:Error)
+            {
+            }
         }
 
         [Test]
