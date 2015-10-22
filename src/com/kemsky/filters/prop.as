@@ -2,7 +2,7 @@ package com.kemsky.filters
 {
     /**
      * Creates function that extracts named property from value
-     * @param name name of the property
+     * @param name name of the property (nested properties are supported: 'prop.prop1.prop2')
      * @return function function that extracts named property from value
      */
     public function prop(name:String):Function
