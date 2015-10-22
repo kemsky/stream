@@ -3,6 +3,8 @@ package com.kemsky.support
     import avmplus.getQualifiedClassName;
 
     import com.kemsky.Stream;
+    import com.kemsky.combine;
+    import com.kemsky.filters._;
 
     import org.flexunit.asserts.assertEquals;
     import org.flexunit.asserts.assertFalse;
@@ -14,6 +16,25 @@ package com.kemsky.support
         {
         }
 
+
+        [Test]
+        public function testCombine():void
+        {
+            var lower:Function = function(value:String):String
+            {
+                return value.toLowerCase();
+            };
+            var first:Function = function(value:String):String
+            {
+                return value.charAt(0);
+            };
+
+            assertEquals(combine()(1), 1);
+            assertEquals(combine(_)(1), 1);
+
+            var c:Function = combine(first, lower);
+            assertEquals(c("ALEX"), "a");
+        }
 
         [Test]
         public function testTypeCache():void
