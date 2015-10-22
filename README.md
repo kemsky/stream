@@ -108,7 +108,8 @@ var result:Stream = s.filter(function(item:Item):Boolean{
 });
 
 // 2. using provided global functions(can compare Boolean, Number, Date, XML, String types)
-var result:Stream = s.filter(gt(prop(_, "price"), 1));
+//    supports nested properties i.e. prop("prop.prop.prop")
+var result:Stream = s.filter(gt(prop("price"), 1));
 
 // 3. using Proxy magick and global functions
 var result:Stream = s.price(gt(_, 1)); 

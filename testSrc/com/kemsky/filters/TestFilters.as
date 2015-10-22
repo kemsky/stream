@@ -7,6 +7,7 @@ package com.kemsky.filters
 
     import org.flexunit.asserts.assertEquals;
     import org.flexunit.asserts.assertFalse;
+    import org.flexunit.asserts.assertTrue;
 
     public class TestFilters
     {
@@ -64,8 +65,8 @@ package com.kemsky.filters
 
             var s:Stream = $(item1, item2);
 
-            assertEquals(s.filter(eq(prop(_, "bool"), true)).first, item2);
-            assertEquals(s.filter(eq(prop(_, "bool"), false)).first, item1);
+            assertEquals(s.filter(eq(prop("bool"), true)).first, item2);
+            assertEquals(s.filter(eq(prop("bool"), false)).first, item1);
         }
 
         [Test]
@@ -155,7 +156,7 @@ package com.kemsky.filters
 
             var s:Stream = $(item1, item2);
 
-            var result:Stream = s.filter(gt(prop(_, "price"), 1));
+            var result:Stream = s.filter(gt(prop("price"), 1));
             assertEquals(result.length, 1);
             assertEquals(result.first, item2);
 
@@ -167,27 +168,73 @@ package com.kemsky.filters
             assertEquals(result.length, 1);
             assertEquals(result.first, item2.price);
 
-            result = s.filter(ge(prop(_, "price"), 2));
+            result = s.filter(ge(prop("price"), 2));
             assertEquals(result.length, 1);
             assertEquals(result.first, item2);
 
-            result = s.filter(gt(add(prop(_, "price"), prop(_, "vat"), 0), 2));
+            result = s.filter(gt(add(prop("price"), prop("vat"), 0), 2));
             assertEquals(result.length, 1);
             assertEquals(result.first, item1);
 
-            result = s.filter(gt(subtract(prop(_, "price"), prop(_, "vat")), 0));
+            result = s.filter(gt(subtract(prop("price"), prop("vat")), 0));
             assertEquals(result.length, 1);
             assertEquals(result.first, item2);
 
-            result = s.filter(gt(subtract(prop(_, "price"), 1), 0));
+            result = s.filter(gt(subtract(prop("price"), 1), 0));
             assertEquals(result.length, 1);
             assertEquals(result.first, item2);
 
             result = s.filter(gt(0, 1));
             assertEquals(result.length, 0);
 
-            result = s.filter(ge(prop(prop(_, "name"), "length"), 1));
-            assertEquals(result.length, 2);
+            var obj:Item = new Item("p0");
+            obj.item = new Item("p1");
+            obj.item.item = new Item("p2");
+            obj.item.item.item = new Item("p3");
+            obj.item.item.item.item = new Item("p4");
+
+            var nested:Stream = $(obj);
+
+            result = nested.filter(eq(prop("name"), "p0"));
+            assertEquals(result.length, 1);
+
+            result = nested.filter(eq(prop("name1"), undefined));
+            assertEquals(result.length, 1);
+
+
+            result = nested.filter(eq(prop("item.name"), "p1"));
+            assertEquals(result.length, 1);
+
+            result = nested.filter(eq(prop("item.name1"), undefined));
+            assertEquals(result.length, 1);
+
+
+            result = nested.filter(eq(prop("item.item.name"), "p2"));
+            assertEquals(result.length, 1);
+
+            result = nested.filter(eq(prop("item.item.name1"), undefined));
+            assertEquals(result.length, 1);
+
+
+            result = nested.filter(eq(prop("item.item.item.name"), "p3"));
+            assertEquals(result.length, 1);
+
+            result = nested.filter(eq(prop("item.item.item.name1"), undefined));
+            assertEquals(result.length, 1);
+
+
+            result = nested.filter(eq(prop("item.item.item.item.name"), "p4"));
+            assertEquals(result.length, 1);
+
+            result = nested.filter(eq(prop("item.item.item.item.name1"), undefined));
+            assertEquals(result.length, 1);
+
+            try
+            {
+                nested.filter(eq(prop("item.item.item.item.item.name"), "p5"));
+                assertTrue(false);
+            }
+            catch(e:Error){}
 
             //some fun
             result = s.filter(ge(function (item:Item):Number
@@ -221,8 +268,8 @@ package com.kemsky.filters
 
             var s:Stream = $(item);
 
-            assertEquals(s.filter(mapped(prop(_, "name"), d)).length, 1);
-            assertEquals(s.filter(mapped(prop(_, "name"), o)).length, 1);
+            assertEquals(s.filter(mapped(prop("name"), d)).length, 1);
+            assertEquals(s.filter(mapped(prop("name"), o)).length, 1);
 
 
             var p:Stream = $("name", "price", "vat");

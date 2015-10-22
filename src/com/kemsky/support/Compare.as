@@ -52,6 +52,8 @@ package com.kemsky.support
                             break;
                         }
 
+
+
                         case TypeCache.NUMBER:
                         {
                             result = compareNumber(a as Number, b as Number);
