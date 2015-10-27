@@ -1,5 +1,8 @@
 package com.kemsky
 {
+    /**
+     * @private
+     */
     public interface StreamIterator extends Iterator
     {
         function get index():int;

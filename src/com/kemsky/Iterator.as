@@ -1,7 +1,7 @@
 package com.kemsky
 {
     /**
-     * Basic iterator interface
+     * @private
      */
     public interface Iterator
     {

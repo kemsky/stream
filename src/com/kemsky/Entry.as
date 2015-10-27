@@ -1,5 +1,8 @@
 package com.kemsky
 {
+    /**
+     * @private
+      */
     public class Entry
     {
         private var _index:int;
