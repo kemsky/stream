@@ -16,7 +16,7 @@ after_success:
   - zip -r ../stream-1.0.0.swc coverage
   - zip -r coverage coverage
   - popd
-  - zip -r stream-1.0.0.swc source
+  - zip -r target/stream-1.0.0.swc source
   - cp target/stream-1.0.0.swc target/site/stream.swc
 deploy:
   provider: releases
