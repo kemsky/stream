@@ -22,6 +22,11 @@ var s:Stream = Stream.of(1, 2, 3);
 
 //All expressions are equivalent to:
 var s:Stream = new Stream([1, 2, 3])
+
+var obj:Object = {name1: "first", name2: "second"};
+var s:Stream = Stream.from(obj);
+trace(s);
+//prints Stream{Stream{"name1", "first"}, Stream{"name2", "second"}}
 ```
 
 ## Iteration and element access
