@@ -4,6 +4,11 @@ package com.kemsky
     import com.kemsky.filters.defined;
     import com.kemsky.support.*;
 
+    import flash.events.Event;
+    import flash.events.EventDispatcher;
+
+    import flash.events.IEventDispatcher;
+
     import flash.utils.ByteArray;
     import flash.utils.Dictionary;
     import flash.utils.IDataInput;
@@ -25,7 +30,7 @@ package com.kemsky
      * Inspired by Javascript and Ruby arrays and Scala collections.
      */
     [RemoteClass(alias="com.kemsky.Stream")]
-    public dynamic class Stream extends Proxy implements IExternalizable
+    public dynamic class Stream extends Proxy implements IExternalizable, IEventDispatcher
     {
         /**
          * Specifies case-insensitive sorting for the Stream class sorting methods.
@@ -57,6 +62,8 @@ package com.kemsky
          */
         stream_internal var source:Array;
 
+        stream_internal var dispatcher:EventDispatcher;
+
         /**
          *  Constructor.
          *
@@ -67,9 +74,11 @@ package com.kemsky
          *     var s:Stream = new Stream();
          *     var s:Stream = new Stream([1, 2, 3]);
          * </pre>
+         * @internal mutable
          */
         public function Stream(source:Array = null)
         {
+            this.dispatcher = new EventDispatcher(this);
             this.source = source == null ? [] : source;
         }
 
@@ -1965,6 +1974,51 @@ package com.kemsky
         public function toString():String
         {
             return "Stream{" + source.join(",") + "}";
+        }
+
+        /**
+         * @private
+         * @internal immutable
+         */
+        public function addEventListener(type:String, listener:Function, useCapture:Boolean = false, priority:int = 0, useWeakReference:Boolean = false):void
+        {
+            dispatcher.addEventListener(type, listener, useCapture, priority, useWeakReference);
+        }
+
+        /**
+         * @private
+         * @internal immutable
+         */
+        public function removeEventListener(type:String, listener:Function, useCapture:Boolean = false):void
+        {
+            dispatcher.removeEventListener(type, listener, useCapture);
+        }
+
+        /**
+         * @private
+         * @internal immutable
+         */
+        public function dispatchEvent(event:Event):Boolean
+        {
+            return dispatcher.dispatchEvent(event);
+        }
+
+        /**
+         * @private
+         * @internal immutable
+         */
+        public function hasEventListener(type:String):Boolean
+        {
+            return dispatcher.hasEventListener(type);
+        }
+
+        /**
+         * @private
+         * @internal immutable
+         */
+        public function willTrigger(type:String):Boolean
+        {
+            return dispatcher.willTrigger(type);
         }
 
         /**
