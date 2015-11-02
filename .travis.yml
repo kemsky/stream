@@ -11,7 +11,7 @@ after_success:
   - pushd .
   - cd target/site
   - mv asdoc docs
-  - zip -r docs docs
+  - zip -r asdoc docs
   - zip -r ../stream-1.0.0.swc docs
   - zip -r ../stream-1.0.0.swc coverage
   - zip -r coverage coverage
