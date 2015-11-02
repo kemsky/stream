@@ -78,6 +78,7 @@ package com.kemsky
          * @param callback an optional function to apply to each item
          * @param defaultValue value returned in case stream is empty
          * @return item with maximum value
+         * @internal immutable
          */
         public function max(callback:Function = null, defaultValue:* = undefined):*
         {
@@ -119,6 +120,7 @@ package com.kemsky
          * @param callback an optional function to apply to each item
          * @param defaultValue value returned in case stream is empty
          * @return item with minimum value
+         * @internal immutable
          */
         public function min(callback:Function = null, defaultValue:* = undefined):*
         {
@@ -167,6 +169,7 @@ package com.kemsky
          *     trace(c);
          *     //Stream{1, 2}
          * </pre>
+         * @internal immutable
          */
         public function compact():Stream
         {
@@ -187,6 +190,7 @@ package com.kemsky
          *      trace(groups);
          *      //Stream{Stream{1, 2}, Stream{3}}
          * </pre>
+         * @internal immutable
          */
         public function partition(callback:Function):Stream
         {
@@ -220,6 +224,7 @@ package com.kemsky
          *     trace(s);
          *     //Stream{1, 1, 1}
          * </pre>
+         * @internal mutable
          */
         public function fill(value:*, length:int = -1):Stream
         {
@@ -242,6 +247,7 @@ package com.kemsky
          *     //Stream{Stream{0, 1}, Stream{1, 2}, Stream{2, 3}}
          * </pre>
          * @return A new list of lists created from the items and their corresponding indices.
+         * @internal immutable
          */
         public function zip():Stream
         {
@@ -270,6 +276,7 @@ package com.kemsky
          *     trace(index);
          *     //1
          * </pre>
+         * @internal immutable
          */
         public function findIndex(callback:Function, reverse:Boolean = false):int
         {
@@ -313,6 +320,7 @@ package com.kemsky
          *     trace(item);
          *     //2
          * </pre>
+         * @internal immutable
          */
         public function find(callback:Function, reverse:Boolean = false):*
         {
@@ -351,6 +359,7 @@ package com.kemsky
          *     trace(d);
          *     //Stream{1}
          * </pre>
+         * @internal immutable
          */
         public function drop(n:uint):Stream
         {
@@ -368,6 +377,7 @@ package com.kemsky
          *     trace(item);
          *     //2
          * </pre>
+         * @internal immutable
          */
         public function getItem(index:int):*
         {
@@ -385,6 +395,7 @@ package com.kemsky
          *     trace(s);
          *     //Stream{1, 4, 3}
          * </pre>
+         * @internal mutable
          */
         public function setItem(index:int, value:*):void
         {
@@ -405,6 +416,7 @@ package com.kemsky
          *     trace(count);
          *     //2
          * </pre>
+         * @internal immutable
          */
         public function count(callback:Function):uint
         {
@@ -431,6 +443,7 @@ package com.kemsky
          *     trace(b);
          *     //true
          * </pre>
+         * @internal immutable
          */
         public function contains(item:*):Boolean
         {
@@ -447,6 +460,7 @@ package com.kemsky
          *     trace(s);
          *     //Stream{}
          * </pre>
+         * @internal mutable
          */
         public function clear():Stream
         {
@@ -462,6 +476,7 @@ package com.kemsky
          *     trace(s.empty);
          *     //true
          * </pre>
+         * @internal immutable
          */
         public function get empty():Boolean
         {
@@ -479,6 +494,7 @@ package com.kemsky
          *     trace(c);
          *     //Stream{3}
          * </pre>
+         * @internal immutable
          */
         public function skip(count:int):Stream
         {
@@ -493,6 +509,7 @@ package com.kemsky
          *     trace(s.unique);
          *     //false
          * </pre>
+         * @internal immutable
          */
         public function get unique():Boolean
         {
@@ -511,6 +528,7 @@ package com.kemsky
          *     trace(s.first);
          *     //-1
          * </pre>
+         * @internal immutable
          */
         public function get first():*
         {
@@ -519,6 +537,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal mutable
          */
         public function set first(item:*):void
         {
@@ -533,6 +552,7 @@ package com.kemsky
          *     trace(s.second);
          *     //2
          * </pre>
+         * @internal immutable
          */
         public function get second():*
         {
@@ -541,6 +561,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal mutable
          */
         public function set second(item:*):void
         {
@@ -555,6 +576,7 @@ package com.kemsky
          *     trace(s.third);
          *     //3
          * </pre>
+         * @internal immutable
          */
         public function get third():*
         {
@@ -563,6 +585,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal mutable
          */
         public function set third(item:*):void
         {
@@ -577,6 +600,7 @@ package com.kemsky
          *     trace(s.fourth);
          *     //4
          * </pre>
+         * @internal immutable
          */
         public function get fourth():*
         {
@@ -585,6 +609,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal mutable
          */
         public function set fourth(item:*):void
         {
@@ -599,6 +624,7 @@ package com.kemsky
          *     trace(s.fifth);
          *     //5
          * </pre>
+         * @internal immutable
          */
         public function get fifth():*
         {
@@ -607,6 +633,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal mutable
          */
         public function set fifth(item:*):void
         {
@@ -621,6 +648,7 @@ package com.kemsky
          *     trace(s.sixth);
          *     //6
          * </pre>
+         * @internal immutable
          */
         public function get sixth():*
         {
@@ -629,6 +657,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal mutable
          */
         public function set sixth(item:*):void
         {
@@ -643,6 +672,7 @@ package com.kemsky
          *     trace(s.seventh);
          *     //7
          * </pre>
+         * @internal immutable
          */
         public function get seventh():*
         {
@@ -651,6 +681,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal mutable
          */
         public function set seventh(item:*):void
         {
@@ -665,6 +696,7 @@ package com.kemsky
          *     trace(s.eighth);
          *     //8
          * </pre>
+         * @internal immutable
          */
         public function get eighth():*
         {
@@ -673,6 +705,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal mutable
          */
         public function set eighth(item:*):void
         {
@@ -687,6 +720,7 @@ package com.kemsky
          *     trace(s.ninth);
          *     //9
          * </pre>
+         * @internal immutable
          */
         public function get ninth():*
         {
@@ -695,6 +729,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal mutable
          */
         public function set ninth(item:*):void
         {
@@ -709,6 +744,7 @@ package com.kemsky
          *     trace(s.tenth);
          *     //10
          * </pre>
+         * @internal immutable
          */
         public function get tenth():*
         {
@@ -717,6 +753,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal mutable
          */
         public function set tenth(item:*):void
         {
@@ -731,6 +768,7 @@ package com.kemsky
          *     trace(s.eleventh);
          *     //11
          * </pre>
+         * @internal immutable
          */
         public function get eleventh():*
         {
@@ -739,6 +777,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal mutable
          */
         public function set eleventh(item:*):void
         {
@@ -753,6 +792,7 @@ package com.kemsky
          *     trace(s.twelfth);
          *     //12
          * </pre>
+         * @internal immutable
          */
         public function get twelfth():*
         {
@@ -761,6 +801,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal mutable
          */
         public function set twelfth(item:*):void
         {
@@ -775,6 +816,7 @@ package com.kemsky
          *     trace(s.thirteenth);
          *     //13
          * </pre>
+         * @internal immutable
          */
         public function get thirteenth():*
         {
@@ -783,6 +825,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal mutable
          */
         public function set thirteenth(item:*):void
         {
@@ -797,6 +840,7 @@ package com.kemsky
          *     trace(s.fourteenth);
          *     //14
          * </pre>
+         * @internal immutable
          */
         public function get fourteenth():*
         {
@@ -805,6 +849,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal mutable
          */
         public function set fourteenth(item:*):void
         {
@@ -819,6 +864,7 @@ package com.kemsky
          *     trace(s.fifteenth);
          *     //15
          * </pre>
+         * @internal immutable
          */
         public function get fifteenth():*
         {
@@ -827,6 +873,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal mutable
          */
         public function set fifteenth(item:*):void
         {
@@ -841,6 +888,7 @@ package com.kemsky
          *     trace(s.last);
          *     //15
          * </pre>
+         * @internal immutable
          */
         public function get last():*
         {
@@ -849,6 +897,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal mutable
          */
         public function set last(item:*):void
         {
@@ -869,6 +918,7 @@ package com.kemsky
          *     trace(sum);
          *     //10
          * </pre>
+         * @internal immutable
          */
         public function foldLeft(callback:Function, initial:* = undefined):*
         {
@@ -900,6 +950,7 @@ package com.kemsky
          *     trace(sum);
          *     //10
          * </pre>
+         * @internal immutable
          */
         public function foldRight(callback:Function, initial:* = undefined):*
         {
@@ -929,6 +980,7 @@ package com.kemsky
          *     trace(c);
          *     //Stream{1, 2}
          * </pre>
+         * @internal immutable
          */
         public function take(count:int, offset:uint = 0):Stream
         {
@@ -947,6 +999,7 @@ package com.kemsky
          *     trace(c);
          *     //Stream{1, 2, 3}
          * </pre>
+         * @internal immutable
          */
         public function flatten():Stream
         {
@@ -968,6 +1021,7 @@ package com.kemsky
          *     trace(c);
          *     //Stream{1, 2, 3}
          * </pre>
+         * @internal immutable
          */
         public function flatMap(callback:Function):Stream
         {
@@ -1014,6 +1068,7 @@ package com.kemsky
          *     trace(c);
          *     //ArrayCollection{1, 2, 3}
          * </pre>
+         * @internal immutable
          */
         public function collection():ArrayCollection
         {
@@ -1029,6 +1084,7 @@ package com.kemsky
          *     trace(c);
          *     //ArrayList{1, 2, 3}
          * </pre>
+         * @internal immutable
          */
         public function list():ArrayList
         {
@@ -1044,6 +1100,7 @@ package com.kemsky
          *     trace(c);
          *     //[1, 2, 3]
          * </pre>
+         * @internal immutable
          */
         public function array():Array
         {
@@ -1067,6 +1124,7 @@ package com.kemsky
          *     trace(d["key2"]);
          *     //Stream{item3}
          * </pre>
+         * @internal immutable
          */
         public function dictionary(property:String, weak:Boolean = false):Dictionary
         {
@@ -1105,6 +1163,7 @@ package com.kemsky
          *     trace(d.key2);
          *     //Stream{item3}
          * </pre>
+         * @internal immutable
          */
         public function group(callback:Function, factory:Class = null):*
         {
@@ -1139,6 +1198,7 @@ package com.kemsky
          *     trace(d["key2"]);
          *     //Stream{item3}
          * </pre>
+         * @internal immutable
          */
         public function object(property:String):Object
         {
@@ -1165,6 +1225,7 @@ package com.kemsky
          *     trace(c);
          *     //Stream{1, 2}
          * </pre>
+         * @internal immutable
          */
         public function clone(deep:Boolean = false):Stream
         {
@@ -1198,6 +1259,7 @@ package com.kemsky
          *     trace(s.join(";"));
          *     //1;2;3
          * </pre>
+         * @internal immutable
          */
         public function join(sep:* = null):String
         {
@@ -1214,6 +1276,7 @@ package com.kemsky
          *     trace(c);
          *     //Stream{2, 1}
          * </pre>
+         * @internal immutable
          */
         public function reverse():Stream
         {
@@ -1237,6 +1300,7 @@ package com.kemsky
          *     trace(s);
          *     //Stream{1, 2, 3}
          * </pre>
+         * @internal immutable
          */
         public function concat(...rest):Stream
         {
@@ -1281,6 +1345,7 @@ package com.kemsky
          *     trace(s);
          *     //Stream{2, 3}
          * </pre>
+         * @internal mutable
          */
         public function shift():*
         {
@@ -1300,6 +1365,7 @@ package com.kemsky
          *     trace(s);
          *     //Stream{0, 1, 2, 3}
          * </pre>
+         * @internal mutable
          */
         public function unshift(...rest):uint
         {
@@ -1325,6 +1391,7 @@ package com.kemsky
          *     trace(c);
          *     //Stream{2}
          * </pre>
+         * @internal immutable
          */
         public function slice(startIndex:int = 0, endIndex:int = 16777215):Stream
         {
@@ -1353,6 +1420,7 @@ package com.kemsky
          *     trace(c);
          *     //Stream{2}
          * </pre>
+         * @internal mutable
          */
         public function splice(startIndex:int, deleteCount:uint, ... values):Stream
         {
@@ -1375,6 +1443,7 @@ package com.kemsky
          *     trace(s);
          *     //Stream{3, 2, 1}
          * </pre>
+         * @internal mutable
          */
         public function sort(...rest):Stream
         {
@@ -1415,6 +1484,7 @@ package com.kemsky
          *     trace(s);
          *     //Stream{{id:3, price: 2}, {id:2, price: 1}, {id:1, price: 0}}
          * </pre>
+         * @internal mutable
          */
         public function sortOn(names:Object, options:Object = null):*
         {
@@ -1444,6 +1514,7 @@ package com.kemsky
          *     trace(s.indexOf(2));
          *     //1
          * </pre>
+         * @internal immutable
          */
         public function indexOf(item:*, fromIndex:* = 0):int
         {
@@ -1465,6 +1536,7 @@ package com.kemsky
          *     trace(s.lastIndexOf(2));
          *     //3
          * </pre>
+         * @internal immutable
          */
         public function lastIndexOf(item:*, fromIndex:* = 2147483647):int
         {
@@ -1490,6 +1562,7 @@ package com.kemsky
          *     trace(c);
          *     //false
          * </pre>
+         * @internal immutable
          */
         public function every(callback:Function):Boolean
         {
@@ -1516,6 +1589,7 @@ package com.kemsky
          *     trace(c);
          *     //Stream{1, 2}
          * </pre>
+         * @internal immutable
          */
         public function filter(callback:Function):Stream
         {
@@ -1541,6 +1615,7 @@ package com.kemsky
          *     //2
          *     //3
          * </pre>
+         * @internal immutable
          */
         public function forEach(callback:Function):Stream
         {
@@ -1568,6 +1643,7 @@ package com.kemsky
          *     trace(c);
          *     //Stream{[1], [2], [3]}
          * </pre>
+         * @internal immutable
          */
         public function map(callback:Function):Stream
         {
@@ -1595,6 +1671,7 @@ package com.kemsky
          *     trace(c);
          *     //true
          * </pre>
+         * @internal immutable
          */
         public function some(callback:Function):Boolean
         {
@@ -1615,6 +1692,7 @@ package com.kemsky
          *     trace(s);
          *     //Stream{1, 2, 3, 4}
          * </pre>
+         * @internal mutable
          */
         public function push(...rest):uint
         {
@@ -1630,6 +1708,7 @@ package com.kemsky
          *     trace(s.pop());
          *     //3
          * </pre>
+         * @internal mutable
          */
         public function pop():*
         {
@@ -1651,6 +1730,7 @@ package com.kemsky
          *     trace(s.length);
          *     //3
          * </pre>
+         * @internal immutable
          */
         public function get length():int
         {
@@ -1659,6 +1739,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal mutable
          */
         public function set length(value:int):void
         {
@@ -1667,6 +1748,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal immutable
          */
         override flash_proxy function getDescendants(name:*):*
         {
@@ -1684,6 +1766,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal immutable
          */
         override flash_proxy function getProperty(name:*):*
         {
@@ -1709,6 +1792,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal mutable
          */
         override flash_proxy function setProperty(name:*, value:*):void
         {
@@ -1741,6 +1825,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal immutable
          */
         override flash_proxy function hasProperty(name:*):Boolean
         {
@@ -1764,6 +1849,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal immutable
          */
         override flash_proxy function nextNameIndex(index:int):int
         {
@@ -1772,6 +1858,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal immutable
          */
         override flash_proxy function nextName(index:int):String
         {
@@ -1780,6 +1867,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal immutable
          */
         override flash_proxy function nextValue(index:int):*
         {
@@ -1788,6 +1876,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal immutable
          */
         override flash_proxy function callProperty(name:*, ...rest):*
         {
@@ -1806,6 +1895,7 @@ package com.kemsky
 
         /**
          * @private
+         * @internal mutable
          */
         override flash_proxy function deleteProperty(name:*):Boolean
         {
@@ -1841,6 +1931,7 @@ package com.kemsky
          * the same sequence and with the same types as were written by the writeExternal() method.
          * @param input The name of the class that implements the IDataInput interface.
          * @see flash.utils.IExternalizable#readExternal
+         * @internal immutable
          */
         public function readExternal(input:IDataInput):void
         {
@@ -1853,6 +1944,7 @@ package com.kemsky
          * the methods of the IDataOutput interface.
          * @param output The name of the class that implements the IDataOutput interface.
          * @see flash.utils.IExternalizable#readExternal
+         * @internal immutable
          */
         public function writeExternal(output:IDataOutput):void
         {
@@ -1868,6 +1960,7 @@ package com.kemsky
          *     trace(s.toString());
          *     //Stream{1, 2, 3}
          * </pre>
+         * @internal immutable
          */
         public function toString():String
         {
@@ -1885,6 +1978,7 @@ package com.kemsky
          *     //All expressions are equivalent to:
          *     var s:Stream = new Stream([1, 2, 3])
          * </pre>
+         * @internal immutable
          */
         public static function of(...rest):Stream
         {
@@ -1918,6 +2012,7 @@ package com.kemsky
          *     trace(s);
          *     //prints ["name1", "name2"]
          * </pre>
+         * @internal immutable
          */
         public static function from(object:*, callback:Function = null):Stream
         {
