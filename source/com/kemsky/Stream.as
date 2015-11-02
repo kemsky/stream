@@ -73,6 +73,12 @@ package com.kemsky
             this.source = source == null ? [] : source;
         }
 
+        /**
+         * Finds item which has maximum value (or callback(item) has maximum value)
+         * @param callback an optional function to apply to each item
+         * @param defaultValue value returned in case stream is empty
+         * @return item with maximum value
+         */
         public function max(callback:Function = null, defaultValue:* = undefined):*
         {
             if(this.length == 0)
@@ -108,6 +114,12 @@ package com.kemsky
             return max;
         }
 
+        /**
+         * Finds item which has minimum value (or callback(item) has minimum value)
+         * @param callback an optional function to apply to each item
+         * @param defaultValue value returned in case stream is empty
+         * @return item with minimum value
+         */
         public function min(callback:Function = null, defaultValue:* = undefined):*
         {
             if(this.length == 0)
