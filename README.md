@@ -169,4 +169,4 @@ You can build library using **Intelij Idea** or **Apache Maven**.
  - Compile `mvn compile`
  - Run tests `mvn test -DflashPlayer.command="<path to flash player projector>"`
  - Generate coverage report `mvn flexmojos:coverage-report -DflashPlayer.command="<path to flash player projector>"`
- - Generate documentation: `mvn flexmojos:asdoc`
+ - Generate documentation: `mvn flexmojos:asdoc` 
