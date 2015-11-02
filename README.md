@@ -17,6 +17,9 @@ var s:Stream = $(new ArrayCollection([1, 2, 3]));
 var s:Stream = $(new ArrayList([1, 2, 3]));
 var s:Stream = $(new Stream([1, 2, 3]));
 
+var s:Stream = Stream.from([1, 2, 3]);
+var s:Stream = Stream.of(1, 2, 3);
+
 //All expressions are equivalent to:
 var s:Stream = new Stream([1, 2, 3])
 ```

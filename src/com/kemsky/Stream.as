@@ -1885,5 +1885,73 @@ package com.kemsky
             //$ from argument list
             return new Stream(rest.concat());
         }
+
+        /**
+         * Creates Stream object from iterable object
+         * @param object object used as source for a Stream
+         * @return created Stream object
+         * @example
+         * <pre>
+         *     var s:Stream = Stream.from([1, 2, 3]);
+         *
+         *     //Expression is equivalent to:
+         *     var s:Stream = new Stream([1, 2, 3])
+         *
+         *     var obj:Object = {name1: "first", name2: "second"};
+         *     var s:Stream = Stream.from(obj, function(entry:Stream):Stream
+         *     {
+         *         return entry.first;
+         *     });
+         *     trace(s);
+         *     //prints ["name1", "name2"]
+         * </pre>
+         */
+        public static function from(object:*, map:Function = null):Stream
+        {
+            var result:Stream;
+            if (object == null || object === undefined)
+            {
+                //empty $
+                result = new Stream();
+            }
+            else if (object is Array)
+            {
+                //$ from array
+                result = new Stream((object as Array).concat());
+            }
+            else if (object is Vector.<*> || object is Vector.<Number> || object is Vector.<int> || object is Vector.<uint>)
+            {
+                var a:Array = [];
+                for (var i:int = 0; i < object.length; i++)
+                {
+                    a[i] = object[i];
+                }
+                result = new Stream(a);
+            }
+            else if (object is IList)
+            {
+                //$ from list
+                result = new Stream(object.toArray());
+            }
+            else if (object is Stream)
+            {
+                //$ from list
+                result = Stream(object).concat();
+            }
+            else
+            {
+                result = new Stream();
+                for (var prop:String in object)
+                {
+                    if(object.hasOwnProperty(prop))
+                    {
+                        result.push(new Stream([prop, object[prop]]));
+                    }
+                }
+                result = result.sortOn("first");
+            }
+
+            return map == null ? result : result.map(map);
+        }
     }
 }

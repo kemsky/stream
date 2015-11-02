@@ -688,6 +688,22 @@ package com.kemsky
         }
 
         [Test]
+        public function testSerialize():void
+        {
+            var s:Stream = $(1, 2, 3);
+            var b:ByteArray = new ByteArray();
+            b.writeObject(s);
+            b.position = 0;
+            var r:Stream = b.readObject();
+
+            for (var i:int = 0; i < s.length; i++)
+            {
+                assertEquals(s[i], r[i]);
+            }
+        }
+
+
+        [Test]
         public function testCreateStream():void
         {
             var empty:Stream = $();
@@ -741,27 +757,73 @@ package com.kemsky
             assertEquals(v[1], 2);
             assertEquals(v[2], 3);
             verify(v, vector);
+        }
 
+
+        [Test]
+        public function testOf():void
+        {
             var flatten:Stream = Stream.of(1, 2, 3);
             assertEquals(flatten.length, 3);
             assertEquals(flatten.first, 1);
             assertEquals(flatten.second, 2);
             assertEquals(flatten.third, 3);
+
+            assertEquals(Stream.of().length, 0);
         }
 
         [Test]
-        public function testSerialize():void
+        public function testFrom():void
         {
-            var s:Stream = $(1, 2, 3);
-            var b:ByteArray = new ByteArray();
-            b.writeObject(s);
-            b.position = 0;
-            var r:Stream = b.readObject();
+            var obj:Object = {name1: "first", name2: "second", name3: "third"};
+            var from:Stream = Stream.from(obj);
+            assertEquals(from.length, 3);
 
-            for (var i:int = 0; i < s.length; i++)
+            assertEquals(from.first[0], "name1");
+            assertEquals(from.first[1], "first");
+            assertEquals(from.first.length, 2);
+
+            assertEquals(from.second[0], "name2");
+            assertEquals(from.second[1], "second");
+            assertEquals(from.second.length, 2);
+
+            assertEquals(from.third[0], "name3");
+            assertEquals(from.third[1], "third");
+            assertEquals(from.third.length, 2);
+
+            var key:Stream = Stream.from(obj, function (item:*):String
             {
-                assertEquals(s[i], r[i]);
-            }
+                return item[0];
+            });
+
+            assertEquals(key.length, 3);
+            assertEquals(key.first, "name1");
+            assertEquals(key.second, "name2");
+            assertEquals(key.third, "name3");
+
+            var value:Stream = Stream.from(obj, function (item:*):*
+            {
+                return item[1];
+            });
+
+            assertEquals(value.length, 3);
+            assertEquals(value.first, "first");
+            assertEquals(value.second, "second");
+            assertEquals(value.third, "third");
+
+            assertEquals(Stream.from(null).length, 0);
+
+            var original:Array = [1, 2, 3];
+            var array:Stream = Stream.from(original);
+            verify(array, original);
+            var vector:Stream = Stream.from(Vector.<Number>(original));
+            verify(vector, original);
+            var arrayCollection:Stream = Stream.from(new ArrayCollection(original));
+            verify(arrayCollection, original);
+            var arrayList:Stream = Stream.from(new ArrayList(original));
+            verify(arrayList, original);
+            var arrayStream:Stream = Stream.from(new Stream(original));
+            verify(arrayStream, original);
         }
 
         private static function verify(s:*, o:*):void
