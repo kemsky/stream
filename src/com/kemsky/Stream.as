@@ -1888,7 +1888,8 @@ package com.kemsky
 
         /**
          * Creates Stream object from iterable object
-         * @param object object used as source for a Stream
+         * @param object object used as source for a stream
+         * @param callback callback used to map result Stream
          * @return created Stream object
          * @example
          * <pre>
@@ -1906,7 +1907,7 @@ package com.kemsky
          *     //prints ["name1", "name2"]
          * </pre>
          */
-        public static function from(object:*, map:Function = null):Stream
+        public static function from(object:*, callback:Function = null):Stream
         {
             var result:Stream;
             if (object == null || object === undefined)
@@ -1951,7 +1952,7 @@ package com.kemsky
                 result = result.sortOn("first");
             }
 
-            return map == null ? result : result.map(map);
+            return callback == null ? result : result.map(callback);
         }
     }
 }
