@@ -10,10 +10,14 @@ after_success:
   - mvn flexmojos:coverage-report -DflashPlayer.command=Flash\ Player\ Debugger.app/Contents/MacOS/Flash\ Player\ Debugger
   - pushd .
   - cd target/site
-  - zip -r asdoc asdoc
+  - mv asdoc docs
+  - zip -r docs docs
+  - zip -r ../stream-1.0.0.swc docs
+  - zip -r ../stream-1.0.0.swc coverage
   - zip -r coverage coverage
   - popd
-  - cp target/stream-*.*.*.swc target/site/stream.swc
+  - zip -r stream-1.0.0.swc source
+  - cp target/stream-1.0.0.swc target/site/stream.swc
 deploy:
   provider: releases
   api_key:

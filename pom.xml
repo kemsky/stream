@@ -16,7 +16,7 @@
     </properties>
 
     <build>
-        <sourceDirectory>src</sourceDirectory>
+        <sourceDirectory>source</sourceDirectory>
         <testSourceDirectory>testSrc</testSourceDirectory>
         <plugins>
             <plugin>
