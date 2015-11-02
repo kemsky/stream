@@ -1861,5 +1861,29 @@ package com.kemsky
         {
             return "Stream{" + source.join(",") + "}";
         }
+
+        /**
+         * Creates Stream object from items
+         * @param rest objects used as source for Stream
+         * @return created Stream object
+         * @example
+         * <pre>
+         *     var s:Stream = Stream.of(1, 2, 3);
+         *
+         *     //All expressions are equivalent to:
+         *     var s:Stream = new Stream([1, 2, 3])
+         * </pre>
+         */
+        public static function of(...rest):Stream
+        {
+            if (rest.length == 0)
+            {
+                //empty $
+                return new Stream();
+            }
+
+            //$ from argument list
+            return new Stream(rest.concat());
+        }
     }
 }

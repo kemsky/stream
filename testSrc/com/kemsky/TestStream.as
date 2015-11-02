@@ -741,6 +741,12 @@ package com.kemsky
             assertEquals(v[1], 2);
             assertEquals(v[2], 3);
             verify(v, vector);
+
+            var flatten:Stream = Stream.of(1, 2, 3);
+            assertEquals(flatten.length, 3);
+            assertEquals(flatten.first, 1);
+            assertEquals(flatten.second, 2);
+            assertEquals(flatten.third, 3);
         }
 
         [Test]
