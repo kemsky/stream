@@ -140,6 +140,23 @@ package com.kemsky
             var sens:Stream = s4.sort(Stream.CASEINSENSITIVE);
             assertEquals(sens.first.toLowerCase(), "alex");
             assertEquals(sens.last, "Bob");
+
+            var s5:Stream = $(3, 2, 1).sort(0, function(a:Number, b:Number):int
+            {
+                if(a < b)
+                {
+                    return -1;
+                }
+                if(a > b)
+                {
+                    return 1;
+                }
+                return 0;
+            });
+            assertEquals(s5.length, 3);
+            assertEquals(s5.first, 1);
+            assertEquals(s5.second, 2);
+            assertEquals(s5.third, 3);
         }
 
         [Test]

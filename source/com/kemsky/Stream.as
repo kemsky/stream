@@ -1430,7 +1430,8 @@ package com.kemsky
 
         /**
          * Sorts the elements in a list. This method sorts according to Unicode values. (ASCII is a subset of Unicode.)
-         * @param rest The arguments specifying a comparison function and one or more values that determine the behavior of the sort.
+         * @param options flag that determines the behavior of the sort.
+         * @param callback specifies a comparison function.
          * @return The return value depends on whether you pass any arguments.
          * @see com.kemsky.Stream#CASEINSENSITIVE
          * @see com.kemsky.Stream#NUMERIC
@@ -1446,9 +1447,9 @@ package com.kemsky
          * </pre>
          * @internal mutable
          */
-        public function sort(...rest):Stream
+        public function sort(options:uint = 0, callback:Function = null):Stream
         {
-            var result:* = source.sort.apply(null, rest);
+            var result:* = source.sort.apply(null, callback == null ? [options] : [callback, options]);
 
             if(result is Number && result == 0)
             {
@@ -1487,7 +1488,7 @@ package com.kemsky
          * </pre>
          * @internal mutable
          */
-        public function sortOn(names:Object, options:Object = null):*
+        public function sortOn(names:Object, options:uint = 0):*
         {
             var result:* = source.sortOn.apply(null, [names, options]);
 
