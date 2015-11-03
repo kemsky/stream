@@ -1488,7 +1488,7 @@ package com.kemsky
          * </pre>
          * @internal mutable
          */
-        public function sortOn(names:Object, options:uint = 0):*
+        public function sortOn(names:Object, options:Object = null):*
         {
             var result:* = source.sortOn.apply(null, [names, options]);
 
