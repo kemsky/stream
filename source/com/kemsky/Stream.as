@@ -2058,7 +2058,6 @@ package com.kemsky
                         result.push(new Stream([prop, object[prop]]));
                     }
                 }
-                result = result.sortOn("first");
             }
 
             return callback == null ? result : result.map(callback);

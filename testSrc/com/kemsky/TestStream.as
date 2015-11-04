@@ -776,7 +776,7 @@ package com.kemsky
         public function testFrom():void
         {
             var obj:Object = {name1: "first", name2: "second", name3: "third"};
-            var from:Stream = Stream.from(obj);
+            var from:Stream = Stream.from(obj).sortOn("first");
             assertEquals(from.length, 3);
 
             assertEquals(from.first[0], "name1");
@@ -794,7 +794,7 @@ package com.kemsky
             var key:Stream = Stream.from(obj, function (item:*):String
             {
                 return item[0];
-            });
+            }).sort();
 
             assertEquals(key.length, 3);
             assertEquals(key.first, "name1");
@@ -804,7 +804,7 @@ package com.kemsky
             var value:Stream = Stream.from(obj, function (item:*):*
             {
                 return item[1];
-            });
+            }).sort();
 
             assertEquals(value.length, 3);
             assertEquals(value.first, "first");
