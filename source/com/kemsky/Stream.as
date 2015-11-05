@@ -1803,7 +1803,7 @@ package com.kemsky
             {
             }
 
-            if(!(index <= 0) && !(index > 0))
+            if(index != index)
             {
                 throw new Error("Incorrect index: " + String(name));
             }
@@ -1829,7 +1829,7 @@ package com.kemsky
             {
             }
 
-            if(!(index <= 0) && !(index > 0))
+            if(index != index)
             {
                 throw new Error("Incorrect index: " + String(name));
             }
@@ -1862,7 +1862,7 @@ package com.kemsky
             {
             }
 
-            if(!(index <= 0) && !(index > 0))
+            if(index != index)
             {
                 return false;
             }
