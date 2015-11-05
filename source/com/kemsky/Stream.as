@@ -75,6 +75,16 @@ package com.kemsky
         }
 
         /**
+         * Creates iterator over items
+         * @return iterator
+         * @see Iterator
+         */
+        public function values():Iterator
+        {
+            return new ValueIterator(this);
+        }
+
+        /**
          * Finds item which has maximum value (or callback(item) has maximum value)
          * @param callback an optional function to apply to each item
          * @param defaultValue value returned in case stream is empty

@@ -4,8 +4,6 @@ package com.kemsky
     import com.kemsky.filters.eq;
     import com.kemsky.filters.gt;
     import com.kemsky.filters.prop;
-    import com.kemsky.support.EntryIterator;
-    import com.kemsky.support.ValueIterator;
     import com.kemsky.support.stream_internal;
 
     import flash.utils.ByteArray;
@@ -29,42 +27,29 @@ package com.kemsky
         public function testValues():void
         {
             var s:Stream = $(1, 2, 3);
-            var i:StreamIterator = new ValueIterator(s);
+            var values:Iterator = s.values();
 
-            var count:int = 1;
-            while (i.available)
+            values.stop();
+            assertEquals(values.position, -1);
+            assertEquals(values.hasNext, false);
+
+            values.start();
+            assertEquals(values.position, -1);
+            assertEquals(values.hasNext, true);
+
+            var position:int = 0;
+            while (values.hasNext)
             {
-                var n:Number = i.next();
-                assertEquals(n, count);
-                assertEquals(n, i.current);
-                i.remove();
-                count++;
+                var n:Number = values.next();
+                assertEquals(n, position + 1);
+                assertEquals(n, values.current);
+                assertEquals(position, values.position);
+                position++;
             }
 
-            assertEquals(s.length, 0);
-
-            var s1:Stream = $(1, 2, 3);
-            var i1:StreamIterator = new ValueIterator(s1);
-            var count1:int = 0;
-            for each (var item:* in i1)
-            {
-//                Print.items("for each: ", i1.current, item);
-                if (++count1 < 10)
-                {
-                    i1.push(count1);
-                }
-            }
-
-            var i2:StreamIterator = new EntryIterator(s1);
-
-            for each (var entry:Entry in i2)
-            {
-                //Print.items("for each entry: ", entry.index, entry.value);
-            }
-//            for (var p:* in i1)
-//            {
-//                Print.items("for: ", p);
-//            }
+            values.start();
+            assertEquals(values.position, -1);
+            assertEquals(values.hasNext, true);
         }
 
         [Test]
@@ -628,6 +613,7 @@ package com.kemsky
 
             for (var p:String in array)
             {
+                //noinspection JSUnfilteredForInLoop
                 assertTrue(array.hasOwnProperty(p));
             }
 

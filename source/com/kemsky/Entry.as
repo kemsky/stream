@@ -6,9 +6,9 @@ package com.kemsky
     public class Entry
     {
         private var _index:int;
-        private var iterator:StreamIterator;
+        private var iterator:Iterator;
 
-        public function Entry(index:int, iterator:StreamIterator)
+        public function Entry(index:int, iterator:Iterator)
         {
             this._index = index;
             this.iterator = iterator;
@@ -21,7 +21,7 @@ package com.kemsky
 
         public function get value():*
         {
-            if (iterator.index != _index)
+            if (iterator.position != _index)
             {
                 throw new Error();
             }
@@ -30,7 +30,7 @@ package com.kemsky
 
         public function set value(value:*):void
         {
-            if (iterator.index != _index)
+            if (iterator.position != _index)
             {
                 throw new Error();
             }

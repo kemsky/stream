@@ -1,7 +1,7 @@
 package com.kemsky.support
 {
     import com.kemsky.Entry;
-    import com.kemsky.StreamIterator;
+    import com.kemsky.Iterator;
     import com.kemsky.Stream;
 
     import flash.utils.Proxy;
@@ -12,7 +12,7 @@ package com.kemsky.support
     /**
      * @private
      */
-    public class EntryIterator extends Proxy implements StreamIterator
+    public class EntryIterator extends Proxy implements Iterator
     {
         protected var stream:Stream;
 
@@ -37,28 +37,9 @@ package com.kemsky.support
             return _next;
         }
 
-        public function get index():int
+        public function get position():int
         {
             return _current;
-        }
-
-        public function get hasPrevious():Boolean
-        {
-            return _next > 0 && stream.length > 0;
-        }
-
-        public function previous():*
-        {
-            if (_next == 0 || !stream.length)
-            {
-                _current = -1;
-                return undefined;
-            }
-
-            _next = _next == -1 ? stream.length - 1 : _next - 1;
-            _current = _next;
-
-            return stream[_current];
         }
 
         public function get current():*
@@ -66,22 +47,22 @@ package com.kemsky.support
             return stream[_current];
         }
 
-        public function reset():void
+        public function start():void
         {
             _next = stream.length ? 0 : -1;
             _current = -1;
         }
 
-        public function abort():void
+        public function stop():void
         {
             _next = _current = -1;
         }
         
-        public function remove():Boolean
+        public function remove():void
         {
             if (_current == -1)
             {
-                return false;
+                throw new Error();
             }
 
             if (_current == _next)
@@ -100,11 +81,10 @@ package com.kemsky.support
             }
 
             removeCurrent();
-            _current = -1;
-            return true;
+            _current = _next;
         }
 
-        public function get available():Boolean
+        public function get hasNext():Boolean
         {
             return _next > -1;
         }
@@ -131,7 +111,7 @@ package com.kemsky.support
             stream[_current] = value;
         }
 
-        public function push(value:*):void
+        public function add(value:*):void
         {
             stream.push(value);
             if(_next == -1)
@@ -182,7 +162,7 @@ package com.kemsky.support
          */
         override flash_proxy function nextNameIndex(index:int):int
         {
-            return available ? nextIndex + 1 : 0;
+            return hasNext ? nextIndex + 1 : 0;
         }
 
         /**

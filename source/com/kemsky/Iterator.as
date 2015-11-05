@@ -5,8 +5,22 @@ package com.kemsky
      */
     public interface Iterator
     {
-        function get available():Boolean;
+        function get position():int;
+
+        function get current():*;
+
+        function set current(value:*):void;
+
+        function add(value:*):void;
+
+        function remove():void;
+
+        function get hasNext():Boolean;
 
         function next():*;
+
+        function start():void;
+
+        function stop():void;
     }
 }
