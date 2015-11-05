@@ -22,6 +22,34 @@ package com.kemsky
         {
         }
 
+        [Test]
+        public function testEntries():void
+        {
+            var s:Stream = $(1, 2, 3);
+            var values:Iterator = s.entries();
+
+            values.stop();
+            assertEquals(values.position, -1);
+            assertEquals(values.hasNext, false);
+
+            values.start();
+            assertEquals(values.position, -1);
+            assertEquals(values.hasNext, true);
+
+            var position:int = 0;
+            while (values.hasNext)
+            {
+                var e:Entry = values.next();
+                assertEquals(e.index, position);
+//                assertEquals(e, values.current);
+                assertEquals(position, values.position);
+                position++;
+            }
+
+            values.start();
+            assertEquals(values.position, -1);
+            assertEquals(values.hasNext, true);
+        }
 
         [Test]
         public function testValues():void

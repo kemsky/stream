@@ -75,6 +75,17 @@ package com.kemsky
         }
 
         /**
+         * Creates iterator over index-item pairs
+         * @return iterator
+         * @see Iterator
+         * @see Entry
+         */
+        public function entries():Iterator
+        {
+            return new EntryIterator(this);
+        }
+
+        /**
          * Creates iterator over items
          * @return iterator
          * @see Iterator
