@@ -55,6 +55,7 @@ s[-3] = 5;
 
 //remove item from Stream
 delete s[0];
+s.removeItem(0);
 ```
 *Stream is about 10x slower when accessed by index (`[index]`) and it seems to be Proxy overhead.
 If you need better performance (3x slower than Array) use methods to access Stream items: `getItem(index)` and `setItem(index, value)`.*
