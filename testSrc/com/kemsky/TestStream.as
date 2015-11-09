@@ -254,6 +254,16 @@ package com.kemsky
             assertEquals(s[2], 2);
             assertEquals(s[3], 1);
             assertEquals(s[4], 3);
+
+            var d:Stream = $(1, 2, 3);
+            d.addItem(4, 4);
+            assertEquals(d.length, 5);
+            assertEquals(d.last, 4);
+
+            var e:Stream = $();
+            e.addItem(0, 4);
+            assertEquals(e.length, 1);
+            assertEquals(e.last, 4);
         }
 
         [Test]

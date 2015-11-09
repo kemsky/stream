@@ -439,7 +439,14 @@ package com.kemsky
          */
         public function addItem(index:int, value:*):void
         {
-            source.splice(index, 0, value);
+            if(index <= source.length)
+            {
+                source.splice(index, 0, value);
+            }
+            else
+            {
+                source[index] = value;
+            }
         }
 
         /**
