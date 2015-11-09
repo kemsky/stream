@@ -173,7 +173,7 @@ See also: `group`,`partition`,`fill`,`find`,`findIndex`, `drop`, `zip`, `skip` e
 ## Build
 
 You can build library using **Intelij Idea** or **Apache Maven**.
- - Compile `mvn compile`
+ - Compile `mvn compile -Dtag.name=<...>`
  - Run tests `mvn test -DflashPlayer.command="<path to flash player projector>"`
  - Generate coverage report `mvn flexmojos:coverage-report -DflashPlayer.command="<path to flash player projector>"`
  - Generate documentation: `mvn flexmojos:asdoc` 
