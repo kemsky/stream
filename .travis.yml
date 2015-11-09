@@ -1,7 +1,7 @@
 language: objective-c
 env:
   global:
-    - JVMARGS=-Dtag.name=$TRAVIS_TAG -DflashPlayer.command=Flash\ Player\ Debugger.app/Contents/MacOS/Flash\ Player\ Debugger
+    - JVMARGS=`-Dtag.name=$TRAVIS_TAG -DflashPlayer.command=Flash\ Player\ Debugger.app/Contents/MacOS/Flash\ Player\ Debugger`
     - JAVA_HOME=`/usr/libexec/java_home`
     - DOWNLOAD_URL='http://download.macromedia.com/pub/flashplayer/installers/archive/fp_11.7.700.225_archive.zip'
 before_script:
