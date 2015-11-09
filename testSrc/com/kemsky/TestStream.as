@@ -283,9 +283,9 @@ package com.kemsky
         {
             var s:Stream = $(1, 2, 3);
             s.removeItem(0);
-            assertEquals(s.length, 2);
+            s.removeItem(1);
+            assertEquals(s.length, 1);
             assertEquals(s[0], 2);
-            assertEquals(s[1], 3);
         }
 
         [Test]
