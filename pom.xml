@@ -35,6 +35,12 @@
                     </includeTestFiles>
                     <storepass/>
                     <debug>true</debug>
+                    <defines>
+                        <property>
+                            <name>CONFIG::version</name>
+                            <value>"${tag.name}"</value>
+                        </property>
+                    </defines>
                 </configuration>
                 <dependencies>
                     <dependency>

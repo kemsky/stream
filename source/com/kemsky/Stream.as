@@ -27,6 +27,8 @@ package com.kemsky
     [RemoteClass(alias="com.kemsky.Stream")]
     public dynamic class Stream extends Proxy implements IExternalizable
     {
+        public static const VERSION:String = CONFIG::version;
+
         /**
          * Specifies case-insensitive sorting for the Stream class sorting methods.
          */

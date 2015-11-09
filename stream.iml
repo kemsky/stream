@@ -85,7 +85,7 @@
         </dependencies>
         <compiler-options>
           <map>
-            <entry key="compiler.define" value="CONFIG::flex&#9;true" />
+            <entry key="compiler.define" value="CONFIG::version&#9;&quot;dev&quot;" />
             <entry key="compiler.locale" value="" />
           </map>
           <option name="additionalConfigFilePath" value="$MODULE_DIR$/.idea/flexmojos/stream-com.kemsky.xml" />

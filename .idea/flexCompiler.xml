@@ -4,6 +4,7 @@
     <option name="USE_BUILT_IN_COMPILER" value="false" />
     <option name="USE_MXMLC_COMPC" value="true" />
     <option name="PREFER_ASC_20" value="false" />
+    <option name="VM_OPTIONS" value="-Dtag.name=dev" />
   </component>
   <component name="FlexIdeProjectLevelCompilerOptionsHolder">
     <compiler-options />
