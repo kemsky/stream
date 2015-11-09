@@ -1,14 +1,17 @@
 language: objective-c
-
+env:
+  global:
+    - JVMARGS=-Dtag.name=$TRAVIS_TAG -DflashPlayer.command=Flash\ Player\ Debugger.app/Contents/MacOS/Flash\ Player\ Debugger
+    - JAVA_HOME=`/usr/libexec/java_home`
+    - DOWNLOAD_URL='http://download.macromedia.com/pub/flashplayer/installers/archive/fp_11.7.700.225_archive.zip'
 before_script:
-  - export "JAVA_HOME=`/usr/libexec/java_home`"
-  - sh download.sh 'http://download.macromedia.com/pub/flashplayer/installers/archive/fp_11.7.700.225_archive.zip'
+  - sh download.sh $DOWNLOAD_URL
 script:
-  - mvn package -Dtag.name=$TRAVIS_TAG -DflashPlayer.command=Flash\ Player\ Debugger.app/Contents/MacOS/Flash\ Player\ Debugger
+  - mvn package $JVMARGS
 after_success:
   - cp target/stream-1.0.0.swc target/site/stream.swc
-  - mvn flexmojos:asdoc-report -DflashPlayer.command=Flash\ Player\ Debugger.app/Contents/MacOS/Flash\ Player\ Debugger
-  - mvn flexmojos:coverage-report -DflashPlayer.command=Flash\ Player\ Debugger.app/Contents/MacOS/Flash\ Player\ Debugger
+  - mvn flexmojos:asdoc-report $JVMARGS
+  - mvn flexmojos:coverage-report $JVMARGS
   - pushd .
   - cd target/site
   - mv asdoc docs
