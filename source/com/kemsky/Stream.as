@@ -425,6 +425,24 @@ package com.kemsky
         }
 
         /**
+         * Adds item to specified position.
+         * @param index An integer that specifies the position in the list where the item is to be added to.
+         * @param value An item to add.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     s.addItem(1, 4);
+         *     trace(s);
+         *     //Stream{1, 4, 2, 3}
+         * </pre>
+         * @internal mutable
+         */
+        public function addItem(index:int, value:*):void
+        {
+            source.splice(index, 0, value);
+        }
+
+        /**
          * Executes a test function on each item and calculates number of successful tests.
          * @param callback The function to run on each item in the list.
          * @return A number of successful tests.

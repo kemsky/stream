@@ -240,6 +240,22 @@ package com.kemsky
             assertEquals(s[2], 1);
         }
 
+
+        [Test]
+        public function testAdd():void
+        {
+            var s:Stream = $(1, 2, 3);
+            s.addItem(2, 1);
+            s.addItem(0, 3);
+            //3, 1, 2, 1, 3
+            assertEquals(s.length, 5);
+            assertEquals(s[0], 3);
+            assertEquals(s[1], 1);
+            assertEquals(s[2], 2);
+            assertEquals(s[3], 1);
+            assertEquals(s[4], 3);
+        }
+
         [Test]
         public function testGet():void
         {
