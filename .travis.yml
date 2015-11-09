@@ -13,7 +13,6 @@ after_success:
   - mv asdoc docs
   - zip -r asdoc docs
   - zip -r ../stream-1.0.0.swc docs
-  - zip -r ../stream-1.0.0.swc coverage
   - zip -r coverage coverage
   - popd
   - zip -r target/stream-1.0.0.swc source
