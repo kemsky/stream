@@ -6,17 +6,17 @@ before_script:
 script:
   - mvn package -Dtag.name=$TRAVIS_TAG -DflashPlayer.command=Flash\ Player\ Debugger.app/Contents/MacOS/Flash\ Player\ Debugger
 after_success:
+  - cp target/stream-1.0.0.swc target/site/stream.swc
   - mvn flexmojos:asdoc-report -DflashPlayer.command=Flash\ Player\ Debugger.app/Contents/MacOS/Flash\ Player\ Debugger
   - mvn flexmojos:coverage-report -DflashPlayer.command=Flash\ Player\ Debugger.app/Contents/MacOS/Flash\ Player\ Debugger
   - pushd .
   - cd target/site
   - mv asdoc docs
   - zip -r asdoc docs
-  - zip -r ../stream-1.0.0.swc docs
+  - zip -r stream-1.0.0.swc docs
   - zip -r coverage coverage
   - popd
-  - zip -r target/stream-1.0.0.swc source
-  - cp target/stream-1.0.0.swc target/site/stream.swc
+  - zip -r target/site/stream.swc source
 deploy:
   provider: releases
   api_key:
