@@ -6,23 +6,23 @@ before_script:
 script:
   - mvn package -Dtag.name="$TRAVIS_TAG" -DflashPlayer.command=Flash\ Player\ Debugger.app/Contents/MacOS/Flash\ Player\ Debugger
 after_success:
-  - cp target/stream-1.0.0.swc target/site/stream.swc
+  - cp target/stream-1.0.0.swc target/stream.swc
+  - zip -r target/stream.swc source
   - mvn flexmojos:asdoc-report -Dtag.name="$TRAVIS_TAG" -DflashPlayer.command=Flash\ Player\ Debugger.app/Contents/MacOS/Flash\ Player\ Debugger
   - mvn flexmojos:coverage-report -Dtag.name="$TRAVIS_TAG" -DflashPlayer.command=Flash\ Player\ Debugger.app/Contents/MacOS/Flash\ Player\ Debugger
   - pushd .
   - cd target/site
   - mv asdoc docs
+  - zip -r ../stream.swc docs
   - zip -r asdoc docs
-  - zip -r stream-1.0.0.swc docs
   - zip -r coverage coverage
   - popd
-  - zip -r target/site/stream.swc source
 deploy:
   provider: releases
   api_key:
     secure: 1ZloFQElw9KHlGQ3bxX31GE5fioGgjeiHfwrXb4ZDtMPCIdTlppHsvQPPE42dzUOpWWO1bSfrJPznxo33ddZZ3m7exiAlBEJoxNJQFDONso9nRJkSPhiNPZoB2V3X/AQrCA1/qZilIwm3iaxRMYJMAOg5dub1XCAz0BOyYsYcGeYVA3hWXP9FRhJgJUB8duSxM0y/ag4DiCe4Ckq0peXZXilZmVSERmWDZCFNrNRbDxuNIugAEFdIsN1jbyq/jNq3VkGkV/tlkfGUfPi9jb/1vxUQ6KRT/ApIbnZDmxIwF4f31J/7SlUsVB/rWbE5h2EBiD9wewsieY/kg88qyn1DjdEW2583wnY5tb94yHMRx8G2XGTo/yXPVyZkA7+Pi4u/bk6q8Gpw/KW1cCbEAEo3JzwgFZU+n2CAuKW7O0JVpcuYN9I4wypEKzyyFfAALoZXhJxQxcj4/vAbaoeDYZcSd44x4KHTn4hFCygrrrc60V+5qoVV0KrPTslSbK4pNDGweo3facMsb1qu7x3pokSrUc7/zaof1lzrvRPmYjcHqKX1BS2BncEJ3oGVqI6PJFFR2uPsC0+xRkaYULnTpJerYk1vV8zdWupMGSHDp0ffLwpxF6CzIXM91tj5w8pnfzL0Fq9p7dvcE+C1ewdfwH+4/GVg8kRV+3QcAwykPk1gwc=
   file:
-    - target/site/stream.swc
+    - target/stream.swc
     - target/site/coverage.zip
     - target/site/asdoc.zip
   skip_cleanup: true
