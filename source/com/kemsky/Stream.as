@@ -450,6 +450,23 @@ package com.kemsky
         }
 
         /**
+         * Removes item at specified position.
+         * @param index An integer that specifies the position in the list.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     s.removeItem(0);
+         *     trace(s);
+         *     //Stream{2, 3}
+         * </pre>
+         * @internal mutable
+         */
+        public function removeItem(index:int):void
+        {
+            delete this[index];
+        }
+
+        /**
          * Executes a test function on each item and calculates number of successful tests.
          * @param callback The function to run on each item in the list.
          * @return A number of successful tests.
@@ -1957,7 +1974,7 @@ package com.kemsky
             {
             }
 
-            if(!(index <= 0) && !(index > 0))
+            if(index != index)
             {
                 return false;
             }

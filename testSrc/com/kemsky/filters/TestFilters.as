@@ -17,6 +17,21 @@ package com.kemsky.filters
 
 
         [Test]
+        public function testExisting():void
+        {
+            var s:Stream = $();
+            s[0] = 0;
+            s[3] = null;
+            s[6] = NaN;
+            s[10] = "";
+
+            var r:Stream = s.filter(existing(_));
+            assertEquals(r.length, 2);
+            assertEquals(r.first, 0);
+            assertEquals(r.second, "");
+        }
+
+        [Test]
         public function testUnderscore():void
         {
             var d:Date = new Date();

@@ -2,8 +2,7 @@ package com.kemsky.filters
 {
     import com.kemsky.support.toValue;
 
-    //todo test
-    public function exists(val:*):Function
+    public function existing(val:*):Function
     {
         return function (item:*):Boolean
         {

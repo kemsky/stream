@@ -277,6 +277,17 @@ package com.kemsky
             assertTrue(s.getItem(3) === undefined);
         }
 
+
+        [Test]
+        public function testRemove():void
+        {
+            var s:Stream = $(1, 2, 3);
+            s.removeItem(0);
+            assertEquals(s.length, 2);
+            assertEquals(s[0], 2);
+            assertEquals(s[1], 3);
+        }
+
         [Test]
         public function testGroup():void
         {
