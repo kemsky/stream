@@ -1203,6 +1203,7 @@ package com.kemsky
          * </pre>
          * @internal immutable
          */
+        //todo nullable property
         public function dictionary(property:String, weak:Boolean = false):Dictionary
         {
             var dict:Dictionary = new Dictionary(weak);
