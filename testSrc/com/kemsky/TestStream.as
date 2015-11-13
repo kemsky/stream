@@ -131,12 +131,23 @@ package com.kemsky
         {
             var s:Stream = $();
             s[0] = 1;
-            s[10] = 2;
+            s[3] = 2;
 
-            var c:Stream = s.compact();
+            var c:Stream = s.compact(true);
             assertEquals(c.length, 2);
             assertEquals(c.first, 1);
             assertEquals(c.second, 2);
+
+            var s1:Stream = $();
+            s1[0] = 1;
+            s1[1] = null;
+            s1[2] = NaN;
+            s1[3] = 2;
+
+            var c1:Stream = s1.compact();
+            assertEquals(c1.length, 2);
+            assertEquals(c1.first, 1);
+            assertEquals(c1.second, 2);
         }
 
         [Test]

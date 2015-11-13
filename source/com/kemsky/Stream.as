@@ -2,6 +2,7 @@ package com.kemsky
 {
     import com.kemsky.filters._;
     import com.kemsky.filters.defined;
+    import com.kemsky.filters.existing;
     import com.kemsky.support.*;
 
     import flash.utils.ByteArray;
@@ -182,8 +183,11 @@ package com.kemsky
         }
 
         /**
-         * Creates a new list for all items that are not strictly equal to undefined (item !== <i>undefined</i>).
+         * Creates a new list for all items that match <i>defined</i> or <i>existing</i> filters depending on undefinedOnly parameter.
+         * @param undefinedOnly use <i>defined</i> filter
          * @return A new list that contains all items from the original list that are not equal to <i>undefined</i>.
+         * @see com.kemsky.filters.defined
+         * @see com.kemsky.filters.existing
          * @example
          * <pre>
          *     var s:Stream = new Stream();
@@ -195,9 +199,16 @@ package com.kemsky
          * </pre>
          * @internal immutable
          */
-        public function compact():Stream
+        public function compact(undefinedOnly:Boolean = false):Stream
         {
-            return filter(defined(_));
+            if(undefinedOnly)
+            {
+                return filter(defined(_));
+            }
+            else
+            {
+                return filter(existing(_));
+            }
         }
 
         /**
