@@ -1203,16 +1203,22 @@ package com.kemsky
          * </pre>
          * @internal immutable
          */
-        //todo nullable property
-        public function dictionary(property:String, weak:Boolean = false):Dictionary
+        public function dictionary(property:String = null, weak:Boolean = false):Dictionary
         {
             var dict:Dictionary = new Dictionary(weak);
             for each (var item:* in source)
             {
-                if(item.hasOwnProperty(property))
+                if(property != null && property.length > 0)
                 {
-                    var value:* = item[property];
-                    dict[value] = item;
+                    if(item.hasOwnProperty(property))
+                    {
+                        var value:* = item[property];
+                        dict[value] = item;
+                    }
+                }
+                else
+                {
+                    dict[item] = item;
                 }
             }
             return dict;
@@ -1318,6 +1324,46 @@ package com.kemsky
             {
                 return concat();
             }
+        }
+
+        /**
+         * Create new stream from original by removing duplicate items.
+         * @param callback is compare function <i>function(a:*, b:*):int</i>.
+         * @return new stream without duplicate values.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3, 1);
+         *     trace(s.deduplicate());
+         *     //Stream{1, 2, 3}
+         * </pre>
+         * @internal immutable
+         */
+        public function deduplicate(callback:Function = null):Stream
+        {
+            var result:Stream;
+            if(callback == null)
+            {
+                var map:Dictionary = this.dictionary();
+                result = Stream.from(map);
+            }
+            else
+            {
+                //todo
+                result = this.concat();
+                var i:int;
+                var j:int;
+                for(i = 0; i < length - 1; i++)
+                {
+                    for(j = i + 1; j < length; j++)
+                    {
+                        if(callback(result.getItem(i), result.getItem(j)) == 0)
+                        {
+                            result.removeItem(j);
+                        }
+                    }
+                }
+            }
+            return result;
         }
 
         /*

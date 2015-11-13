@@ -22,6 +22,16 @@ package com.kemsky
         {
         }
 
+
+        [Test]
+        public function testDeduplicate():void
+        {
+            var s:Stream = $(1, 2, 4, 3, 2, 1);
+
+            var d1:Stream = s.deduplicate();
+            //assertEquals(d1.length, 4);
+        }
+
         [Test]
         public function testEntries():void
         {
@@ -428,6 +438,10 @@ package com.kemsky
             var d:Dictionary = s.dictionary("name");
             assertEquals(d["1"], item1);
             assertEquals(d["2"], item2);
+
+            var v:Dictionary = $(item1, item2, item1).dictionary();
+            assertEquals(v[item1], item1);
+            assertEquals(v[item2], item2);
         }
 
         [Test]
