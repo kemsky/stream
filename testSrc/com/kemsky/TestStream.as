@@ -26,10 +26,22 @@ package com.kemsky
         [Test]
         public function testDeduplicate():void
         {
-            var s:Stream = $(1, 2, 4, 3, 2, 1);
+            var s:Stream = $(1, 2, 2, 3, 1);
 
             var d1:Stream = s.deduplicate();
-            //assertEquals(d1.length, 4);
+            assertEquals(d1.length, 3);
+            assertEquals(d1.first, 1);
+            assertEquals(d1.second, 2);
+            assertEquals(d1.third, 3);
+
+            var s1:Stream = $("test", "you", "now");
+            var d2:Stream = s1.deduplicate(function(a:String, b:String):Boolean
+            {
+                return a.length == b.length;
+            });
+            assertEquals(d2.length, 2);
+            assertEquals(d2.first, "test");
+            assertEquals(d2.second, "you");
         }
 
         [Test]

@@ -7,7 +7,8 @@ package com.kemsky.filters
         return function (item:*):Boolean
         {
             var v:* = toValue(item, val1);
-            return v is String ? map.hasOwnProperty(v): !(map[v] == null || map[v] === undefined);
+            var value:Object = map[v];
+            return !(value == null);
         };
     }
 }

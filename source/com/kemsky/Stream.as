@@ -1328,7 +1328,7 @@ package com.kemsky
 
         /**
          * Create new stream from original by removing duplicate items.
-         * @param callback is compare function <i>function(a:*, b:*):int</i>.
+         * @param callback is compare function <i>function(a:*, b:*):Boolean</i>.
          * @return new stream without duplicate values.
          * @example
          * <pre>
@@ -1340,23 +1340,30 @@ package com.kemsky
          */
         public function deduplicate(callback:Function = null):Stream
         {
-            var result:Stream;
-            if(callback == null)
+            var result:Stream = this.concat();
+            var i:int;
+            var j:int;
+
+            if(callback != null)
             {
-                var map:Dictionary = this.dictionary();
-                result = Stream.from(map);
-            }
-            else
-            {
-                //todo
-                result = this.concat();
-                var i:int;
-                var j:int;
                 for(i = 0; i < length - 1; i++)
                 {
                     for(j = i + 1; j < length; j++)
                     {
-                        if(callback(result.getItem(i), result.getItem(j)) == 0)
+                        if(callback(result.getItem(i), result.getItem(j)))
+                        {
+                            result.removeItem(j);
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for(i = 0; i < length - 1; i++)
+                {
+                    for(j = i + 1; j < length; j++)
+                    {
+                        if(result.getItem(i) === result.getItem(j))
                         {
                             result.removeItem(j);
                         }
