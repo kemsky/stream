@@ -15,6 +15,18 @@ package com.kemsky.filters
         {
         }
 
+        [Test]
+        public function testType():void
+        {
+            var stream:Stream = new Stream();
+
+            var s:Stream = $("test", 123, stream);
+
+            var d:Stream = s.filter(type(_, Stream));
+            assertEquals(d.length, 1);
+            assertEquals(d.first, stream);
+        }
+
 
         [Test]
         public function testExisting():void
