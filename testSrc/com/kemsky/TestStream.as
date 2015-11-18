@@ -22,6 +22,33 @@ package com.kemsky
         {
         }
 
+        [Test]
+        public function testFromValues():void
+        {
+            var obj:Object = {name1: "first", name2: "second"};
+
+            var s:Stream = Stream.fromValues(obj).sort();
+            assertEquals(s.length, 2);
+            assertEquals(s.first, "first");
+            assertEquals(s.second, "second");
+
+            var s2:Stream = Stream.fromKeys(null);
+            assertEquals(s2.length, 0);
+        }
+
+        [Test]
+        public function testFromKeys():void
+        {
+            var obj:Object = {name1: "first", name2: "second"};
+
+            var s:Stream = Stream.fromKeys(obj).sort();
+            assertEquals(s.length, 2);
+            assertEquals(s.first, "name1");
+            assertEquals(s.second, "name2");
+
+            var s2:Stream = Stream.fromKeys(null);
+            assertEquals(s2.length, 0);
+        }
 
         [Test]
         public function testDeduplicate():void

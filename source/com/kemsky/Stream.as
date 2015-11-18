@@ -2192,5 +2192,57 @@ package com.kemsky
 
             return callback == null ? result : result.map(callback);
         }
+
+        /**
+         * Create stream from object(dictionary) property names.
+         * @param object object used as source for a stream
+         * @return created Stream object
+         * @example
+         * <pre>
+         *     var obj:Object = {name1: "first", name2: "second"};
+         *     var s:Stream = Stream.fromKeys(obj);
+         *     trace(s);
+         *     //prints ["name1", "name2"]
+         * </pre>
+         * @internal immutable
+         */
+        public static function fromKeys(object:Object):Stream
+        {
+            var result:Stream = new Stream();
+            for (var prop:String in object)
+            {
+                if(object.hasOwnProperty(prop))
+                {
+                    result.push(prop);
+                }
+            }
+            return result;
+        }
+
+        /**
+         * Create stream from object(dictionary) property values.
+         * @param object object used as source for a stream
+         * @return created Stream object
+         * @example
+         * <pre>
+         *     var obj:Object = {name1: "first", name2: "second"};
+         *     var s:Stream = Stream.fromValues(obj);
+         *     trace(s);
+         *     //prints ["first", "second"]
+         * </pre>
+         * @internal immutable
+         */
+        public static function fromValues(object:Object):Stream
+        {
+            var result:Stream = new Stream();
+            for (var prop:String in object)
+            {
+                if(object.hasOwnProperty(prop))
+                {
+                    result.push(object[prop]);
+                }
+            }
+            return result;
+        }
     }
 }
