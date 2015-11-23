@@ -22,6 +22,20 @@ package com.kemsky
         {
         }
 
+
+        [Test]
+        public function testVector():void
+        {
+            var s:Stream = $(1, 2, 3);
+            var v:Vector.<Object> = s.vector();
+            assertEquals(v.length, 3);
+            assertEquals(v[0], 1);
+            assertEquals(v[1], 2);
+            assertEquals(v[2], 3);
+
+            assertEquals($().vector().length, 0);
+        }
+
         [Test]
         public function testFromValues():void
         {

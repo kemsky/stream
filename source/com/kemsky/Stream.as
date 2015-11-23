@@ -1185,6 +1185,22 @@ package com.kemsky
         }
 
         /**
+         * Creates a new Vector.<Object> from items of current stream
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     var c:Vector.&lt;Object&gt; = s.vector();
+         *     trace(c);
+         *     //[1, 2, 3]
+         * </pre>
+         * @internal immutable
+         */
+        public function vector():Vector.<Object>
+        {
+            return Vector.<Object>(source.concat());
+        }
+
+        /**
          * Creates a new Dictionary from the current list using specified property values as keys
          * @param property The name of the property to be used as key.
          * @param weak Create a new Dictionary with weak keys.
