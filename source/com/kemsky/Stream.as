@@ -1185,7 +1185,7 @@ package com.kemsky
         }
 
         /**
-         * Creates a new Vector.<Object> from items of current stream
+         * Creates a new Vector.&lt;Object&lt; from items of current stream
          * @example
          * <pre>
          *     var s:Stream = $(1, 2, 3);
