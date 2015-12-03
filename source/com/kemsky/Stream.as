@@ -284,13 +284,37 @@ package com.kemsky
          * @return A new list of lists created from the items and their corresponding indices.
          * @internal immutable
          */
-        public function zip():Stream
+        public function zipWithIndex():Stream
         {
             var result:Array = [];
             result.length = source.length;
             for(var i:int = 0; i < source.length; i++)
             {
-                result[i] = new Stream([i, source[i]]);
+                result[i] = new Stream([source[i], i]);
+            }
+            return new Stream(result);
+        }
+
+        /**
+         * Creates a new list of lists created from the items and their corresponding items from another stream.
+         * @example
+         * <pre>
+         *     var s1:Stream = $(1, 2, 3);
+         *     var s2:Stream = $(1, 2, 3);
+         *     var z:Stream = s1.zip(s2);
+         *     trace(z);
+         *     //Stream{Stream{1, 1}, Stream{2, 2}, Stream{3, 3}}
+         * </pre>
+         * @return A new list of lists created from the items and their corresponding items from another strea.
+         * @internal immutable
+         */
+        public function zip(stream:Stream):Stream
+        {
+            var result:Array = [];
+            var size:uint = Math.min(length, stream.length);
+            for(var i:int = 0; i < size; i++)
+            {
+                result[i] = Stream.of(getItem(i), stream.getItem(i));
             }
             return new Stream(result);
         }

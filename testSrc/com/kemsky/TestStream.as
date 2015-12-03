@@ -249,16 +249,32 @@ package com.kemsky
         [Test]
         public function testZip():void
         {
+            var s1:Stream = $("1", "2");
+            var s2:Stream = $(1, 2);
+            var e:Stream = s1.zip(s2);
+            assertEquals(e.length, s1.length);
+            assertTrue(e.first is Stream);
+            assertTrue(e.second is Stream);
+            assertEquals(e.first.length, 2);
+            assertEquals(e.first.second, 1);
+            assertEquals(e.first.first, "1");
+            assertEquals(e.second.second, 2);
+            assertEquals(e.second.first, "2");
+        }
+
+        [Test]
+        public function testZipWithIndex():void
+        {
             var s:Stream = $("1", "2");
-            var e:Stream = s.zip();
+            var e:Stream = s.zipWithIndex();
             assertEquals(e.length, s.length);
             assertTrue(e.first is Stream);
             assertTrue(e.second is Stream);
             assertEquals(e.first.length, 2);
-            assertEquals(e.first.first, 0);
-            assertEquals(e.first.second, "1");
-            assertEquals(e.second.first, 1);
-            assertEquals(e.second.second, "2");
+            assertEquals(e.first.second, 0);
+            assertEquals(e.first.first, "1");
+            assertEquals(e.second.second, 1);
+            assertEquals(e.second.first, "2");
         }
 
         [Test]
