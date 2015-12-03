@@ -1202,7 +1202,8 @@ package com.kemsky
 
         /**
          * Creates a new Dictionary from the current list using specified property values as keys
-         * @param property The name of the property to be used as key.
+         * @param key callback to map item to dictionary key
+         * @param value callback to map item to property value
          * @param weak Create a new Dictionary with weak keys.
          * @return A new Dictionary from the current list using specified property values as keys.
          * @example
@@ -1211,7 +1212,7 @@ package com.kemsky
          *     var item2:Object = {id: 2, key: "key1"};
          *     var item3:Object = {id: 3, key: "key2"};
          *     var s:Stream = $(item1, item2, item3);
-         *     var d:Dictionary = s.dictionary("key");
+         *     var d:Dictionary = s.dictionary(prop("key"));
          *     trace(d["key1"]);
          *     //Stream{item1, item2}
          *     trace(d["key2"]);
@@ -1219,23 +1220,18 @@ package com.kemsky
          * </pre>
          * @internal immutable
          */
-        public function dictionary(property:String = null, weak:Boolean = false):Dictionary
+        public function dictionary(key:Function, value:Function = null, weak:Boolean = false):Dictionary
         {
             var dict:Dictionary = new Dictionary(weak);
+
+            if(value == null)
+            {
+               value = _;
+            }
+
             for each (var item:* in source)
             {
-                if(property != null && property.length > 0)
-                {
-                    if(item.hasOwnProperty(property))
-                    {
-                        var value:* = item[property];
-                        dict[value] = item;
-                    }
-                }
-                else
-                {
-                    dict[item] = item;
-                }
+                dict[key(item)] = value(item);
             }
             return dict;
         }
@@ -1284,7 +1280,8 @@ package com.kemsky
 
         /**
          * Creates new Object from the current list using specified property as keys
-         * @param property The name of the property to be used as key.
+         * @param property callback to map item to object property name
+         * @param value callback to map item to property value
          * @return A new Object from current Stream using specified property as keys
          * @example
          * <pre>
@@ -1292,7 +1289,7 @@ package com.kemsky
          *     var item2:Object = {id: 2, key: "key1"};
          *     var item3:Object = {id: 3, key: "key2"};
          *     var s:Stream = $(item1, item2, item3);
-         *     var d:Object = s.object("key");
+         *     var d:Object = s.object(prop("key"));
          *     trace(d["key1"]);
          *     //Stream{item1, item2}
          *     trace(d["key2"]);
@@ -1300,17 +1297,21 @@ package com.kemsky
          * </pre>
          * @internal immutable
          */
-        public function object(property:String):Object
+        public function object(property:Function, value:Function = null):Object
         {
             var dict:Object = {};
+
+            if(value == null)
+            {
+                value = _;
+            }
+
             for each (var item:* in source)
             {
-                if(item.hasOwnProperty(property))
-                {
-                    var value:* = item[property];
-                    dict[value] = item;
-                }
+                var key:* = property(item);
+                dict[key] = value(item);
             }
+
             return dict;
         }
 

@@ -488,11 +488,11 @@ package com.kemsky
 
             var s:Stream = $(item1, item2);
 
-            var d:Dictionary = s.dictionary("name");
+            var d:Dictionary = s.dictionary(prop("name"));
             assertEquals(d["1"], item1);
             assertEquals(d["2"], item2);
 
-            var v:Dictionary = $(item1, item2, item1).dictionary();
+            var v:Dictionary = $(item1, item2, item1).dictionary(_);
             assertEquals(v[item1], item1);
             assertEquals(v[item2], item2);
         }
@@ -505,9 +505,9 @@ package com.kemsky
 
             var s:Stream = $(item1, item2);
 
-            var d:Object = s.object("name");
-            assertEquals(d["1"], item1);
-            assertEquals(d["2"], item2);
+            var d:Object = s.object(prop("name"), prop("price"));
+            assertEquals(d["1"], item1.price);
+            assertEquals(d["2"], item2.price);
         }
 
 
