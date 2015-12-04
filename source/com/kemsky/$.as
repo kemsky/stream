@@ -48,6 +48,11 @@ package com.kemsky
                 //$ from list
                 return new Stream(arg.toArray());
             }
+            else if(arg == null || arg === undefined)
+            {
+                //ignore empty arg
+                return new Stream();
+            }
             else
             {
                 //$ from one item

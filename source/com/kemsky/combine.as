@@ -1,7 +1,6 @@
 package com.kemsky
 {
     /**
-     * @private
      * Creates combined function
      * @param rest a list of functions
      * @return combined function

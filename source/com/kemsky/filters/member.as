@@ -2,10 +2,10 @@ package com.kemsky.filters
 {
     /**
      * Creates function that extracts named property from value
-     * @param name name of the property (nested properties are supported: 'prop.prop1.prop2')
-     * @return function function that extracts named property from value
+     * @param name name of the property or method (nested properties are supported: 'prop.prop1.prop2')
+     * @return function function that extracts named property or method from value
      */
-    public function prop(name:String):Function
+    public function member(name:String):Function
     {
         var path:Array = name.split(".");
 

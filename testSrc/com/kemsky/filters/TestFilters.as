@@ -92,8 +92,8 @@ package com.kemsky.filters
 
             var s:Stream = $(item1, item2);
 
-            assertEquals(s.filter(eq(prop("bool"), true)).first, item2);
-            assertEquals(s.filter(eq(prop("bool"), false)).first, item1);
+            assertEquals(s.filter(eq(member("bool"), true)).first, item2);
+            assertEquals(s.filter(eq(member("bool"), false)).first, item1);
         }
 
         [Test]
@@ -183,7 +183,7 @@ package com.kemsky.filters
 
             var s:Stream = $(item1, item2);
 
-            var result:Stream = s.filter(gt(prop("price"), 1));
+            var result:Stream = s.filter(gt(member("price"), 1));
             assertEquals(result.length, 1);
             assertEquals(result.first, item2);
 
@@ -195,19 +195,19 @@ package com.kemsky.filters
             assertEquals(result.length, 1);
             assertEquals(result.first, item2.price);
 
-            result = s.filter(ge(prop("price"), 2));
+            result = s.filter(ge(member("price"), 2));
             assertEquals(result.length, 1);
             assertEquals(result.first, item2);
 
-            result = s.filter(gt(add(prop("price"), prop("vat"), 0), 2));
+            result = s.filter(gt(add(member("price"), member("vat"), 0), 2));
             assertEquals(result.length, 1);
             assertEquals(result.first, item1);
 
-            result = s.filter(gt(subtract(prop("price"), prop("vat")), 0));
+            result = s.filter(gt(subtract(member("price"), member("vat")), 0));
             assertEquals(result.length, 1);
             assertEquals(result.first, item2);
 
-            result = s.filter(gt(subtract(prop("price"), 1), 0));
+            result = s.filter(gt(subtract(member("price"), 1), 0));
             assertEquals(result.length, 1);
             assertEquals(result.first, item2);
 
@@ -222,43 +222,43 @@ package com.kemsky.filters
 
             var nested:Stream = $(obj);
 
-            result = nested.filter(eq(prop("name"), "p0"));
+            result = nested.filter(eq(member("name"), "p0"));
             assertEquals(result.length, 1);
 
-            result = nested.filter(eq(prop("name1"), undefined));
-            assertEquals(result.length, 1);
-
-
-            result = nested.filter(eq(prop("item.name"), "p1"));
-            assertEquals(result.length, 1);
-
-            result = nested.filter(eq(prop("item.name1"), undefined));
+            result = nested.filter(eq(member("name1"), undefined));
             assertEquals(result.length, 1);
 
 
-            result = nested.filter(eq(prop("item.item.name"), "p2"));
+            result = nested.filter(eq(member("item.name"), "p1"));
             assertEquals(result.length, 1);
 
-            result = nested.filter(eq(prop("item.item.name1"), undefined));
-            assertEquals(result.length, 1);
-
-
-            result = nested.filter(eq(prop("item.item.item.name"), "p3"));
-            assertEquals(result.length, 1);
-
-            result = nested.filter(eq(prop("item.item.item.name1"), undefined));
+            result = nested.filter(eq(member("item.name1"), undefined));
             assertEquals(result.length, 1);
 
 
-            result = nested.filter(eq(prop("item.item.item.item.name"), "p4"));
+            result = nested.filter(eq(member("item.item.name"), "p2"));
             assertEquals(result.length, 1);
 
-            result = nested.filter(eq(prop("item.item.item.item.name1"), undefined));
+            result = nested.filter(eq(member("item.item.name1"), undefined));
+            assertEquals(result.length, 1);
+
+
+            result = nested.filter(eq(member("item.item.item.name"), "p3"));
+            assertEquals(result.length, 1);
+
+            result = nested.filter(eq(member("item.item.item.name1"), undefined));
+            assertEquals(result.length, 1);
+
+
+            result = nested.filter(eq(member("item.item.item.item.name"), "p4"));
+            assertEquals(result.length, 1);
+
+            result = nested.filter(eq(member("item.item.item.item.name1"), undefined));
             assertEquals(result.length, 1);
 
             try
             {
-                nested.filter(eq(prop("item.item.item.item.item.name"), "p5"));
+                nested.filter(eq(member("item.item.item.item.item.name"), "p5"));
                 assertTrue(false);
             }
             catch(e:Error){}
@@ -295,8 +295,8 @@ package com.kemsky.filters
 
             var s:Stream = $(item);
 
-            assertEquals(s.filter(mapped(prop("name"), d)).length, 1);
-            assertEquals(s.filter(mapped(prop("name"), o)).length, 1);
+            assertEquals(s.filter(mapped(member("name"), d)).length, 1);
+            assertEquals(s.filter(mapped(member("name"), o)).length, 1);
 
 
             var p:Stream = $("name", "price", "vat");

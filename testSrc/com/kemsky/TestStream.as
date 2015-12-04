@@ -3,7 +3,7 @@ package com.kemsky
     import com.kemsky.filters._;
     import com.kemsky.filters.eq;
     import com.kemsky.filters.gt;
-    import com.kemsky.filters.prop;
+    import com.kemsky.filters.member;
     import com.kemsky.support.stream_internal;
 
     import flash.utils.ByteArray;
@@ -22,6 +22,16 @@ package com.kemsky
         {
         }
 
+
+        [Test]
+        public function testFactory():void
+        {
+            var s:Stream = $(null);
+            assertEquals(s.length, 0);
+
+            var s1:Stream = $(null, undefined);
+            assertEquals(s1.length, 2);
+        }
 
         [Test]
         public function testVector():void
@@ -153,8 +163,8 @@ package com.kemsky
             var item1:Item = new Item("item1", 1);
             var item2:Item = new Item("item2", 2);
 
-            assertEquals($(item1, item2).max(prop("price")), item2);
-            assertEquals($().max(prop("price"), 1), 1);
+            assertEquals($(item1, item2).max(member("price")), item2);
+            assertEquals($().max(member("price"), 1), 1);
 
             try
             {
@@ -176,8 +186,8 @@ package com.kemsky
             var item1:Item = new Item("item1", 1);
             var item2:Item = new Item("item2", 2);
 
-            assertEquals($(item1, item2).min(prop("price")), item1);
-            assertEquals($().min(prop("price"), 1), 1);
+            assertEquals($(item1, item2).min(member("price")), item1);
+            assertEquals($().min(member("price"), 1), 1);
 
             try
             {
@@ -316,7 +326,7 @@ package com.kemsky
         {
             var item:Item = new Item("name1", 5, 0);
             var s:Stream = $(item);
-            assertEquals(s.map(prop("name")).first, "name1");
+            assertEquals(s.map(member("name")).first, "name1");
         }
 
         [Test]
@@ -504,7 +514,7 @@ package com.kemsky
 
             var s:Stream = $(item1, item2);
 
-            var d:Dictionary = s.dictionary(prop("name"));
+            var d:Dictionary = s.dictionary(member("name"));
             assertEquals(d["1"], item1);
             assertEquals(d["2"], item2);
 
@@ -521,7 +531,7 @@ package com.kemsky
 
             var s:Stream = $(item1, item2);
 
-            var d:Object = s.object(prop("name"), prop("price"));
+            var d:Object = s.object(member("name"), member("price"));
             assertEquals(d["1"], item1.price);
             assertEquals(d["2"], item2.price);
         }

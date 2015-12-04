@@ -300,10 +300,10 @@ package com.kemsky
          * @example
          * <pre>
          *     var s1:Stream = $(1, 2, 3);
-         *     var s2:Stream = $(1, 2, 3);
+         *     var s2:Stream = $("1", "2", "3");
          *     var z:Stream = s1.zip(s2);
          *     trace(z);
-         *     //Stream{Stream{1, 1}, Stream{2, 2}, Stream{3, 3}}
+         *     //Stream{Stream{1, "1"}, Stream{2, "2"}, Stream{3, "3"}}
          * </pre>
          * @return A new list of lists created from the items and their corresponding items from another strea.
          * @internal immutable
@@ -1236,7 +1236,7 @@ package com.kemsky
          *     var item2:Object = {id: 2, key: "key1"};
          *     var item3:Object = {id: 3, key: "key2"};
          *     var s:Stream = $(item1, item2, item3);
-         *     var d:Dictionary = s.dictionary(prop("key"));
+         *     var d:Dictionary = s.dictionary(member("key"));
          *     trace(d["key1"]);
          *     //Stream{item1, item2}
          *     trace(d["key2"]);
@@ -1313,7 +1313,7 @@ package com.kemsky
          *     var item2:Object = {id: 2, key: "key1"};
          *     var item3:Object = {id: 3, key: "key2"};
          *     var s:Stream = $(item1, item2, item3);
-         *     var d:Object = s.object(prop("key"));
+         *     var d:Object = s.object(member("key"));
          *     trace(d["key1"]);
          *     //Stream{item1, item2}
          *     trace(d["key2"]);
