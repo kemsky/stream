@@ -20,7 +20,7 @@ package com.kemsky.filters
             case 1:
                 return function (item:*):*
                 {
-                    return item.hasOwnProperty(p1) ? item[p1] : undefined;
+                    return item != null && item.hasOwnProperty(p1) ? item[p1] : undefined;
                 };
             case 2:
                 return function (item:*):*
