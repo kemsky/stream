@@ -15,6 +15,8 @@ package com.kemsky.filters
         var p4:String = path.length > 3 ? path[3]: undefined;
         var p5:String = path.length > 4 ? path[4]: undefined;
 
+        var args:Array = rest.concat();
+
         switch (path.length)
         {
             case 1:
@@ -23,7 +25,7 @@ package com.kemsky.filters
                     var result:* = undefined;
                     try
                     {
-                        result = item[p1].apply(null, rest.concat());
+                        result = item[p1].apply(null, args);
                     }
                     catch(e:Error){}
                     return result;
@@ -34,7 +36,7 @@ package com.kemsky.filters
                     var result:* = undefined;
                     try
                     {
-                        result = item[p1][p2].apply(null, rest.concat());
+                        result = item[p1][p2].apply(null, args);
                     }
                     catch(e:Error){}
                     return result;
@@ -45,7 +47,7 @@ package com.kemsky.filters
                     var result:* = undefined;
                     try
                     {
-                        result = item[p1][p2][p3].apply(null, rest.concat());
+                        result = item[p1][p2][p3].apply(null, args);
                     }
                     catch(e:Error){}
                     return result;
@@ -56,7 +58,7 @@ package com.kemsky.filters
                     var result:* = undefined;
                     try
                     {
-                        result = item[p1][p2][p3][p4].apply(null, rest.concat());
+                        result = item[p1][p2][p3][p4].apply(null, args);
                     }
                     catch(e:Error){}
                     return result;
@@ -67,7 +69,7 @@ package com.kemsky.filters
                     var result:* = undefined;
                     try
                     {
-                        result = item[p1][p2][p3][p4][p5].apply(null, rest.concat());
+                        result = item[p1][p2][p3][p4][p5].apply(null, args);
                     }
                     catch(e:Error){}
                     return result;
