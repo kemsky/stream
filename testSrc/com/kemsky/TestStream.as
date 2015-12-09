@@ -912,6 +912,42 @@ package com.kemsky
             assertEquals(v[1], 2);
             assertEquals(v[2], 3);
             verify(v, vector);
+
+            var xml:XML = <order>
+                                <book ISBN="0942407296">
+                                    <title>Baking Extravagant Pastries with Kumquats</title>
+                                    <author>
+                                        <lastName>Contino</lastName>
+                                        <firstName>Chuck</firstName>
+                                    </author>
+                                    <pageCount>238</pageCount>
+                                </book>
+                                <book ISBN="0865436401">
+                                    <title>Emu Care and Breeding</title>
+                                    <editor>
+                                        <lastName>Case</lastName>
+                                        <firstName>Justin</firstName>
+                                    </editor>
+                                    <pageCount>115</pageCount>
+                                </book>
+                            </order>;
+
+            var list:XMLList = xml.book;
+
+
+            var x:Stream = $(list);
+            assertEquals(x.length, 2);
+            assertEquals(x.first.name(), "book");
+            assertEquals(x.first.pageCount, "238");
+            assertEquals(x.second.name(), "book");
+            assertEquals(x.second.pageCount, "115");
+
+            var xm:Stream = $(xml);
+            assertEquals(xm.length, 2);
+            assertEquals(xm.first.name(), "book");
+            assertEquals(xm.first.pageCount, "238");
+            assertEquals(xm.second.name(), "book");
+            assertEquals(xm.second.pageCount, "115");
         }
 
 

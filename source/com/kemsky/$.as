@@ -48,6 +48,24 @@ package com.kemsky
                 //$ from list
                 return new Stream(arg.toArray());
             }
+            else if(arg is XML)
+            {
+                var xm:Array = [];
+                for each(var xml:XML in (arg as XML).children())
+                {
+                    xm.push(xml);
+                }
+                return new Stream(xm);
+            }
+            else if(arg is XMLList)
+            {
+                var x:Array = [];
+                for each(var xmlItem:XML in arg)
+                {
+                    x.push(xmlItem);
+                }
+                return new Stream(x);
+            }
             else if(arg == null || arg === undefined)
             {
                 //ignore empty arg

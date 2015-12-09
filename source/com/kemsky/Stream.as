@@ -1141,6 +1141,22 @@ package com.kemsky
                 {
                     result = Stream(item).source;
                 }
+                else if(item is XML)
+                {
+                    result = [];
+                    for each(var xml:XML in (item as XML).children())
+                    {
+                        result.push(xml);
+                    }
+                }
+                else if(item is XMLList)
+                {
+                    result = [];
+                    for each(var xmlItem:XML in item)
+                    {
+                        result.push(xmlItem);
+                    }
+                }
                 else if(item is Vector.<*> || item is Vector.<Number> || item is Vector.<int> || item is Vector.<uint>)
                 {
                     result = [];
@@ -1490,6 +1506,24 @@ package com.kemsky
                 else if(item is Stream)
                 {
                     result = result.concat.apply(null, Stream(item).source);
+                }
+                else if(item is XML)
+                {
+                    var xm:Array = [];
+                    for each(var xml:XML in (item as XML).children())
+                    {
+                        xm.push(xml);
+                    }
+                    result = result.concat.apply(null, xm);
+                }
+                else if(item is XMLList)
+                {
+                    var x:Array = [];
+                    for each(var xmlItem:XML in item)
+                    {
+                        x.push(xmlItem);
+                    }
+                    result = result.concat.apply(null, x);
                 }
                 else if(item is Vector.<*> || item is Vector.<Number> || item is Vector.<int> || item is Vector.<uint>)
                 {
@@ -2218,6 +2252,24 @@ package com.kemsky
             {
                 //$ from list
                 result = Stream(object).concat();
+            }
+            else if(object is XML)
+            {
+                var xm:Array = [];
+                for each(var xml:XML in (object as XML).children())
+                {
+                    xm.push(xml);
+                }
+                result = new Stream(xm);
+            }
+            else if(object is XMLList)
+            {
+                var x:Array = [];
+                for each(var xmlItem:XML in object)
+                {
+                    x.push(xmlItem);
+                }
+                result = new Stream(x);
             }
             else
             {
