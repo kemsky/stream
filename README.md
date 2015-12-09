@@ -28,6 +28,15 @@ var obj:Object = {name1: "first", name2: "second"};
 var s:Stream = Stream.from(obj);
 trace(s);
 //prints Stream{Stream{"name1", "first"}, Stream{"name2", "second"}}
+
+//create stream from object property names or property values
+var s:Stream = Stream.fromKeys(obj);
+trace(s);
+//prints Stream{"name1", "name2"}
+
+var s:Stream = Stream.fromValues(obj);
+trace(s);
+//prints Stream{"first", "second"}
 ```
 
 ## Iteration and element access
@@ -59,6 +68,16 @@ s.removeItem(0);
 ```
 *Stream is about 10x slower when accessed by index (`[index]`) and it seems to be Proxy overhead.
 If you need better performance (3x slower than Array) use methods to access Stream items: `getItem(index)` and `setItem(index, value)`.*
+
+## Convert Stream to any collection
+```as3
+var s:Stream = Stream.of(1, 2, 3);
+
+var collection:ArrayCollection = s.collection();
+var array:Array = s.array();
+var vector:Vector.<Object> = s.vector();
+var list:ArrayList = s.list();
+```
 
 ## Array-like methods
 Stream has all methods(every, forEach, map, some, slice, splice, push, pop etc.) that standard Array has:
@@ -102,6 +121,12 @@ trace(mapped);
 ## Various filtering methods
 
 ```as3
+//filter out null, NaN or undefined items
+var s:Stream = Stream.of(null, NaN, undefined).compact();
+trace(s, s.length);
+//prints Stream{}, 0
+
+
 public class Item
 {
   public var name:String;
@@ -141,7 +166,7 @@ trace(prices);
 ```
 
 ## Many other handy methods and properties
-Stream can be converted to Array, ArrayCollection, ArrayList, Object, Dictionary:
+Stream can be converted to Object, Dictionary or custom class (using `group` method).
 ```as3
 var item1:Item = new Item("1", 1);
 var item2:Item = new Item("2", 2);
@@ -168,7 +193,7 @@ trace(s.count(function(item:Item):Boolean
 //prints 1
 ```
 
-See also: `group`,`partition`,`fill`,`find`,`findIndex`, `drop`, `zip`, `skip` etc.
+See also: `group`,`partition`,`fill`,`find`,`findIndex`, `drop`, `zip`, `zipWithIndex`, `skip` etc.
 
 ## Build
 
