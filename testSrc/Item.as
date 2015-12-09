@@ -16,6 +16,11 @@ package
             this.vat = vat;
         }
 
+        public function equals(item:Item):Boolean
+        {
+            return name == item.name;
+        }
+
         public function toString():String
         {
             return "Item(name=" + String(name) + ", price=" + String(price) + ")";

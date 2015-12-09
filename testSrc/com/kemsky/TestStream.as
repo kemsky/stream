@@ -22,6 +22,7 @@ package com.kemsky
         {
         }
 
+        //todo test XML and XMLList cases
 
         [Test]
         public function testFactory():void

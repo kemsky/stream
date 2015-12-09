@@ -16,6 +16,20 @@ package com.kemsky.filters
         }
 
         [Test]
+        public function testInvoke():void
+        {
+            var item1:Item = new Item("1", 1, 2);
+            var item2:Item = new Item("2", 2, 0);
+
+            var s:Stream = $(item1, item2);
+
+            var i:Stream = s.filter(eq(invoke("equals", item1), true));
+            assertEquals(i.length, 1);
+            assertEquals(i.first, item1);
+            //todo coverage
+        }
+
+        [Test]
         public function testType():void
         {
             var stream:Stream = new Stream();
