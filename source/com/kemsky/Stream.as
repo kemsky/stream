@@ -1141,14 +1141,6 @@ package com.kemsky
                 {
                     result = Stream(item).source;
                 }
-                else if(item is XML)
-                {
-                    result = [];
-                    for each(var xml:XML in (item as XML).children())
-                    {
-                        result.push(xml);
-                    }
-                }
                 else if(item is XMLList)
                 {
                     result = [];
@@ -1506,15 +1498,6 @@ package com.kemsky
                 else if(item is Stream)
                 {
                     result = result.concat.apply(null, Stream(item).source);
-                }
-                else if(item is XML)
-                {
-                    var xm:Array = [];
-                    for each(var xml:XML in (item as XML).children())
-                    {
-                        xm.push(xml);
-                    }
-                    result = result.concat.apply(null, xm);
                 }
                 else if(item is XMLList)
                 {

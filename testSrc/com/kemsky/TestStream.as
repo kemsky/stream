@@ -18,11 +18,39 @@ package com.kemsky
 
     public class TestStream
     {
+        private static const xml:XML = <order>
+            <book ISBN="0942407296">
+                <title>Baking Extravagant Pastries with Kumquats</title>
+                <author>
+                    <lastName>Contino</lastName>
+                    <firstName>Chuck</firstName>
+                </author>
+                <pageCount>238</pageCount>
+            </book>
+            <book ISBN="0865436401">
+                <title>Emu Care and Breeding</title>
+                <editor>
+                    <lastName>Case</lastName>
+                    <firstName>Justin</firstName>
+                </editor>
+                <pageCount>115</pageCount>
+            </book>
+        </order>;
+
         public function TestStream()
         {
         }
 
-        //todo test XML and XMLList cases
+
+        [Test]
+        public function testConcat():void
+        {
+            var s:Stream = $().concat(xml.children());
+
+            assertEquals(s.length, 2);
+            assertEquals(s.first.pageCount, "238");
+            assertEquals(s.second.pageCount, "115");
+        }
 
         [Test]
         public function testFactory():void
@@ -535,6 +563,10 @@ package com.kemsky
             var d:Object = s.object(member("name"), member("price"));
             assertEquals(d["1"], item1.price);
             assertEquals(d["2"], item2.price);
+
+            var n:Object = s.object(member("name"));
+            assertEquals(d["1"], item1);
+            assertEquals(d["2"], item2);
         }
 
 
@@ -748,6 +780,15 @@ package com.kemsky
             {
                 assertEquals(flatMap[m], 3);
             }
+
+            flatMap = Stream.of(xml).flatMap(function (item:XML):XMLList
+            {
+                return item.book;
+            });
+
+            assertEquals(flatMap.length, 2);
+            assertEquals(flatMap.first.pageCount, "238");
+            assertEquals(flatMap.second.pageCount, "115");
         }
 
         [Test]
@@ -914,25 +955,6 @@ package com.kemsky
             assertEquals(v[2], 3);
             verify(v, vector);
 
-            var xml:XML = <order>
-                                <book ISBN="0942407296">
-                                    <title>Baking Extravagant Pastries with Kumquats</title>
-                                    <author>
-                                        <lastName>Contino</lastName>
-                                        <firstName>Chuck</firstName>
-                                    </author>
-                                    <pageCount>238</pageCount>
-                                </book>
-                                <book ISBN="0865436401">
-                                    <title>Emu Care and Breeding</title>
-                                    <editor>
-                                        <lastName>Case</lastName>
-                                        <firstName>Justin</firstName>
-                                    </editor>
-                                    <pageCount>115</pageCount>
-                                </book>
-                            </order>;
-
             var list:XMLList = xml.book;
 
 
@@ -1016,6 +1038,16 @@ package com.kemsky
             verify(arrayList, original);
             var arrayStream:Stream = Stream.from(new Stream(original));
             verify(arrayStream, original);
+
+            var x:Stream = Stream.from(xml.children());
+            assertEquals(x.length, 2);
+            assertEquals(x.first.pageCount, "238");
+            assertEquals(x.second.pageCount, "115");
+
+            var xm:Stream = Stream.from(xml);
+            assertEquals(xm.length, 2);
+            assertEquals(xm.first.pageCount, "238");
+            assertEquals(xm.second.pageCount, "115");
         }
 
         private static function verify(s:*, o:*):void
