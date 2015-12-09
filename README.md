@@ -37,6 +37,12 @@ trace(s);
 var s:Stream = Stream.fromValues(obj);
 trace(s);
 //prints Stream{"first", "second"}
+
+//create from XMLList or XML
+var s:Stream = $(<root><item>1</item><item>2</item></root>);
+var s:Stream = Stream.from(<root><item>1</item><item>2</item></root>);
+trace(s);
+//prints Stream{<item>1</item>, <item>2</item>}
 ```
 
 ## Iteration and element access
