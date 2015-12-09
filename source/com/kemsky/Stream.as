@@ -34,6 +34,7 @@ package com.kemsky
     [RemoteClass(alias="com.kemsky.Stream")]
     public dynamic class Stream extends Proxy implements IExternalizable
     {
+        //noinspection JSUnusedGlobalSymbols
         public static const VERSION:String = CONFIG::version;
 
         /**
@@ -313,7 +314,7 @@ package com.kemsky
          *     trace(z);
          *     //Stream{Stream{1, "1"}, Stream{2, "2"}, Stream{3, "3"}}
          * </pre>
-         * @return A new list of lists created from the items and their corresponding items from another strea.
+         * @return A new list of lists created from the items and their corresponding items from another stream.
          * @internal immutable
          */
         public function zip(stream:Stream):Stream

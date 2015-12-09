@@ -28,8 +28,6 @@ package com.kemsky.support
 
         private static const classToFullName:Dictionary = new Dictionary(true);
 
-        private static const instance:TypeCache = new TypeCache();
-
         public function TypeCache()
         {
             classToFullName[Number] = NUMBER;

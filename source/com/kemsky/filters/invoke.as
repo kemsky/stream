@@ -9,6 +9,7 @@ package com.kemsky.filters
     /**
      * todo Creates function that extracts named property from value
      * @param name name of the property or method (nested properties are supported: 'prop.prop1.prop2')
+     * @param rest
      * @return function function that extracts named property or method from value
      */
     public function invoke(name:String, ...rest):Function
