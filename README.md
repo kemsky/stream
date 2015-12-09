@@ -190,6 +190,8 @@ trace(s.count(function(item:Item):Boolean
 {
    return item.price > 1;
 }));
+//or
+trace(s.count(gt(member("price"), 1)));
 //prints 1
 ```
 
