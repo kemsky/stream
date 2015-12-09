@@ -1,3 +1,9 @@
+/*
+ *  Copyright: (c) 2015. Turtsevich Alexander
+ *
+ *  Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.html
+ */
+
 package com.kemsky.support
 {
     import com.kemsky.Stream;

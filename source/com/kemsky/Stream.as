@@ -1,3 +1,9 @@
+/*
+ *  Copyright: (c) 2015. Turtsevich Alexander
+ *
+ *  Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.html
+ */
+
 package com.kemsky
 {
     import com.kemsky.filters._;
@@ -83,6 +89,7 @@ package com.kemsky
          * @see Iterator
          * @see Entry
          */
+        [Deprecated(message="Experimental feature")]
         public function entries():Iterator
         {
             return new EntryIterator(this);
@@ -93,6 +100,7 @@ package com.kemsky
          * @return iterator
          * @see Iterator
          */
+        [Deprecated(message="Experimental feature")]
         public function values():Iterator
         {
             return new ValueIterator(this);
