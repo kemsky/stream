@@ -23,11 +23,62 @@ package com.kemsky.filters
 
             var s:Stream = $(item1, item2);
 
-            var i:Stream = s.filter(eq(invoke("equals", item1), true));
-            assertEquals(i.length, 1);
-            assertEquals(i.first, item1);
-            //todo coverage
+            var result:Stream = s.filter(eq(invoke("equals", item1), true));
+            assertEquals(result.length, 1);
+            assertEquals(result.first, item1);
+
+
+            var obj:Item = new Item("p0");
+            obj.item = new Item("p1");
+            obj.item.item = new Item("p2");
+            obj.item.item.item = new Item("p3");
+            obj.item.item.item.item = new Item("p4");
+
+            var nested:Stream = $(obj);
+
+            result = nested.filter(eq(invoke("method", 1), "p01"));
+            assertEquals(result.length, 1);
+
+            result = nested.filter(eq(invoke("method1", 1), undefined));
+            assertEquals(result.length, 1);
+
+
+            result = nested.filter(eq(invoke("item.method", 1), "p11"));
+            assertEquals(result.length, 1);
+
+            result = nested.filter(eq(invoke("item.method1", 1), undefined));
+            assertEquals(result.length, 1);
+
+
+            result = nested.filter(eq(invoke("item.item.method", 1), "p21"));
+            assertEquals(result.length, 1);
+
+            result = nested.filter(eq(invoke("item.item.method1", 1), undefined));
+            assertEquals(result.length, 1);
+
+
+            result = nested.filter(eq(invoke("item.item.item.method", 1), "p31"));
+            assertEquals(result.length, 1);
+
+            result = nested.filter(eq(invoke("item.item.item.method1", 1), undefined));
+            assertEquals(result.length, 1);
+
+
+            result = nested.filter(eq(invoke("item.item.item.item.method", 1), "p41"));
+            assertEquals(result.length, 1);
+
+            result = nested.filter(eq(invoke("item.item.item.item.method1", 1), undefined));
+            assertEquals(result.length, 1);
+
+            try
+            {
+                nested.filter(eq(invoke("item.item.item.item.item.method", 1), "p51"));
+                assertTrue(false);
+            }
+            catch(e:Error){}
+
         }
+
 
         [Test]
         public function testType():void

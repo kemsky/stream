@@ -21,6 +21,11 @@ package
             return name == item.name;
         }
 
+        public function method(value:*):*
+        {
+            return name + value;
+        }
+
         public function toString():String
         {
             return "Item(name=" + String(name) + ", price=" + String(price) + ")";
