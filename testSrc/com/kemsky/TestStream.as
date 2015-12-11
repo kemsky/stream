@@ -971,9 +971,6 @@ package com.kemsky
             assertEquals(xm.first.pageCount, "238");
             assertEquals(xm.second.name(), "book");
             assertEquals(xm.second.pageCount, "115");
-
-            var s:Stream = $(<a>test</a>);
-            trace(s);
         }
 
 
