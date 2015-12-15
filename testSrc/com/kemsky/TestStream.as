@@ -43,6 +43,13 @@ package com.kemsky
 
 
         [Test]
+        public function testMXML():void
+        {
+            var s:Stream = new Stream();
+            s.initialized({}, "");
+        }
+
+        [Test]
         public function testConcat():void
         {
             var s:Stream = $().concat(xml.children());
