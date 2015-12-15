@@ -30,7 +30,7 @@ package com.kemsky.support
 
         public static function getQualifiedClassName(object:*):String
         {
-            if(!(object is Class || object is XML) && object != null)
+            if(!(object is XML || object is Class) && object != null)
             {
                 object = object.constructor;
             }
