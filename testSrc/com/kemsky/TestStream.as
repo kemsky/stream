@@ -4,7 +4,6 @@ package com.kemsky
     import com.kemsky.filters.eq;
     import com.kemsky.filters.gt;
     import com.kemsky.filters.member;
-    import com.kemsky.support.stream_internal;
 
     import flash.utils.ByteArray;
     import flash.utils.Dictionary;
@@ -516,7 +515,7 @@ package com.kemsky
             assertEquals(Item(objectClone[1]).vat, item2.vat);
 
             assertFalse(objectClone === object);
-            assertFalse(objectClone.stream_internal::source === object.stream_internal::source);
+            assertFalse(objectClone.source === object.source);
 
             var objectCloneDeep:Stream = object.clone(true);
             assertEquals(objectCloneDeep.length, 2);
@@ -532,7 +531,7 @@ package com.kemsky
             assertEquals(Item(objectCloneDeep[1]).vat, item2.vat);
 
             assertFalse(objectCloneDeep === object);
-            assertFalse(objectCloneDeep.stream_internal::source === object.stream_internal::source);
+            assertFalse(objectCloneDeep.source === object.source);
         }
 
         [Test]

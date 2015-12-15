@@ -22,6 +22,7 @@ package com.kemsky
     import mx.collections.ArrayCollection;
     import mx.collections.ArrayList;
     import mx.collections.IList;
+    import mx.core.IMXMLObject;
 
     use namespace stream_internal;
 
@@ -32,7 +33,7 @@ package com.kemsky
      * Inspired by Javascript and Ruby arrays and Scala collections.
      */
     [RemoteClass(alias="com.kemsky.Stream")]
-    public dynamic class Stream extends Proxy implements IExternalizable
+    public dynamic class Stream extends Proxy implements IExternalizable, IMXMLObject
     {
         //noinspection JSUnusedGlobalSymbols
         public static const VERSION:String = CONFIG::version;
@@ -65,7 +66,7 @@ package com.kemsky
         /**
          *  The source of data in the list.
          */
-        stream_internal var source:Array;
+        public var source:Array;
 
         /**
          *  Constructor.
@@ -82,6 +83,14 @@ package com.kemsky
         public function Stream(source:Array = null)
         {
             this.source = source == null ? [] : source;
+        }
+
+        /**
+         * @private
+         * @inheritDoc
+         */
+        public function initialized(document:Object, id:String):void
+        {
         }
 
         /**
