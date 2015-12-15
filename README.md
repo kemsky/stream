@@ -61,6 +61,17 @@ for (var i:int = 0; i < s.length; i++)
 }
 //prints 1, 2, 3
 
+//iterator
+var values:Iterator = s.values();
+while (values.available)
+{
+   var n:Number = values.next();
+   //values.item;
+   //values.index;
+   //values.remove();
+   //values.end();
+}
+
 //set item at index 0
 s.setItem(0, 5);
 s[0] = 5;
