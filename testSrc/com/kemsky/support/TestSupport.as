@@ -54,7 +54,7 @@ package com.kemsky.support
             assertEquals(TypeCache.getQualifiedClassName(a), TypeCache.ARRAY);
             assertEquals(TypeCache.getQualifiedClassName(b), TypeCache.BOOLEAN);
             assertEquals(TypeCache.getQualifiedClassName(cls), "Item");
-            assertEquals(TypeCache.getQualifiedClassName(Class), "Class");
+            assertEquals(TypeCache.getQualifiedClassName(Class), TypeCache.CLASS);
             assertEquals(TypeCache.getQualifiedClassName(d), TypeCache.DATE);
             assertEquals(TypeCache.getQualifiedClassName(x), TypeCache.XML_TYPE);
             assertEquals(TypeCache.getQualifiedClassName(xl), TypeCache.XML_LIST);
