@@ -4,6 +4,7 @@ package com.kemsky
     import com.kemsky.filters.eq;
     import com.kemsky.filters.gt;
     import com.kemsky.filters.member;
+    import com.kemsky.support.ValueIterator;
 
     import flash.utils.ByteArray;
     import flash.utils.Dictionary;
@@ -124,61 +125,77 @@ package com.kemsky
         }
 
         [Test]
-        public function testEntries():void
-        {
-            var s:Stream = $(1, 2, 3);
-            var values:Iterator = s.entries();
-
-            values.stop();
-            assertEquals(values.position, -1);
-            assertEquals(values.hasNext, false);
-
-            values.start();
-            assertEquals(values.position, -1);
-            assertEquals(values.hasNext, true);
-
-            var position:int = 0;
-            while (values.hasNext)
-            {
-                var e:Entry = values.next();
-                assertEquals(e.index, position);
-//                assertEquals(e, values.current);
-                assertEquals(position, values.position);
-                position++;
-            }
-
-            values.start();
-            assertEquals(values.position, -1);
-            assertEquals(values.hasNext, true);
-        }
-
-        [Test]
         public function testValues():void
         {
             var s:Stream = $(1, 2, 3);
             var values:Iterator = s.values();
 
-            values.stop();
-            assertEquals(values.position, -1);
-            assertEquals(values.hasNext, false);
+            var count:int = 1;
+            for each (var item:Number in values)
+            {
+                assertEquals(item, count++);
+            }
 
-            values.start();
-            assertEquals(values.position, -1);
-            assertEquals(values.hasNext, true);
+            values.reset();
+            assertEquals(values.index, -1);
+            assertEquals(values.available, true);
 
+            values.end();
+            assertEquals(values.index, -1);
+            assertEquals(values.available, false);
+
+            try
+            {
+                values.next();
+                assertTrue(false);
+            }
+            catch (e:Error)
+            {}
+
+            try
+            {
+                values.item = 0;
+                assertTrue(false);
+            }
+            catch (e:Error)
+            {}
+
+            try
+            {
+                values.remove();
+                assertTrue(false);
+            }
+            catch (e:Error)
+            {}
+
+            values.reset();
             var position:int = 0;
-            while (values.hasNext)
+            while (values.available)
             {
                 var n:Number = values.next();
                 assertEquals(n, position + 1);
-                assertEquals(n, values.current);
-                assertEquals(position, values.position);
+                assertEquals(n, values.item);
+                assertEquals(position, values.index);
                 position++;
             }
 
-            values.start();
-            assertEquals(values.position, -1);
-            assertEquals(values.hasNext, true);
+            values.reset();
+            assertEquals(values.index, -1);
+            assertEquals(values.available, true);
+
+
+            values.reset();
+            var first:Number = values.next();
+            values.item = 0;
+            assertEquals(values.item, 0);
+            assertEquals(s.first, 0);
+            values.remove();
+            assertEquals(s.first, 2);
+            var second:Number = values.next();
+            values.remove();
+            var third:Number = values.next();
+            values.remove();
+            assertEquals(s.length, 0);
         }
 
         [Test]

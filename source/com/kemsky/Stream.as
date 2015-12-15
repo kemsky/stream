@@ -24,8 +24,6 @@ package com.kemsky
     import mx.collections.IList;
     import mx.core.IMXMLObject;
 
-    use namespace stream_internal;
-
     /**
      * ActionScript modern collection/list implementation, Array replacement.
      * Internally this is Array wrapper that adds many useful methods and properties:
@@ -93,24 +91,12 @@ package com.kemsky
         {
         }
 
-        /**
-         * Creates iterator over index-item pairs
-         * @return iterator
-         * @see Iterator
-         * @see Entry
-         */
-        [Deprecated(message="Experimental feature")]
-        public function entries():Iterator
-        {
-            return new EntryIterator(this);
-        }
 
         /**
          * Creates iterator over items
          * @return iterator
          * @see Iterator
          */
-        [Deprecated(message="Experimental feature")]
         public function values():Iterator
         {
             return new ValueIterator(this);
@@ -133,7 +119,7 @@ package com.kemsky
                 }
                 else
                 {
-                    throw new Error("Stream is empty and defaultValue is not provided");
+                    throw new StreamError("Stream is empty and defaultValue is not provided");
                 }
             }
 
@@ -175,7 +161,7 @@ package com.kemsky
                 }
                 else
                 {
-                    throw new Error("Stream is empty and defaultValue is not provided");
+                    throw new StreamError("Stream is empty and defaultValue is not provided");
                 }
             }
 
@@ -1043,7 +1029,7 @@ package com.kemsky
         {
             if(initial === undefined && source.length == 0)
             {
-                throw new Error("Stream is empty");
+                throw new StreamError("Stream is empty");
             }
 
             var context:* = initial === undefined ? first : initial;
@@ -1075,7 +1061,7 @@ package com.kemsky
         {
             if(initial === undefined && source.length == 0)
             {
-                throw new Error("Stream is empty");
+                throw new StreamError("Stream is empty");
             }
 
             var context:* = initial === undefined ? last : initial;
@@ -1661,7 +1647,7 @@ package com.kemsky
             {
                 //this is error, don't want to trade type safety just for this case
                 //see 'unique' method
-                throw new Error("Stream is not unique");
+                throw new StreamError("Stream is not unique");
             }
             else if(result != source)
             {
@@ -1700,7 +1686,7 @@ package com.kemsky
 
             if(result is Number && result == 0)
             {
-                throw new Error("Stream is not unique");
+                throw new StreamError("Stream is not unique");
             }
             else if(result != source)
             {
@@ -1990,7 +1976,7 @@ package com.kemsky
 
             if(index != index)
             {
-                throw new Error("Incorrect index: " + String(name));
+                throw new StreamError("Incorrect index: " + String(name));
             }
             else
             {
@@ -2016,7 +2002,7 @@ package com.kemsky
 
             if(index != index)
             {
-                throw new Error("Incorrect index: " + String(name));
+                throw new StreamError("Incorrect index: " + String(name));
             }
             else
             {
@@ -2090,7 +2076,7 @@ package com.kemsky
         {
             if(rest.length != 1 || !(rest[0] is Function))
             {
-                throw new Error("Shortcut filter must have exactly one parameter (Function)");
+                throw new StreamError("Shortcut filter must have exactly one parameter (Function)");
             }
 
             var criteria:Function = rest[0] as Function;

@@ -32,28 +32,28 @@ package com.kemsky.support
             _next = index >= stream.length ? -1 : index;
         }
 
-        public function get nextIndex():int
+        private function get nextIndex():int
         {
             return _next;
         }
 
-        public function get position():int
+        public function get index():int
         {
             return _current;
         }
 
-        public function get current():*
+        public function get item():*
         {
-            return stream[_current];
+            return stream.getItem(_current);
         }
 
-        public function start():void
+        public function reset():void
         {
             _next = stream.length ? 0 : -1;
             _current = -1;
         }
 
-        public function stop():void
+        public function end():void
         {
             _next = _current = -1;
         }
@@ -62,29 +62,19 @@ package com.kemsky.support
         {
             if (_current == -1)
             {
-                throw new Error();
+                throw new StreamError();
             }
 
-            if (_current == _next)
-            { // removed after previous()
-                if (_next >= stream.length - 1)
-                {
-                    _next = -1;
-                }
-            }
-            else
-            { // removed after next()
-                if (_next > 0)
-                {
-                    _next--;
-                }
+            if (_next > 0)
+            {
+                _next--;
             }
 
-            removeCurrent();
-            _current = _next;
+            stream.removeItem(_current);
+            _current = -1;
         }
 
-        public function get hasNext():Boolean
+        public function get available():Boolean
         {
             return _next > -1;
         }
@@ -93,68 +83,22 @@ package com.kemsky.support
         {
             if (_next == -1)
             {
-                throw new Error();
+                throw new StreamError("Iterator is finished or empty");
             }
 
             _current = _next;
             _next = _next >= stream.length - 1 ? -1 : _next + 1;
 
-            return stream[_current];
+            return stream.getItem(_current);
         }
 
-        public function set current(value:*):void
+        public function set item(value:*):void
         {
             if (_current == -1 || _current == stream.length)
             {
-                throw new Error();
+                throw new StreamError();
             }
-            stream[_current] = value;
-        }
-
-        public function add(value:*):void
-        {
-            stream.push(value);
-            if(_next == -1)
-            {
-                _next = stream.length - 1;
-            }
-        }
-
-        protected function removeCurrent():void
-        {
-            stream.splice(_current, 1);
-        }
-
-        /**
-         * @private
-         */
-        override flash_proxy function getDescendants(name:*):*
-        {
-            throw new Error("Not allowed: getDescendants");
-        }
-
-        /**
-         * @private
-         */
-        override flash_proxy function getProperty(name:*):*
-        {
-            throw new Error("Not allowed: getProperty");
-        }
-
-        /**
-         * @private
-         */
-        override flash_proxy function setProperty(name:*, value:*):void
-        {
-            throw new Error("Not allowed: setProperty");
-        }
-
-        /**
-         * @private
-         */
-        override flash_proxy function hasProperty(name:*):Boolean
-        {
-            throw new Error("Not allowed: hasProperty");
+            stream.setItem(_current, value);
         }
 
         /**
@@ -162,15 +106,7 @@ package com.kemsky.support
          */
         override flash_proxy function nextNameIndex(index:int):int
         {
-            return hasNext ? nextIndex + 1 : 0;
-        }
-
-        /**
-         * @private
-         */
-        override flash_proxy function nextName(index:int):String
-        {
-            return (nextIndex + 1).toString();
+            return available ? nextIndex + 1 : 0;
         }
 
         /**
@@ -179,22 +115,6 @@ package com.kemsky.support
         override flash_proxy function nextValue(index:int):*
         {
             return next();
-        }
-
-        /**
-         * @private
-         */
-        override flash_proxy function callProperty(name:*, ...rest):*
-        {
-            throw new Error("Not allowed: callProperty");
-        }
-
-        /**
-         * @private
-         */
-        override flash_proxy function deleteProperty(name:*):Boolean
-        {
-            throw new Error("Not allowed: deleteProperty");
         }
     }
 }

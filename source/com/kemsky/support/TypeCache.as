@@ -28,19 +28,6 @@ package com.kemsky.support
 
         private static const classToFullName:Dictionary = new Dictionary(true);
 
-        public function TypeCache()
-        {
-            classToFullName[Number] = NUMBER;
-            classToFullName[String] = STRING;
-            classToFullName[Boolean] = BOOLEAN;
-            classToFullName[Date] = DATE;
-            classToFullName[XML] = XML_TYPE;
-            classToFullName[Class] = CLASS;
-            classToFullName[Array] = ARRAY;
-            classToFullName[XMLList] = XML_LIST;
-            classToFullName[undefined] = UNDEFINED;
-        }
-
         public static function getQualifiedClassName(object:*):String
         {
             if(!(object is Class || object is XML) && object != null)

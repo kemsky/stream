@@ -6,27 +6,22 @@
 
 package com.kemsky
 {
-    /**
-     * @private
-     */
     public interface Iterator
     {
-        function get position():int;
+        function get index():int;
 
-        function get current():*;
+        function get item():*;
 
-        function set current(value:*):void;
-
-        function add(value:*):void;
+        function set item(value:*):void;
 
         function remove():void;
 
-        function get hasNext():Boolean;
+        function get available():Boolean;
 
         function next():*;
 
-        function start():void;
+        function reset():void;
 
-        function stop():void;
+        function end():void;
     }
 }
