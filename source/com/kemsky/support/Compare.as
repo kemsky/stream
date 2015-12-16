@@ -91,7 +91,7 @@ package com.kemsky.support
                             }
                             else
                             {
-                                throw new Error("Sort is not supported: " + typeOfA);
+                                throw new StreamError("Sort is not supported: " + typeOfA);
                             }
                         }
                     }

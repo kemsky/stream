@@ -6,6 +6,8 @@
 
 package com.kemsky.filters
 {
+    import com.kemsky.support.StreamError;
+
     /**
      * Creates function that extracts named property from value
      * @param name name of the property or method (nested properties are supported: 'prop.prop1.prop2')
@@ -74,6 +76,6 @@ package com.kemsky.filters
                 };
         }
 
-        throw new Error("Property is too deep: '" + name + "', maximum nesting is 5");
+        throw new StreamError("Property is too deep: '" + name + "', maximum nesting is 5");
     }
 }

@@ -8,6 +8,7 @@ package com.kemsky.filters
 {
     import com.kemsky.$;
     import com.kemsky.Stream;
+    import com.kemsky.support.StreamError;
     import com.kemsky.support.toValue;
 
     /**
@@ -22,7 +23,7 @@ package com.kemsky.filters
 
         if (values.length == 0)
         {
-            throw new Error("Function 'either' must have two or more arguments");
+            throw new StreamError("Function 'either' must have two or more arguments");
         }
 
         return function (item:*):Boolean
