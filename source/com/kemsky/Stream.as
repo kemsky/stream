@@ -76,7 +76,6 @@ package com.kemsky
          *     var s:Stream = new Stream();
          *     var s:Stream = new Stream([1, 2, 3]);
          * </pre>
-         * @internal mutable
          */
         public function Stream(source:Array = null)
         {
@@ -96,6 +95,7 @@ package com.kemsky
          * Creates iterator over items
          * @return iterator
          * @see Iterator
+         * @internal immutable
          */
         public function values():Iterator
         {
