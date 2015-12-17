@@ -12,7 +12,9 @@ package com.kemsky.support
     public class StreamError extends Error
     {
         /**
-         * @inheritDoc
+         * Constructor.
+         * @param message error description.
+         * @param errorID error number.
          */
         public function StreamError(message:String = null, errorID:int = 0)
         {
