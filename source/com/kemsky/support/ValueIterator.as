@@ -128,7 +128,7 @@ package com.kemsky.support
             {
                 throw new StreamError("Current item is not available");
             }
-            stream.setItem(_current, value);
+            stream.setItem(value, _current);
         }
 
         /**

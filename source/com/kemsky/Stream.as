@@ -445,7 +445,14 @@ package com.kemsky
          */
         public function getItem(index:int):*
         {
-            return source[index];
+            if(index >= 0)
+            {
+                return source[index];
+            }
+            else
+            {
+                return source[source.length + index];
+            }
         }
 
         /**
@@ -455,38 +462,57 @@ package com.kemsky
          * @example
          * <pre>
          *     var s:Stream = $(1, 2, 3);
-         *     s.setItem(1, 4);
+         *     s.setItem(4, 1);
          *     trace(s);
          *     //Stream{1, 4, 3}
          * </pre>
          * @internal mutable
          */
-        public function setItem(index:int, value:*):void
+        public function setItem(value:*, index:int):void
         {
-            source[index] = value;
+            if(index >= 0)
+            {
+                source[index] = value;
+            }
+            else
+            {
+                source[source.length + index] = value;
+            }
         }
 
         /**
          * Adds item to specified position.
          * @param index An integer that specifies the position in the list where the item is to be added to.
-         * @param value An item to add.
+         * @param value An item to add. Item will be added to the end of stream by default.
          * @example
          * <pre>
          *     var s:Stream = $(1, 2, 3);
-         *     s.addItem(1, 4);
+         *     s.addItem(4, 1);
          *     trace(s);
          *     //Stream{1, 4, 2, 3}
          * </pre>
          * @internal mutable
          */
-        public function addItem(index:int, value:*):void
+        public function addItem(value:*, index:int = 0):void
         {
-            if(index <= source.length)
+            if(arguments.length == 1)
             {
+                index = source.length;
+            }
+
+            if(index < 0)
+            {
+                index = source.length + index;
+            }
+
+            if(index < source.length)
+            {
+                //insert
                 source.splice(index, 0, value);
             }
             else
             {
+                //push
                 source[index] = value;
             }
         }
@@ -494,6 +520,7 @@ package com.kemsky
         /**
          * Removes item at specified position.
          * @param index An integer that specifies the position in the list.
+         * @return true if remove was successful.
          * @example
          * <pre>
          *     var s:Stream = $(1, 2, 3);
@@ -503,9 +530,16 @@ package com.kemsky
          * </pre>
          * @internal mutable
          */
-        public function removeItem(index:int):void
+        public function removeItem(index:int):Boolean
         {
-            delete this[index];
+            if(index < 0)
+            {
+                return (source.splice(source.length + index, 1) as Array).length > 0;
+            }
+            else
+            {
+                return (source.splice(index, 1) as Array).length > 0;
+            }
         }
 
         /**
@@ -2007,14 +2041,7 @@ package com.kemsky
             }
             else
             {
-                if(index < 0)
-                {
-                    source[index] = value;
-                }
-                else
-                {
-                    source[source.length + index] = value;
-                }
+                setItem(value, index);
             }
         }
 
@@ -2109,14 +2136,7 @@ package com.kemsky
                 return false;
             }
 
-            if(index < 0)
-            {
-                return (source.splice(source.length + index, 1) as Array).length > 0;
-            }
-            else
-            {
-                return (source.splice(index, 1) as Array).length > 0;
-            }
+            return removeItem(index);
         }
 
         /**

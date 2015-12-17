@@ -73,7 +73,7 @@ while (values.hasNext)
 }
 
 //set item at index 0
-s.setItem(0, 5);
+s.setItem(5, 0);
 s[0] = 5;
 s.first = 5;
 //last item also has index -1, item before last -2 and etc. (Ruby-like)
@@ -84,7 +84,7 @@ delete s[0];
 s.removeItem(0);
 ```
 *Stream is about 10x slower when accessed by index (`[index]`) and it seems to be Proxy overhead.
-If you need better performance (3x slower than Array) use methods to access Stream items: `getItem(index)` and `setItem(index, value)`.*
+If you need better performance (3x slower than Array) use methods to access Stream items: `getItem(index)` and `setItem(value, index)`.*
 
 ## Convert Stream to any collection
 ```as3
