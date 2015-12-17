@@ -93,7 +93,7 @@ package com.kemsky
 
 
         /**
-         * Creates iterator over items
+         * Creates iterator over this stream.
          * @return iterator
          * @see Iterator
          * @internal immutable
