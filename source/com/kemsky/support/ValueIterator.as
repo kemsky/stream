@@ -25,11 +25,14 @@ package com.kemsky.support
 
         protected var _current:int = -1;
 
-        public function ValueIterator(array:Stream, index:uint = 0)
+        /**
+         * Constructor.
+         * @param stream underlying stream.
+         */
+        public function ValueIterator(stream:Stream)
         {
-            stream = array;
-
-            _next = index >= stream.length ? -1 : index;
+            this.stream = stream;
+            _next = this.stream.length == 0 ? -1 : 0;
         }
 
         /**
