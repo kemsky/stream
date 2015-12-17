@@ -52,6 +52,6 @@ package com.kemsky
         /**
          * Stop iterator.
          */
-        function end():void;
+        function stop():void;
     }
 }

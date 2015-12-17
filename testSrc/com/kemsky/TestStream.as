@@ -147,7 +147,7 @@ package com.kemsky
             assertEquals(values.index, -1);
             assertEquals(values.hasNext, true);
 
-            values.end();
+            values.stop();
             assertEquals(values.index, -1);
             assertEquals(values.hasNext, false);
 

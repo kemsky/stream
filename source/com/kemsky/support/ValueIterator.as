@@ -71,7 +71,7 @@ package com.kemsky.support
         /**
          * @inheritDoc
          */
-        public function end():void
+        public function stop():void
         {
             _next = _current = -1;
         }
