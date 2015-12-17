@@ -493,7 +493,7 @@ package com.kemsky
          * </pre>
          * @internal mutable
          */
-        public function addItem(value:*, index:int = 0):void
+        public function addItem(value:*, index:int = NaN):void
         {
             if(arguments.length == 1)
             {
