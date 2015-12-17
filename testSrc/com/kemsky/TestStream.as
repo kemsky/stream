@@ -385,10 +385,11 @@ package com.kemsky
         public function testSet():void
         {
             var s:Stream = $(1, 2, 3);
-            s.setItem(1, 2);
             s.setItem(3, 0);
+            s.setItem(4, -2);
+            s.setItem(1, 2);
             assertEquals(s[0], 3);
-            assertEquals(s[1], 2);
+            assertEquals(s[1], 4);
             assertEquals(s[2], 1);
         }
 
@@ -420,6 +421,10 @@ package com.kemsky
             e.addItem(4);
             assertEquals(e.length, 2);
             assertEquals(e.second, 4);
+
+            e.addItem(5, -2);
+            assertEquals(e.length, 3);
+            assertEquals(e.first, 5);
         }
 
         [Test]
@@ -429,6 +434,7 @@ package com.kemsky
             assertEquals(s.getItem(0), 1);
             assertEquals(s.getItem(1), 2);
             assertEquals(s.getItem(2), 3);
+            assertEquals(s.getItem(-3), 1);
 
             assertTrue(s.getItem(3) === undefined);
         }
@@ -442,6 +448,12 @@ package com.kemsky
             s.removeItem(1);
             assertEquals(s.length, 1);
             assertEquals(s[0], 2);
+
+            var result:Boolean = s.removeItem(-1);
+            assertEquals(s.length, 0);
+            assertEquals(result, true);
+
+            assertEquals(s.removeItem(0), false);
         }
 
         [Test]
