@@ -62,8 +62,8 @@ for (var i:int = 0; i < s.length; i++)
 //prints 1, 2, 3
 
 //iterator
-var values:Iterator = s.values();
-while (values.available)
+var values:Iterator = s.iterator();
+while (values.hasNext)
 {
    var n:Number = values.next();
    //values.item;

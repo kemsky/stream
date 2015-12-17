@@ -6,8 +6,14 @@
 
 package com.kemsky.support
 {
+    /**
+     * Stream error class
+     */
     public class StreamError extends Error
     {
+        /**
+         * @inheritDoc
+         */
         public function StreamError(message:String = null, errorID:int = 0)
         {
             super(message, errorID);

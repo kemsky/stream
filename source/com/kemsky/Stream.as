@@ -88,6 +88,7 @@ package com.kemsky
          */
         public function initialized(document:Object, id:String):void
         {
+            //do nothing
         }
 
 
@@ -97,7 +98,7 @@ package com.kemsky
          * @see Iterator
          * @internal immutable
          */
-        public function values():Iterator
+        public function iterator():Iterator
         {
             return new ValueIterator(this);
         }

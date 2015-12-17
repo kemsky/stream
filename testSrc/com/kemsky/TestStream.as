@@ -135,7 +135,7 @@ package com.kemsky
         public function testValues():void
         {
             var s:Stream = $(1, 2, 3);
-            var values:Iterator = s.values();
+            var values:Iterator = s.iterator();
 
             var count:int = 1;
             for each (var item:Number in values)
@@ -145,11 +145,11 @@ package com.kemsky
 
             values.reset();
             assertEquals(values.index, -1);
-            assertEquals(values.available, true);
+            assertEquals(values.hasNext, true);
 
             values.end();
             assertEquals(values.index, -1);
-            assertEquals(values.available, false);
+            assertEquals(values.hasNext, false);
 
             try
             {
@@ -177,7 +177,7 @@ package com.kemsky
 
             values.reset();
             var position:int = 0;
-            while (values.available)
+            while (values.hasNext)
             {
                 var n:Number = values.next();
                 assertEquals(n, position + 1);
@@ -188,7 +188,7 @@ package com.kemsky
 
             values.reset();
             assertEquals(values.index, -1);
-            assertEquals(values.available, true);
+            assertEquals(values.hasNext, true);
 
 
             values.reset();
