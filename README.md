@@ -71,6 +71,15 @@ while (values.hasNext)
    //values.remove();
    //values.end();
 }
+//or use standard for each loop
+for each (var item:Number in values)
+{
+   //values.item;
+   //values.index;
+   //values.remove();
+   //values.end();
+}
+
 
 //set item at index 0
 s.setItem(5, 0);
