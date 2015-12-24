@@ -27,6 +27,9 @@ package com.kemsky.filters
             assertEquals(result.length, 1);
             assertEquals(result.first, item1);
 
+            result = s.filter(eq(invoke(["equals"], item1), true));
+            assertEquals(result.length, 1);
+            assertEquals(result.first, item1);
 
             var obj:Item = new Item("p0");
             obj.item = new Item("p1");
@@ -77,6 +80,23 @@ package com.kemsky.filters
             }
             catch(e:Error){}
 
+            try
+            {
+                invoke(null);
+                assertTrue(false);
+            }
+            catch (e:Error)
+            {
+            }
+
+            try
+            {
+                invoke([1]);
+                assertTrue(false);
+            }
+            catch (e:Error)
+            {
+            }
         }
 
 
@@ -241,7 +261,7 @@ package com.kemsky.filters
 
 
         [Test]
-        public function testProperty():void
+        public function testMember():void
         {
             var item1:Item = new Item("1", 1, 2);
             var item2:Item = new Item("2", 2, 0);
@@ -249,6 +269,10 @@ package com.kemsky.filters
             var s:Stream = $(item1, item2);
 
             var result:Stream = s.filter(gt(member("price"), 1));
+            assertEquals(result.length, 1);
+            assertEquals(result.first, item2);
+
+            result = s.filter(gt(member(["price"]), 1));
             assertEquals(result.length, 1);
             assertEquals(result.first, item2);
 
@@ -339,6 +363,24 @@ package com.kemsky.filters
             try
             {
                 s.random();
+                assertFalse(true);
+            }
+            catch (e:Error)
+            {
+            }
+
+            try
+            {
+                member(null);
+                assertFalse(true);
+            }
+            catch (e:Error)
+            {
+            }
+
+            try
+            {
+                member([1]);
                 assertFalse(true);
             }
             catch (e:Error)

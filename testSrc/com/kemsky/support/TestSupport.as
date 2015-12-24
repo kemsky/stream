@@ -20,11 +20,11 @@ package com.kemsky.support
         [Test]
         public function testCombine():void
         {
-            var lower:Function = function(value:String):String
+            var lower:Function = function (value:String):String
             {
                 return value.toLowerCase();
             };
-            var first:Function = function(value:String):String
+            var first:Function = function (value:String):String
             {
                 return value.charAt(0);
             };
@@ -49,29 +49,29 @@ package com.kemsky.support
             var xl:XMLList = <t href="5">test</t>.@href;
             var item:Item = new Item();
 
-            assertEquals(TypeCache.getQualifiedClassName(n), TypeCache.NUMBER);
-            assertEquals(TypeCache.getQualifiedClassName(s), TypeCache.STRING);
-            assertEquals(TypeCache.getQualifiedClassName(a), TypeCache.ARRAY);
-            assertEquals(TypeCache.getQualifiedClassName(b), TypeCache.BOOLEAN);
-            assertEquals(TypeCache.getQualifiedClassName(cls), "Item");
-            assertEquals(TypeCache.getQualifiedClassName(Class), TypeCache.CLASS);
-            assertEquals(TypeCache.getQualifiedClassName(d), TypeCache.DATE);
-            assertEquals(TypeCache.getQualifiedClassName(x), TypeCache.XML_TYPE);
-            assertEquals(TypeCache.getQualifiedClassName(xl), TypeCache.XML_LIST);
-            assertEquals(TypeCache.getQualifiedClassName(undefined), TypeCache.UNDEFINED);
-            assertEquals(TypeCache.getQualifiedClassName(item), "Item");
+            assertEquals(Compare.getClassName(n), Compare.NUMBER);
+            assertEquals(Compare.getClassName(s), Compare.STRING);
+            assertEquals(Compare.getClassName(a), Compare.ARRAY);
+            assertEquals(Compare.getClassName(b), Compare.BOOLEAN);
+            assertEquals(Compare.getClassName(cls), "Item");
+            assertEquals(Compare.getClassName(Class), Compare.CLASS);
+            assertEquals(Compare.getClassName(d), Compare.DATE);
+            assertEquals(Compare.getClassName(x), Compare.XML_TYPE);
+            assertEquals(Compare.getClassName(xl), Compare.XML_LIST);
+            assertEquals(Compare.getClassName(undefined), Compare.UNDEFINED);
+            assertEquals(Compare.getClassName(item), "Item");
 
-            assertEquals(TypeCache.getQualifiedClassName(n), getQualifiedClassName(n));
-            assertEquals(TypeCache.getQualifiedClassName(s), getQualifiedClassName(s));
-            assertEquals(TypeCache.getQualifiedClassName(a), getQualifiedClassName(a));
-            assertEquals(TypeCache.getQualifiedClassName(b), getQualifiedClassName(b));
-            assertEquals(TypeCache.getQualifiedClassName(cls), getQualifiedClassName(cls));
-            assertEquals(TypeCache.getQualifiedClassName(Class), getQualifiedClassName(Class));
-            assertEquals(TypeCache.getQualifiedClassName(d), getQualifiedClassName(d));
-            assertEquals(TypeCache.getQualifiedClassName(x), getQualifiedClassName(x));
-            assertEquals(TypeCache.getQualifiedClassName(xl), getQualifiedClassName(xl));
-            assertEquals(TypeCache.getQualifiedClassName(item), getQualifiedClassName(item));
-            assertEquals(TypeCache.getQualifiedClassName(undefined), getQualifiedClassName(undefined));
+            assertEquals(Compare.getClassName(n), getQualifiedClassName(n));
+            assertEquals(Compare.getClassName(s), getQualifiedClassName(s));
+            assertEquals(Compare.getClassName(a), getQualifiedClassName(a));
+            assertEquals(Compare.getClassName(b), getQualifiedClassName(b));
+            assertEquals(Compare.getClassName(cls), getQualifiedClassName(cls));
+            assertEquals(Compare.getClassName(Class), getQualifiedClassName(Class));
+            assertEquals(Compare.getClassName(d), getQualifiedClassName(d));
+            assertEquals(Compare.getClassName(x), getQualifiedClassName(x));
+            assertEquals(Compare.getClassName(xl), getQualifiedClassName(xl));
+            assertEquals(Compare.getClassName(item), getQualifiedClassName(item));
+            assertEquals(Compare.getClassName(undefined), getQualifiedClassName(undefined));
         }
 
         [Test]
@@ -91,7 +91,7 @@ package com.kemsky.support
             assertTrue(toValue(date, undefined) === undefined);
             assertTrue(toValue(null, undefined) === undefined);
 
-            var f:Function = function(value:*):*
+            var f:Function = function (value:*):*
             {
                 return value;
             };
