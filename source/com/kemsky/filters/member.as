@@ -6,6 +6,7 @@
 
 package com.kemsky.filters
 {
+    import com.kemsky.Stream;
     import com.kemsky.support.StreamError;
 
     /**
@@ -13,9 +14,30 @@ package com.kemsky.filters
      * @param name name of the property or method (nested properties are supported: 'prop.prop1.prop2')
      * @return function function that extracts named property or method from value
      */
-    public function member(name:String):Function
+    public function member(name:*):Function
     {
-        var path:Array = name.split(".");
+        if(name == null || name === undefined)
+        {
+            throw new StreamError("Parameter 'name' must be not null");
+        }
+
+        var path:Array = null;
+
+        if(name is String)
+        {
+            path = name.split(".");
+        }
+        else
+        {
+            var members:Stream = Stream.from(name);
+
+            if(!members.every(type(_, String)))
+            {
+                throw new StreamError("Parameter 'name' must contain only String items");
+            }
+
+            path = members.array();
+        }
 
         var p1:String = path.length > 0 ? path[0]: undefined;
         var p2:String = path.length > 1 ? path[1]: undefined;
