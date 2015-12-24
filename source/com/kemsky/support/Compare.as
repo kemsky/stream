@@ -67,37 +67,21 @@ package com.kemsky.support
                     switch (typeOfA)
                     {
                         case BOOLEAN:
-                        {
                             result = compareNumber(Number(a), Number(b));
                             break;
-                        }
-
-
                         case NUMBER:
-                        {
                             result = compareNumber(a as Number, b as Number);
                             break;
-                        }
-
                         case STRING:
-                        {
                             result = compareString(a as String, b as String, caseInsensitive);
                             break;
-                        }
-
                         case DATE:
-                        {
                             result = compareDate(a as Date, b as Date);
                             break;
-                        }
-
                         case XML_TYPE:
-                        {
                             result = compareXML(a as XML, b as XML, numeric, caseInsensitive);
                             break;
-                        }
                         default:
-                        {
                             if (equals)
                             {
                                 result = a == b ? 0 : -1;
@@ -106,10 +90,9 @@ package com.kemsky.support
                             {
                                 throw new StreamError("Sort is not supported: " + typeOfA);
                             }
-                        }
                     }
                 }
-                else // be consistent with the order we return here
+                else
                 {
                     result = compareString(typeOfA, typeOfB, caseInsensitive);
                 }
@@ -208,17 +191,17 @@ package com.kemsky.support
          */
         public static function compareNumber(fa:Number, fb:Number):int
         {
-            if ((!(fa <= 0) && !(fa > 0)) && (!(fb <= 0) && !(fb > 0)))
+            if ((fa != fa) && (fb != fb))
             {
                 return 0;
             }
 
-            if (!(fa <= 0) && !(fa > 0))
+            if (fa != fa)
             {
                 return -1;
             }
 
-            if (!(fb <= 0) && !(fb > 0))
+            if (fb != fb)
             {
                 return 1;
             }
