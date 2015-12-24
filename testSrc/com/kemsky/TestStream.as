@@ -4,8 +4,6 @@ package com.kemsky
     import com.kemsky.filters.eq;
     import com.kemsky.filters.gt;
     import com.kemsky.filters.member;
-    import com.kemsky.support.ValueIterator;
-
     import flash.utils.ByteArray;
     import flash.utils.Dictionary;
 
@@ -944,12 +942,14 @@ package com.kemsky
         {
             var empty:Stream = $();
             assertEquals(empty.empty, true);
+            assertEquals(empty.nonEmpty, false);
             assertEquals(empty.length, 0);
 
             var original:Array = [1, 2, 3];
 
             var array:Stream = $([1, 2, 3]);
             assertEquals(array.empty, false);
+            assertEquals(array.nonEmpty, true);
             assertEquals(array.length, 3);
             assertEquals(array.first, 1);
             assertEquals(array[0], 1);
@@ -960,6 +960,7 @@ package com.kemsky
 
             var collection:Stream = $(new ArrayCollection([1, 2, 3]));
             assertEquals(collection.empty, false);
+            assertEquals(collection.nonEmpty, true);
             assertEquals(collection.length, 3);
             assertEquals(collection.first, 1);
             assertEquals(collection[0], 1);
@@ -970,6 +971,7 @@ package com.kemsky
 
             var args:Stream = $(1, 2, 3);
             assertEquals(args.empty, false);
+            assertEquals(args.nonEmpty, true);
             assertEquals(args.length, 3);
             assertEquals(args.first, 1);
             assertEquals(args[0], 1);
@@ -980,6 +982,7 @@ package com.kemsky
 
             var single:Stream = $("item");
             assertEquals(single.empty, false);
+            assertEquals(single.nonEmpty, true);
             assertEquals(single.length, 1);
             assertEquals(single[0], "item");
             assertEquals(single.first, "item");
@@ -988,6 +991,8 @@ package com.kemsky
 
             var vector:Vector.<Number> = new <Number>[1, 2, 3];
             var v:Stream = $(vector);
+            assertEquals(v.empty, false);
+            assertEquals(v.nonEmpty, true);
             assertEquals(v.length, 3);
             assertEquals(v[0], 1);
             assertEquals(v[1], 2);
@@ -998,6 +1003,8 @@ package com.kemsky
 
 
             var x:Stream = $(list);
+            assertEquals(x.empty, false);
+            assertEquals(x.nonEmpty, true);
             assertEquals(x.length, 2);
             assertEquals(x.first.name(), "book");
             assertEquals(x.first.pageCount, "238");
@@ -1005,6 +1012,8 @@ package com.kemsky
             assertEquals(x.second.pageCount, "115");
 
             var xm:Stream = $(xml);
+            assertEquals(xm.empty, false);
+            assertEquals(xm.nonEmpty, true);
             assertEquals(xm.length, 2);
             assertEquals(xm.first.name(), "book");
             assertEquals(xm.first.pageCount, "238");

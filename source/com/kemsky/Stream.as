@@ -624,6 +624,21 @@ package com.kemsky
         }
 
         /**
+         * Returns a Boolean value of true if Stream contains at least one item; otherwise false.
+         * @example
+         * <pre>
+         *     var s:Stream = $();
+         *     trace(s.nonEmpty);
+         *     //false
+         * </pre>
+         * @internal immutable
+         */
+        public function get nonEmpty():Boolean
+        {
+            return length > 0;
+        }
+
+        /**
          * Creates a new list that contains items starting from count index.
          * @param count A number of items to skip
          * @return A new list that contains items starting from count index.
