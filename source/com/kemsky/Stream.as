@@ -100,7 +100,7 @@ package com.kemsky
          */
         public function iterator():Iterator
         {
-            return new ValueIterator(this);
+            return new Iterator(this);
         }
 
         /**
