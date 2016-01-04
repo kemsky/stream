@@ -14,7 +14,7 @@ package com.kemsky
     use namespace flash_proxy;
 
     /**
-     * @private
+     * An iterator over a stream.
      */
     public class Iterator extends Proxy
     {
@@ -35,23 +35,20 @@ package com.kemsky
         }
 
         /**
-         * @private
+         * Current item index.
          */
         private function get nextIndex():int
         {
             return _next;
         }
 
-        /**
-         * @inheritDoc
-         */
         public function get index():int
         {
             return _current;
         }
 
         /**
-         * @inheritDoc
+         * Current item.
          */
         public function get item():*
         {
@@ -59,7 +56,7 @@ package com.kemsky
         }
 
         /**
-         * @inheritDoc
+         * Restart iterator.
          */
         public function reset():void
         {
@@ -68,7 +65,7 @@ package com.kemsky
         }
 
         /**
-         * @inheritDoc
+         * Stop iterator.
          */
         public function stop():void
         {
@@ -76,7 +73,8 @@ package com.kemsky
         }
 
         /**
-         * @inheritDoc
+         * Removes from the underlying stream the last item returned
+         * by this iterator.
          */
         public function remove():void
         {
@@ -95,7 +93,7 @@ package com.kemsky
         }
 
         /**
-         * @inheritDoc
+         * Returns true if iteration has more items.
          */
         public function get hasNext():Boolean
         {
@@ -103,7 +101,8 @@ package com.kemsky
         }
 
         /**
-         * @inheritDoc
+         * Returns the next item in the iteration.
+         * @return next item
          */
         public function next():*
         {
@@ -119,7 +118,8 @@ package com.kemsky
         }
 
         /**
-         * @inheritDoc
+         * Set current item.
+         * @param value new item
          */
         public function set item(value:*):void
         {
