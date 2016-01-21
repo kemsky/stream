@@ -1324,7 +1324,7 @@ package com.kemsky
 
         /**
          * Groups items by key obtained via callback.
-         * @param callback The function to calculate key from item: function(item:*):*
+         * @param key The function to calculate key from item: function(item:*):*
          * @param factory Class to be instantiated and returned instead of Dictionary.
          * @return A new Dictionary or custom class created from <i>factory</i> which contains groups.
          * @example
@@ -1347,17 +1347,17 @@ package com.kemsky
          * </pre>
          * @internal immutable
          */
-        public function group(callback:Function, factory:Class = null):*
+        public function group(key:Function, factory:Class = null):*
         {
             var dict:* = factory == null ? new Dictionary() : new factory();
             for each (var item:* in source)
             {
-                var key:* = callback(item);
-                var s:Stream = dict[key];
+                var name:* = key(item);
+                var s:Stream = dict[name];
                 if(s == null)
                 {
                     s = new Stream();
-                    dict[key] = s;
+                    dict[name] = s;
                 }
                 s.push(item);
             }
