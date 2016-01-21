@@ -1323,6 +1323,43 @@ package com.kemsky
         }
 
         /**
+         * Creates new Object from the current list using specified property as keys
+         * @param property callback to map item to object property name
+         * @param value callback to map item to property value
+         * @return A new Object from current Stream using specified property as keys
+         * @example
+         * <pre>
+         *     var item1:Object = {id: 1, key: "key1"};
+         *     var item2:Object = {id: 2, key: "key1"};
+         *     var item3:Object = {id: 3, key: "key2"};
+         *     var s:Stream = $(item1, item2, item3);
+         *     var d:Object = s.object(member("key"));
+         *     trace(d["key1"]);
+         *     //Stream{item1, item2}
+         *     trace(d["key2"]);
+         *     //Stream{item3}
+         * </pre>
+         * @internal immutable
+         */
+        public function object(property:Function, value:Function = null):Object
+        {
+            var dict:Object = {};
+
+            if(value == null)
+            {
+                value = _;
+            }
+
+            for each (var item:* in source)
+            {
+                var key:* = property(item);
+                dict[key] = value(item);
+            }
+
+            return dict;
+        }
+
+        /**
          * Groups items by key obtained via callback.
          * @param key The function to calculate key from item: function(item:*):*
          * @param factory Class to be instantiated and returned instead of Dictionary.
@@ -1365,40 +1402,40 @@ package com.kemsky
         }
 
         /**
-         * Creates new Object from the current list using specified property as keys
-         * @param property callback to map item to object property name
-         * @param value callback to map item to property value
-         * @return A new Object from current Stream using specified property as keys
+         * Groups items by key obtained via callback.
+         * @param key The function to calculate key from item: function(item:*):*
+         * @return A new Stream which contains groups.
          * @example
          * <pre>
          *     var item1:Object = {id: 1, key: "key1"};
          *     var item2:Object = {id: 2, key: "key1"};
          *     var item3:Object = {id: 3, key: "key2"};
          *     var s:Stream = $(item1, item2, item3);
-         *     var d:Object = s.object(member("key"));
-         *     trace(d["key1"]);
+         *     var d:Stream = s.groupBy("key");
+         *     trace(d.first);
          *     //Stream{item1, item2}
-         *     trace(d["key2"]);
+         *     trace(d.second);
          *     //Stream{item3}
          * </pre>
          * @internal immutable
          */
-        public function object(property:Function, value:Function = null):Object
+        public function groupBy(key:Function):Stream
         {
-            var dict:Object = {};
-
-            if(value == null)
-            {
-                value = _;
-            }
-
+            var result:Stream = new Stream();
+            var dict:Dictionary = new Dictionary();
             for each (var item:* in source)
             {
-                var key:* = property(item);
-                dict[key] = value(item);
+                var name:* = key(item);
+                var s:Stream = dict[name];
+                if(s == null)
+                {
+                    s = new Stream();
+                    dict[name] = s;
+                    result.push(s);
+                }
+                s.push(item);
             }
-
-            return dict;
+            return result;
         }
 
         /**
