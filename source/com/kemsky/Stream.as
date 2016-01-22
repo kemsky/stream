@@ -1711,7 +1711,7 @@ package com.kemsky
          * Sorts the elements in a list. This method sorts according to Unicode values. (ASCII is a subset of Unicode.)
          * @param options flag that determines the behavior of the sort.
          * @param callback specifies a comparison function.
-         * @return The return value depends on whether you pass any arguments.
+         * @return sorted Stream.
          * @see com.kemsky.Stream#CASEINSENSITIVE
          * @see com.kemsky.Stream#NUMERIC
          * @see com.kemsky.Stream#DESCENDING
@@ -1751,7 +1751,7 @@ package com.kemsky
          *              the second represents the secondary sort field, and so on.
          * @param options One or more numbers or names of defined constants, separated
          *                by the bitwise OR (|) operator, that change the sorting behavior.
-         * @return The return value depends on whether you pass any parameters.
+         * @return sorted Stream.
          * @see com.kemsky.Stream#CASEINSENSITIVE
          * @see com.kemsky.Stream#NUMERIC
          * @see com.kemsky.Stream#DESCENDING
@@ -1767,7 +1767,7 @@ package com.kemsky
          * </pre>
          * @internal mutable
          */
-        public function sortOn(names:Object, options:Object = null):*
+        public function sortOn(names:Object, options:Object = null):Stream
         {
             var result:* = source.sortOn.apply(null, [names, options]);
 
