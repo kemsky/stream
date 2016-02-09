@@ -53,6 +53,10 @@ package com.kemsky.support
             {
                 result = 1;
             }
+            else if(a === b)
+            {
+                result = 0;
+            }
             else
             {
                 var numeric:Boolean = (options & Stream.NUMERIC) == Stream.NUMERIC;
@@ -124,6 +128,10 @@ package com.kemsky.support
             else if (object === undefined)
             {
                 return UNDEFINED;
+            }
+            else if (object is Stream)
+            {
+                cls = Stream;
             }
             else if (object != null)
             {

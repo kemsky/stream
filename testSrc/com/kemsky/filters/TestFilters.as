@@ -5,6 +5,8 @@ package com.kemsky.filters
 
     import flash.utils.Dictionary;
 
+    import mx.collections.ArrayCollection;
+
     import org.flexunit.asserts.assertEquals;
     import org.flexunit.asserts.assertFalse;
     import org.flexunit.asserts.assertTrue;
@@ -415,14 +417,14 @@ package com.kemsky.filters
         public function testEither():void
         {
             var s:Stream = $(1, 2, 3);
-            assertEquals(s.count(either(_, 1, 2)), 2);
-
             assertEquals(s.count(either(_, [1, 2])), 2);
-            assertEquals(s.count(either(_, [4])), 0);
+            assertEquals(s.count(either(_, [1, 2])), 2);
+            assertEquals(s.count(either(_, $(4))), 0);
+            assertEquals(s.count(either(_, new ArrayCollection([4]))), 0);
 
             try
             {
-                s.count(either(_));
+                s.count(either(_, []));
                 assertFalse(true);
             }
             catch (e:Error)
