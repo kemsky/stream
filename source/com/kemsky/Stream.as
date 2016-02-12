@@ -104,10 +104,63 @@ package com.kemsky
         }
 
         /**
+         * Extracts sub stream from current stream.
+         * @param start index
+         * @param length size
+         * @return new sub stream
+         * @example
+         * <pre>
+         *     var s:Stream = new Stream([1, 2, 3]);
+         *     var sub:Stream = s.substream(1, 2);
+         *     trace(sub);
+         *     //Stream{2, 3}
+         * </pre>
+         * @internal immutable
+         */
+        public function substream(start:int = 0, length:uint = 0):Stream
+        {
+            var from:int;
+            if(start < 0)
+            {
+                from = source.length + start;
+            }
+            else
+            {
+                from = start;
+            }
+
+            if(from < 0 || from >= source.length)
+            {
+                throw new StreamError("Start index is greater than stream length: " + from);
+            }
+
+            var to:uint = from + (length == 0 ? source.length - from : length);
+            if(to > source.length)
+            {
+                throw new StreamError("Last index is greater than stream length: " + to);
+            }
+
+            var result:Array = [];
+            var index:uint = 0;
+            for(var i:uint = from; i < to; i++)
+            {
+                result[index++] = source[i];
+            }
+            return new Stream(result);
+        }
+
+        /**
          * Finds item which has maximum value (or callback(item) has maximum value)
          * @param callback an optional function to apply to each item
          * @param defaultValue value returned in case stream is empty
          * @return item with maximum value
+         * @example
+         * <pre>
+         *     var s:Stream = new Stream([1, 2, 3]);
+         *     var n:Number = s.max();
+         *     trace(n);
+         *     //3
+         * </pre>
          * @internal immutable
          */
         public function max(callback:Function = null, defaultValue:* = undefined):*
@@ -150,6 +203,13 @@ package com.kemsky
          * @param callback an optional function to apply to each item
          * @param defaultValue value returned in case stream is empty
          * @return item with minimum value
+         * @example
+         * <pre>
+         *     var s:Stream = new Stream([1, 2, 3]);
+         *     var n:Number = s.min();
+         *     trace(n);
+         *     //1
+         * </pre>
          * @internal immutable
          */
         public function min(callback:Function = null, defaultValue:* = undefined):*

@@ -41,6 +41,56 @@ package com.kemsky
 
 
         [Test]
+        public function testSubstream():void
+        {
+            var s:Stream = new Stream([1, 2, 3]);
+
+            var full:Stream = s.substream();
+            assertEquals(full.length, s.length);
+            assertEquals(full.first, s.first);
+            assertEquals(full.second, s.second);
+            assertEquals(full.third, s.third);
+
+            var f:Stream = s.substream(0, 1);
+            assertEquals(f.length, 1);
+            assertEquals(f.first, s.first);
+
+            var l:Stream = s.substream(2, 1);
+            assertEquals(l.length, 1);
+            assertEquals(l.first, s.third);
+
+            var rev:Stream = s.substream(-3);
+            assertEquals(rev.length, s.length);
+            assertEquals(rev.first, s.first);
+            assertEquals(rev.second, s.second);
+            assertEquals(rev.third, s.third);
+
+            try
+            {
+                s.substream(4, 1);
+                assertTrue(false);
+            } catch(e:Error)
+            {
+            }
+
+            try
+            {
+                s.substream(0, 100);
+                assertTrue(false);
+            } catch(e:Error)
+            {
+            }
+
+            try
+            {
+                s.substream(-4, 1);
+                assertTrue(false);
+            } catch(e:Error)
+            {
+            }
+        }
+
+        [Test]
         public function testMXML():void
         {
             var s:Stream = new Stream();
