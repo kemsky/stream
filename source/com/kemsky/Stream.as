@@ -182,12 +182,15 @@ package com.kemsky
                 callback = _;
             }
 
-            var max:* = first;
-            var maxValue:Number = callback(first);
+            callback = transform(callback);
 
-            for each (var current:* in source)
+            var max:* = first;
+            var maxValue:Number = callback(first, 0, source);
+
+            for(var i:int = 0; i < source.length; i++)
             {
-                var result:Number = callback(current);
+                var current:* = source[i];
+                var result:Number = callback(current, i, source);
                 if(maxValue < result)
                 {
                     maxValue = result;
@@ -231,12 +234,15 @@ package com.kemsky
                 callback = _;
             }
 
-            var min:* = first;
-            var minValue:Number = callback(first);
+            callback = transform(callback);
 
-            for each (var current:* in source)
+            var min:* = first;
+            var minValue:Number = callback(first, 0, source);
+
+            for(var i:int = 0; i < source.length; i++)
             {
-                var result:Number = callback(current);
+                var current:* = source[i];
+                var result:Number = callback(current, i, source);
                 if(minValue > result)
                 {
                     minValue = result;
@@ -297,9 +303,13 @@ package com.kemsky
             var first:Stream = new Stream();
             var second:Stream = new Stream();
 
-            for each (var item:* in source)
+            callback = transform(callback);
+
+            for(var i:int = 0; i < source.length; i++)
             {
-                if(callback(item))
+                var item:* = source[i];
+
+                if(callback(item, i, source))
                 {
                     first.push(item);
                 }
@@ -404,11 +414,13 @@ package com.kemsky
          */
         public function findIndex(callback:Function, reverse:Boolean = false):int
         {
+            callback = transform(callback);
+
             if(reverse)
             {
                 for(var k:int = source.length - 1; k > 0; k--)
                 {
-                    if(callback(source[k]))
+                    if(callback(source[k], k, source))
                     {
                         return k;
                     }
@@ -418,7 +430,7 @@ package com.kemsky
             {
                 for(var i:int = 0; i < source.length; i++)
                 {
-                    if(callback(source[i]))
+                    if(callback(source[i], i, source))
                     {
                         return i;
                     }
@@ -448,11 +460,13 @@ package com.kemsky
          */
         public function find(callback:Function, reverse:Boolean = false):*
         {
+            callback = transform(callback);
+
             if(reverse)
             {
                 for(var k:int = source.length - 1; k > 0; k--)
                 {
-                    if(callback(source[k]))
+                    if(callback(source[k], k, source))
                     {
                         return source[k];
                     }
@@ -462,7 +476,7 @@ package com.kemsky
             {
                 for(var i:int = 0; i < source.length; i++)
                 {
-                    if(callback(source[i]))
+                    if(callback(source[i], i, source))
                     {
                         return source[i];
                     }
@@ -621,13 +635,18 @@ package com.kemsky
         public function count(callback:Function):uint
         {
             var result:uint = 0;
-            for each (var item:* in source)
+
+            callback = transform(callback);
+
+            for(var i:int = 0; i < source.length; i++)
             {
-                if(callback(item))
+                var item:* = source[i];
+                if(callback(item, i, source))
                 {
                     result++;
                 }
             }
+
             return result;
         }
 
@@ -1370,15 +1389,21 @@ package com.kemsky
         {
             var dict:Dictionary = new Dictionary(weak);
 
+            key = transform(key);
+
             if(value == null)
             {
                value = _;
             }
 
-            for each (var item:* in source)
+            value = transform(value);
+
+            for(var i:int = 0; i < source.length; i++)
             {
-                dict[key(item)] = value(item);
+                var item:* = source[i];
+                dict[key(item, i, source)] = value(item, i, source);
             }
+
             return dict;
         }
 
@@ -1405,15 +1430,20 @@ package com.kemsky
         {
             var dict:Object = {};
 
+            property = transform(property);
+
             if(value == null)
             {
                 value = _;
             }
 
-            for each (var item:* in source)
+            value = transform(value);
+
+            for(var i:int = 0; i < source.length; i++)
             {
-                var key:* = property(item);
-                dict[key] = value(item);
+                var item:* = source[i];
+                var key:* = property(item, i, source);
+                dict[key] = value(item, i, source);
             }
 
             return dict;
@@ -1447,9 +1477,13 @@ package com.kemsky
         public function group(key:Function, factory:Class = null):*
         {
             var dict:* = factory == null ? new Dictionary() : new factory();
-            for each (var item:* in source)
+
+            key = transform(key);
+
+            for(var i:int = 0; i < source.length; i++)
             {
-                var name:* = key(item);
+                var item:* = source[i];
+                var name:* = key(item, i, source);
                 var s:Stream = dict[name];
                 if(s == null)
                 {
@@ -1458,6 +1492,7 @@ package com.kemsky
                 }
                 s.push(item);
             }
+
             return dict;
         }
 
@@ -1483,9 +1518,13 @@ package com.kemsky
         {
             var result:Stream = new Stream();
             var dict:Dictionary = new Dictionary();
-            for each (var item:* in source)
+
+            key = transform(key);
+
+            for(var i:int = 0; i < source.length; i++)
             {
-                var name:* = key(item);
+                var item:* = source[i];
+                var name:* = key(item, i, source);
                 var s:Stream = dict[name];
                 if(s == null)
                 {
@@ -1907,10 +1946,7 @@ package com.kemsky
          */
         public function every(callback:Function):Boolean
         {
-            return source.every(function (item:*, index:int, array:Array):Boolean
-            {
-                return callback(item);
-            });
+            return source.every(transform(callback));
         }
 
         /**
@@ -1934,10 +1970,7 @@ package com.kemsky
          */
         public function filter(callback:Function):Stream
         {
-            return new Stream(source.filter(function (item:*, index:int, array:Array):Boolean
-            {
-                return callback(item);
-            }));
+            return new Stream(source.filter(transform(callback)));
         }
 
         /**
@@ -2017,39 +2050,7 @@ package com.kemsky
          */
         public function map(callback:Function):Stream
         {
-            var count:uint = callback.length;
-            var f:Function;
-            switch(count)
-            {
-                case 0:
-                    f = function (item:*, index:int, array:Array):*
-                    {
-                        return callback();
-                    };
-                    break;
-                case 1:
-                    f = function (item:*, index:int, array:Array):*
-                    {
-                        return callback(item);
-                    };
-                    break;
-                case 2:
-                    f = function (item:*, index:int, array:Array):*
-                    {
-                        return callback(item, index);
-                    };
-                    break;
-                case 3:
-                    var that:Stream = this;
-                    f = function (item:*, index:int, array:Array):*
-                    {
-                        return callback(item, index, that);
-                    };
-                    break;
-                default:
-                    throw new StreamError("Unexpected arguments count: " + count);
-            }
-            return new Stream(source.map(f));
+            return new Stream(source.map(transform(callback)));
         }
 
         /**
@@ -2074,10 +2075,7 @@ package com.kemsky
          */
         public function some(callback:Function):Boolean
         {
-            return source.some(function (item:*, index:int, array:Array):Boolean
-            {
-                return callback(item);
-            });
+            return source.some(transform(callback));
         }
 
         /**
@@ -2514,6 +2512,43 @@ package com.kemsky
                 }
             }
             return result;
+        }
+
+        private function transform(callback:Function):Function
+        {
+            var count:uint = callback.length;
+            var f:Function;
+            switch(count)
+            {
+                case 0:
+                    f = function (item:*, index:int, array:Array):*
+                    {
+                        return callback();
+                    };
+                    break;
+                case 1:
+                    f = function (item:*, index:int, array:Array):*
+                    {
+                        return callback(item);
+                    };
+                    break;
+                case 2:
+                    f = function (item:*, index:int, array:Array):*
+                    {
+                        return callback(item, index);
+                    };
+                    break;
+                case 3:
+                    var that:Stream = this;
+                    f = function (item:*, index:int, array:Array):*
+                    {
+                        return callback(item, index, that);
+                    };
+                    break;
+                default:
+                    throw new StreamError("Unexpected arguments count: " + count);
+            }
+            return f;
         }
     }
 }
