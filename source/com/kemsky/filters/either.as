@@ -25,7 +25,7 @@ package com.kemsky.filters
 
         if (values.length == 0)
         {
-            throw new StreamError("Function 'either' must have two or more arguments");
+            throw new StreamError("Function 'either' must have non empty second argument");
         }
 
         return function (item:*):Boolean

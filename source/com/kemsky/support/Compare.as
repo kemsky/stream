@@ -88,7 +88,7 @@ package com.kemsky.support
                         default:
                             if (equals)
                             {
-                                result = a == b ? 0 : -1;
+                                result = -1;
                             }
                             else
                             {
