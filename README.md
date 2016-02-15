@@ -186,7 +186,7 @@ var result:Stream = s.price(gt(_, 1));
 ```
 
 ## E4X descendant accessor operator `..`
-
+Short alternative to `map` method:
 ```as3
 var item1:Item = new Item("car", 1);
 var item2:Item = new Item("truck", 2);
