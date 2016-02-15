@@ -18,6 +18,27 @@ package com.kemsky.filters
         }
 
         [Test]
+        public function testTrim():void
+        {
+            var s:Stream = $("", null, "    ", "test  ");
+            var e:Stream = s.map(trim(_));
+            assertEquals(e.length, 4);
+            assertEquals(e.first, "");
+            assertEquals(e.second, "");
+            assertEquals(e.third, "");
+            assertEquals(e.fourth, "test");
+        }
+
+        [Test]
+        public function testEmpty():void
+        {
+            var s:Stream = $("", null, "", "test");
+            var e:Stream = s.filter(not(empty(_)));
+            assertEquals(e.length, 1);
+            assertEquals(e.first, "test");
+        }
+
+        [Test]
         public function testInvoke():void
         {
             var item1:Item = new Item("1", 1, 2);
