@@ -1,7 +1,7 @@
 # stream [![Build Status](https://api.travis-ci.org/kemsky/stream.svg)](https://travis-ci.org/kemsky/stream)
 ###ActionScript collection library - Stream
 
-Basically stream is an array wrapper that adds many useful methods and properties (filter, iterate, map, fold, flatMap, first, second ...  , last, empty etc.).
+Basically stream is an array wrapper that adds many useful methods and properties (`filter`, `iterate`, `map`, `fold`, `flatMap`, `first`, `second` ...  , `last`, `empty` etc.).
 
 Inspired by Javascript and Ruby arrays, Scala collections. 
 
