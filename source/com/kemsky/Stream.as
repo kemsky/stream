@@ -1960,10 +1960,39 @@ package com.kemsky
          */
         public function forEach(callback:Function):Stream
         {
-            source.forEach(function (item:*, index:int, array:Array):void
+            var count:uint = callback.length;
+            var f:Function;
+            switch(count)
             {
-                callback(item);
-            });
+                case 0:
+                    f = function (item:*, index:int, array:Array):void
+                    {
+                        callback();
+                    };
+                    break;
+                case 1:
+                    f = function (item:*, index:int, array:Array):void
+                    {
+                        callback(item);
+                    };
+                    break;
+                case 2:
+                    f = function (item:*, index:int, array:Array):void
+                    {
+                        callback(item, index);
+                    };
+                    break;
+                case 3:
+                    var that:Stream = this;
+                    f = function (item:*, index:int, array:Array):void
+                    {
+                        callback(item, index, that);
+                    };
+                    break;
+                default:
+                    throw new StreamError("Unexpected arguments count: " + count);
+            }
+            source.forEach(f);
             return this;
         }
 
@@ -1988,10 +2017,39 @@ package com.kemsky
          */
         public function map(callback:Function):Stream
         {
-            return new Stream(source.map(function (item:*, index:int, array:Array):*
+            var count:uint = callback.length;
+            var f:Function;
+            switch(count)
             {
-                return callback(item);
-            }));
+                case 0:
+                    f = function (item:*, index:int, array:Array):*
+                    {
+                        return callback();
+                    };
+                    break;
+                case 1:
+                    f = function (item:*, index:int, array:Array):*
+                    {
+                        return callback(item);
+                    };
+                    break;
+                case 2:
+                    f = function (item:*, index:int, array:Array):*
+                    {
+                        return callback(item, index);
+                    };
+                    break;
+                case 3:
+                    var that:Stream = this;
+                    f = function (item:*, index:int, array:Array):*
+                    {
+                        return callback(item, index, that);
+                    };
+                    break;
+                default:
+                    throw new StreamError("Unexpected arguments count: " + count);
+            }
+            return new Stream(source.map(f));
         }
 
         /**

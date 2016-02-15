@@ -34,8 +34,40 @@ package com.kemsky
             {
                 counter++;
             });
-
             assertEquals(counter, 4);
+
+            counter = 0;
+            s.forEach(function (item:Number, index:uint):void
+            {
+                counter++;
+            });
+            assertEquals(counter, 4);
+
+            counter = 0;
+            s.forEach(function (item:Number, index:uint, stream:Stream):void
+            {
+                counter++;
+            });
+            assertEquals(counter, 4);
+
+            counter = 0;
+            s.forEach(function ():void
+            {
+                counter++;
+            });
+            assertEquals(counter, 4);
+
+            try
+            {
+                s.forEach(function (item:Number, index:uint, stream:Stream, bla:int):void
+                {
+                    counter++;
+                });
+                assertFalse(true);
+            }
+            catch(e:Error)
+            {
+            }
         }
 
         [Test]

@@ -426,7 +426,37 @@ package com.kemsky
         {
             var item:Item = new Item("name1", 5, 0);
             var s:Stream = $(item);
-            assertEquals(s.map(member("name")).first, "name1");
+            assertEquals(s.map(function(item:Item):String
+            {
+                return item.name;
+            }).first, "name1");
+
+            assertEquals(s.map(function(item:Item, index:uint):String
+            {
+                return item.name;
+            }).first, "name1");
+
+            assertEquals(s.map(function(item:Item, index:uint, stream:Stream):String
+            {
+                return item.name;
+            }).first, "name1");
+
+            assertEquals(s.map(function():String
+            {
+                return "name1";
+            }).first, "name1");
+
+            try
+            {
+                s.map(function(item:Item, index:uint, stream:Stream, bla:int):String
+                {
+                    return item.name;
+                });
+                assertFalse(true);
+            }
+            catch(e:Error)
+            {
+            }
         }
 
         [Test]
