@@ -113,11 +113,18 @@ s.forEach(function(item:Number):void
 {
     trace(item);
 });
-
+//or
+s.forEach(function(item:Number, index:uint):void
+{
+    trace(item);
+});
+//or
+s.forEach(function(item:Number, index:uint, stream:Stream):void
+{
+    trace(item);
+});
 //prints 1, 2, 3
 ```
-*Notice that callback does not have `index:uint` and `array:Array` parameters -
-it is one of the differences between Array and Stream APIs, it is more suitable for functional programming.*
 
 ## foldLeft, foldRight methods
 
