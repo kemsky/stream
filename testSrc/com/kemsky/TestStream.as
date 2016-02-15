@@ -898,7 +898,7 @@ package com.kemsky
                 assertEquals(flatDefault[i], i + 1);
             }
 
-            var flatMap:Stream = s.flatMap(function (item:*):Array
+            var flatMap:Stream = s.flatMap(function (item:*, index:uint, stream:Stream):Array
             {
                 return [item.length];
             });
