@@ -937,7 +937,7 @@ package com.kemsky
             var second:Object = {item: secondName};
             var third:Object = {item: thirdName};
 
-            var s:Stream = $([first, second, third]);
+            var s:Stream = $(first, second, third);
             var items:Stream = s..item;
             assertEquals(items.length, 3);
             assertEquals(items[0], firstName);
