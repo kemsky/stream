@@ -88,7 +88,7 @@ package com.kemsky
                 _next--;
             }
 
-            stream.removeItem(_current);
+            stream.removeItemAt(_current);
             _current = -1;
         }
 

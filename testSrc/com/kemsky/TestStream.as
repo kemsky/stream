@@ -517,21 +517,33 @@ package com.kemsky
             assertTrue(s.getItem(3) === undefined);
         }
 
-
         [Test]
         public function testRemove():void
         {
             var s:Stream = $(1, 2, 3);
-            s.removeItem(0);
             s.removeItem(1);
+            s.removeItem(3);
             assertEquals(s.length, 1);
             assertEquals(s[0], 2);
 
-            var result:Boolean = s.removeItem(-1);
+            var result:Boolean = new Stream().removeItem(1);
+            assertEquals(result, false);
+        }
+
+        [Test]
+        public function testRemoveAt():void
+        {
+            var s:Stream = $(1, 2, 3);
+            s.removeItemAt(0);
+            s.removeItemAt(1);
+            assertEquals(s.length, 1);
+            assertEquals(s[0], 2);
+
+            var result:Boolean = s.removeItemAt(-1);
             assertEquals(s.length, 0);
             assertEquals(result, true);
 
-            assertEquals(s.removeItem(0), false);
+            assertEquals(s.removeItemAt(0), false);
         }
 
         [Test]

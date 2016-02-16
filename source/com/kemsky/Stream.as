@@ -598,13 +598,13 @@ package com.kemsky
          * @example
          * <pre>
          *     var s:Stream = $(1, 2, 3);
-         *     s.removeItem(0);
+         *     s.removeItemAt(0);
          *     trace(s);
          *     //Stream{2, 3}
          * </pre>
          * @internal mutable
          */
-        public function removeItem(index:int):Boolean
+        public function removeItemAt(index:int):Boolean
         {
             if(index < 0)
             {
@@ -614,6 +614,29 @@ package com.kemsky
             {
                 return (source.splice(index, 1) as Array).length > 0;
             }
+        }
+
+        /**
+         * Removes item (using strict equals ===).
+         * @param item target item.
+         * @return true if remove was successful.
+         * @example
+         * <pre>
+         *     var s:Stream = $(1, 2, 3);
+         *     s.removeItem(1);
+         *     trace(s);
+         *     //Stream{2, 3}
+         * </pre>
+         * @internal mutable
+         */
+        public function removeItem(item:*):Boolean
+        {
+            var index:int = source.indexOf(item);
+            if(index >= 0)
+            {
+                return (source.splice(index, 1) as Array).length > 0;
+            }
+            return false;
         }
 
         /**
@@ -1591,7 +1614,7 @@ package com.kemsky
                     {
                         if(callback(result.getItem(i), result.getItem(j)))
                         {
-                            result.removeItem(j);
+                            result.removeItemAt(j);
                         }
                     }
                 }
@@ -1604,7 +1627,7 @@ package com.kemsky
                     {
                         if(result.getItem(i) === result.getItem(j))
                         {
-                            result.removeItem(j);
+                            result.removeItemAt(j);
                         }
                     }
                 }
@@ -2304,7 +2327,7 @@ package com.kemsky
                 return false;
             }
 
-            return removeItem(index);
+            return removeItemAt(index);
         }
 
         /**
