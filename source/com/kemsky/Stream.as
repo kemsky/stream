@@ -617,7 +617,7 @@ package com.kemsky
         }
 
         /**
-         * Removes item (using strict equals ===).
+         * Removes item (compare using strict equals ===).
          * @param item target item.
          * @return true if remove was successful.
          * @example
