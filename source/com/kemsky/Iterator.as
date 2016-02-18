@@ -2,6 +2,8 @@
  *  Copyright: (c) 2016. Turtsevich Alexander
  *
  *  Licensed under the MIT license: http://www.opensource.org/licenses/mit-license.html
+ *
+ *  https://github.com/kemsky/stream
  */
 
 package com.kemsky
